@@ -46,46 +46,101 @@
   --card-3-from: #5b5855;
   --card-3-to: color-mix(in srgb, #111321 94%, transparent);
 
+  /* --k, and everything derived from it, is declared on .page-rig further down
+   * rather than here. A custom property substitutes its var()s against the
+   * element it is DECLARED on, so a ramp written here would freeze --k at the
+   * 1px fallback below and never see the container-query value, however
+   * correctly that is set on a descendant. */
+  --k: 1px;
+
+}
+
+/* The page is one scale drawing of the 1512 artboard.
+ *
+ * cqw rather than vw: a container query measures the element, so it excludes the
+ * scrollbar. Using vw makes --k a fraction too large on every desktop browser
+ * that reserves gutter space, and that error shows up as a horizontal scrollbar
+ * on any full-bleed row.
+ *
+ * The container and the consumer MUST be two different elements. A container
+ * cannot query itself: declare `container-type` and read `100cqw` on the same
+ * element and the whole declaration is invalid at computed-value time, so --k
+ * silently falls back to the :root 1px above. Nothing errors — the type just
+ * stays at full artboard size while the boxes around it shrink, which reads as
+ * "the design does not scale". */
+.page-container {
+  container-type: inline-size;
+}
+
+.page-rig {
+  --k: clamp(0.42px, calc(100cqw / 1512), 1.2px);
+
   /* ── layout ── */
   /* Content runs x78..x1434 on the 1512 artboard. */
-  --content: 1356px;
-  --gutter: clamp(20px, 5vw, 78px);
+  --content: calc(1356 * var(--k));
+  --gutter: calc(78 * var(--k));
 
-  /* ── the fluid type ramp ──
-   * There is only a 1512 artboard, so there is no measured second end to
-   * interpolate from — the low end is chosen. Rather than guess twenty times,
-   * each tier gets ONE ratio and every token in it is derived:
+  /* ── the scale model ──
+   * ONE artboard exists: 1512 wide. Everything on it is drawn in artboard
+   * pixels, and the whole composition should keep its proportions at any
+   * viewport rather than have type shrink while the spacing around it stays
+   * put. So --k is "one artboard pixel, in real pixels", and every dimension
+   * on the page is written as calc(<the number Figma shows> * var(--k)).
    *
-   *   min   = round(figma_px * r)          r: display .42  heading .55
-   *   slope = (figma - min) / 1110 * 100vw    lead .72  body .90  label 1.0
-   *   inter = min - (figma - min) * 0.36216   (= min - slope * 402/100)
+   * That is why you will see calc(120 * var(--k)) rather than a round 120px:
+   * the literal IS the artboard value, which makes each one checkable against
+   * Figma and keeps the page a scale drawing instead of a re-interpretation.
    *
-   * so each clamp hits its floor at 402px and its Figma value at exactly 1512px.
-   * Keeping one ratio per tier is what stops the ramp drifting out of
-   * proportion as tokens get added. */
+   * The clamp ends earn their keep:
+   *   lower  below ~640px the design stops shrinking, or body copy would reach
+   *          7px. Mobile reflows to its own layout instead.
+   *   upper  past ~1815px it stops growing, so the design does not balloon on
+   *          a large monitor.
+   *
+   * --k is redefined on .page-rig from a container query; this :root value is
+   * the 1:1 fallback so a calc() outside the rig still resolves.
+   */
+
+  /* ── type: artboard sizes through --k, with a legibility floor ──
+   * Every max() below is `floor, artboard size * k`. Above ~640px the second
+   * term wins everywhere and the type is a true scale of the artboard; below
+   * it the floors take over one by one, largest text first. */
+
+  /* Teko renders a little wider in a browser than Figma computes it, and the
+   * display lines in this design fill their frames exactly — the hero headline
+   * text node IS the width of its 1128 frame. At 1:1 that difference is enough
+   * to wrap a line, turning the designer's authored two-line break into three,
+   * which is far more visible than the type being a hair smaller.
+   *
+   * So Teko sizes carry a fit factor. One number, measured against the two
+   * tightest lines on the page (the hero headline and the Trusted-by heading);
+   * raise it toward 1 if a future Teko release measures differently. Only the
+   * Teko tiers use it — Inter and Space Grotesk sit inside their boxes with
+   * room to spare and are left at their artboard sizes. */
+  --teko-fit: 0.95;
 
   /* display — Teko */
-  --fs-headline: clamp(43px, 21.63px + 5.315vw, 102px); /* hero, Teko 300/102 */
-  --fs-quote: clamp(27px, 13.6px + 3.333vw, 64px); /* pull quote, Teko 400/64 */
+  --fs-headline: max(40px, calc(102 * var(--k) * var(--teko-fit))); /* hero + final hero, Teko 300/102 */
+  --fs-quote: max(28px, calc(64 * var(--k) * var(--teko-fit))); /* pull quote, Teko 400/64 */
   /* heading — Teko */
-  --fs-section: clamp(30px, 20.95px + 2.252vw, 55px); /* section heads, Teko 400/55 */
-  --fs-offer-title: clamp(31px, 21.95px + 2.252vw, 56px); /* offer card, Teko 400/56 */
-  --fs-attrib: clamp(23px, 16.48px + 1.622vw, 41px); /* — Warren Buffett, Teko 300/41 */
-  --fs-card-title: clamp(22px, 15.48px + 1.622vw, 40px); /* team name, Teko 400/40 */
-  --fs-step-title: clamp(21px, 14.72px + 1.541vw, 38px); /* step card, Teko 400/38 */
+  --fs-section: max(28px, calc(55 * var(--k) * var(--teko-fit))); /* section heads, Teko 400/55 */
+  --fs-offer-title: max(28px, calc(56 * var(--k) * var(--teko-fit))); /* offer card, Teko 400/56 */
+  --fs-attrib: max(22px, calc(41 * var(--k) * var(--teko-fit))); /* — Warren Buffett, Teko 300/41 */
+  --fs-card-title: max(22px, calc(40 * var(--k) * var(--teko-fit))); /* team name, Teko 400/40 */
+  --fs-step-title: max(21px, calc(38 * var(--k) * var(--teko-fit))); /* step card, Teko 400/38 */
   /* lead — Inter */
-  --fs-lead-lg: clamp(19px, 16.47px + 0.631vw, 26px); /* Inter 500/26 - testimonial quote + final-hero lead */
-  --fs-lead: clamp(15px, 12.83px + 0.541vw, 21px); /* section sub + FAQ, Inter 500/21 */
-  --fs-cta: clamp(16px, 14.19px + 0.45vw, 21px); /* Space Grotesk 500/21 */
+  --fs-lead-lg: max(17px, calc(26 * var(--k))); /* testimonial quote + final-hero lead, Inter 500/26 */
+  --fs-lead: max(16px, calc(21 * var(--k))); /* section sub + FAQ, Inter 500/21 */
+  --fs-cta: max(15px, calc(21 * var(--k))); /* Space Grotesk 500/21 */
   /* body — Inter */
-  --fs-body: clamp(16px, 15.28px + 0.18vw, 18px); /* Inter 400/18 */
-  --fs-body-sm: clamp(14px, 13.28px + 0.18vw, 16px); /* Inter 400/16 */
-  /* label — flat: 16px and under do not shrink */
-  --fs-col-head: 22px; /* footer column head, Bebas Neue 400/22 */
-  --fs-label: 16px; /* nav + buttons, Space Grotesk 500/16 */
-  --fs-bullet: 15px; /* offer bullets, Space Grotesk 400/15 */
-  --fs-micro: 14px; /* vertical card tags, Space Grotesk 400/14 */
-  --fs-eyebrow: 10px; /* step card label, Space Grotesk 400/10 */
+  --fs-body: max(15px, calc(18 * var(--k))); /* Inter 400/18 */
+  --fs-body-sm: max(14px, calc(16 * var(--k))); /* Inter 400/16 */
+  /* label */
+  --fs-col-head: max(18px, calc(22 * var(--k))); /* footer column head, Bebas Neue 400/22 */
+  --fs-label: max(14px, calc(16 * var(--k))); /* nav + buttons, Space Grotesk 500/16 */
+  --fs-bullet: max(13px, calc(15 * var(--k))); /* offer bullets, Space Grotesk 400/15 */
+  --fs-micro: max(11px, calc(14 * var(--k))); /* vertical card tags, Space Grotesk 400/14 */
+  --fs-eyebrow: max(9px, calc(10 * var(--k))); /* step card label, Space Grotesk 400/10 */
 }
 
 @theme inline {
@@ -240,21 +295,18 @@
 /* ── the membership deck rig ─────────────────────────────────────────────────
  * The three cards are one composition, not three independent boxes: on the
  * artboard each card behind steps +155x / +15y / -30h from the one in front.
- * Driving every dimension off a single --k derived from the container width
- * keeps those relationships exact at any size, which a set of independent
- * clamps would not — each would drift on its own curve and the stack would
- * stop lining up.
+ * Because every dimension runs through the page's --k, those relationships stay
+ * exact at any width — a set of independent clamps would each drift on its own
+ * curve and the stack would stop lining up.
  *
- * 1350 is the artboard block width: the 1040 card plus 2 x 155 of step.
+ * No container query of its own: it inherits --k from .page-rig, so the deck is
+ * on the same scale as everything around it. Giving it a second, locally
+ * derived --k was how the cards ended up a different size from the section
+ * they sit in.
  *
- * These rules are scoped to classnames Tailwind utilities never generate, so
- * an unlayered plain-CSS rule cannot out-specify a utility on the same element. */
+ * Scoped to classnames Tailwind never generates, so an unlayered plain-CSS rule
+ * cannot out-specify a utility on the same element. */
 @media (width >= 64rem) {
-  .deck-rig {
-    container-type: inline-size;
-    --k: calc(100cqw / 1350);
-  }
-
   .deck-card {
     width: calc(1040 * var(--k));
     height: calc((643 - var(--slot) * 30) * var(--k));

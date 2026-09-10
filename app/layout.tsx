@@ -14,7 +14,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${teko.variable} ${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      {/* --k is what makes the page a scale drawing of the 1512 artboard.
+          It needs two elements, not one: the body is the query container and
+          the div reads it. A container cannot query itself. See globals.css. */}
+      <body className="page-container min-h-full">
+        <div className="page-rig">{children}</div>
+      </body>
     </html>
   );
 }

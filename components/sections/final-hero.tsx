@@ -1,4 +1,5 @@
 import { FigmaImage } from '@/components/figma-image';
+import { Art } from '@/components/art';
 import { Lines } from '@/components/lines';
 import { src } from '@/lib/assets';
 import { finalHero } from '@/lib/content';
@@ -17,7 +18,7 @@ export function FinalHero() {
   return (
     <section
       id="apply"
-      className="noise relative isolate flex min-h-[693px] flex-col items-center justify-center overflow-hidden bg-hero px-4 text-center"
+      className="noise relative isolate flex min-h-[max(440px,calc(693*var(--k)))] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
       style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
     >
       {/* The source is a tall portrait shot; the artboard's crop shows a
@@ -52,26 +53,19 @@ export function FinalHero() {
         }}
       />
 
-      {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-      <img
-        src="/vectors/wordmark-final.svg"
-        alt="Playmakers"
-        width={432}
-        height={76}
-        className="block w-[min(432px,70vw)]"
-      />
+      <Art name="wordmark-final" alt="Playmakers" />
 
-      <h2 className="mt-[38px] max-w-[1128px] font-display text-headline font-light leading-[1.03] text-white uppercase">
+      <h2 className="mt-[calc(38*var(--k))] max-w-[calc(1128*var(--k))] font-display text-headline font-light leading-[1.03] text-white uppercase">
         <Lines text={finalHero.headline} />
       </h2>
 
-      <p className="mt-[26px] max-w-[560px] font-sans text-lead-lg font-medium leading-[1.46] text-white/80">
+      <p className="mt-[calc(26*var(--k))] max-w-[calc(560*var(--k))] font-sans text-lead-lg font-medium leading-[1.46] text-white/80">
         <Lines text={finalHero.lead} />
       </p>
 
       <a
         href="#apply"
-        className="mt-[46px] grid h-[54px] min-w-[356px] place-items-center rounded-full bg-accent px-8 font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
+        className="mt-[calc(46*var(--k))] grid h-[calc(54*var(--k))] min-w-[calc(356*var(--k))] place-items-center rounded-full bg-accent px-[calc(32*var(--k))] font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
       >
         {finalHero.cta}
       </a>

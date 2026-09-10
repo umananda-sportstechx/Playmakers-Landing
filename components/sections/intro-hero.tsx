@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Art } from '@/components/art';
 import { Lines } from '@/components/lines';
 import { src } from '@/lib/assets';
 import { hero } from '@/lib/content';
@@ -20,7 +21,7 @@ import { NavBar } from './nav-bar';
 export function IntroHero() {
   return (
     <section
-      className="noise relative isolate flex min-h-[1004px] flex-col items-center justify-center overflow-hidden bg-hero px-4 text-center"
+      className="noise relative isolate flex min-h-[max(560px,calc(1004*var(--k)))] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
       style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
     >
       {/* 0.41 fill-opacity on the artboard, over the frame's navy. */}
@@ -53,23 +54,16 @@ export function IntroHero() {
 
       <NavBar />
 
-      <div className="flex w-full max-w-[1128px] flex-col items-center">
-        {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-        <img
-          src="/vectors/wordmark-hero.svg"
-          alt="Playmakers"
-          width={628}
-          height={82}
-          className="block w-[min(628px,80vw)]"
-        />
+      <div className="flex w-full max-w-[calc(1128*var(--k))] flex-col items-center">
+        <Art name="wordmark-hero" alt="Playmakers" />
 
-        <h1 className="mt-[41px] font-display text-headline font-light leading-[1.03] text-white">
+        <h1 className="mt-[calc(41*var(--k))] font-display text-headline font-light leading-[1.03] text-white">
           <Lines text={hero.headline} />
         </h1>
 
         <a
           href="#apply"
-          className="mt-[46px] grid h-[54px] min-w-[304px] place-items-center rounded-full bg-accent px-8 font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
+          className="mt-[calc(46*var(--k))] grid h-[calc(54*var(--k))] min-w-[calc(304*var(--k))] place-items-center rounded-full bg-accent px-[calc(32*var(--k))] font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
         >
           {hero.cta}
         </a>

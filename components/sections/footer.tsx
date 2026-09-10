@@ -1,4 +1,5 @@
 import { footer } from '@/lib/content';
+import { Art } from '@/components/art';
 
 /**
  * Footer — 1513x567 on white.
@@ -9,28 +10,25 @@ import { footer } from '@/lib/content';
  */
 export function Footer() {
   return (
-    <footer className="bg-page pt-[71px] pb-[52px] text-ink">
+    <footer className="bg-page pt-[calc(71*var(--k))] pb-[calc(52*var(--k))] text-ink">
       <div className="container-page">
-        <div className="border-y-2 border-rule-2 py-[53px]">
-          <div className="grid gap-12 lg:grid-cols-[451px_1fr_1fr] lg:gap-[100px]">
+        <div className="border-y-2 border-rule-2 py-[calc(53*var(--k))]">
+          <div className="grid gap-12 lg:grid-cols-[calc(451*var(--k))_1fr_1fr] lg:gap-[calc(100*var(--k))]">
             {/* Column 1 — mark, blurb, contact */}
             <div>
-              {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-              <img src="/vectors/wordmark-footer.svg" alt="Playmakers" width={230} height={31} className="block" />
+              <Art name="wordmark-footer" alt="Playmakers" />
 
-              <p className="mt-[28px] font-sans text-body leading-[1.78]">{footer.description}</p>
+              <p className="mt-[calc(28*var(--k))] font-sans text-body leading-[1.78]">{footer.description}</p>
 
-              <ul className="mt-[15px] space-y-[1px]">
-                <li className="flex items-center gap-[13px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-                  <img src="/vectors/icon-mail.svg" alt="" width={17} height={13} />
+              <ul className="mt-[calc(15*var(--k))] space-y-[calc(1*var(--k))]">
+                <li className="flex items-center gap-[calc(13*var(--k))]">
+                  <Art name="icon-mail" />
                   <a href={`mailto:${footer.email}`} className="font-sans text-body-sm leading-[2] hover:underline">
                     {footer.email}
                   </a>
                 </li>
-                <li className="flex items-center gap-[13px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-                  <img src="/vectors/icon-pin.svg" alt="" width={15} height={19} />
+                <li className="flex items-center gap-[calc(13*var(--k))]">
+                  <Art name="icon-pin" />
                   <span className="font-sans text-body-sm leading-[2]">{footer.location}</span>
                 </li>
               </ul>
@@ -43,7 +41,7 @@ export function Footer() {
                 <h2 className="font-bebas text-col-head leading-[1.45] tracking-[0.1em] text-black">
                   {col.heading}
                 </h2>
-                <ul className="mt-[21px]">
+                <ul className="mt-[calc(21*var(--k))]">
                   {col.links.map((l) => (
                     <li key={l}>
                       <a href="#" className="font-sans text-body leading-[1.78] hover:underline">
@@ -58,10 +56,10 @@ export function Footer() {
             {/* Column 4 — social */}
             <nav aria-label="Connect">
               <h2 className="font-bebas text-col-head leading-[1.45] tracking-[0.1em] text-black">CONNECT</h2>
-              <ul className="mt-[21px]">
+              <ul className="mt-[calc(21*var(--k))]">
                 {footer.social.map((s) => (
                   <li key={s.label}>
-                    <a href="#" className="flex items-center gap-[15px] font-sans text-body leading-[1.78] hover:underline">
+                    <a href="#" className="flex items-center gap-[calc(15*var(--k))] font-sans text-body leading-[1.78] hover:underline">
                       {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
                       <img src={s.icon} alt="" width={s.w} height={s.h} />
                       {s.label}
@@ -73,7 +71,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-[23px] flex flex-col gap-2 font-label text-[13px] leading-[2.46] lg:flex-row lg:justify-between">
+        <div className="mt-[calc(23*var(--k))] flex flex-col gap-[calc(8*var(--k))] font-label text-[max(12px,calc(13*var(--k)))] leading-[2.46] lg:flex-row lg:justify-between">
           <p>{footer.legal}</p>
           <p>{footer.meta}</p>
         </div>

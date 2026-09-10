@@ -5,14 +5,14 @@ import { quote } from '@/lib/content';
 export function Quote() {
   return (
     <section
-      className="noise bg-band py-[87px] text-center"
+      className="noise bg-band py-[calc(87*var(--k))] text-center"
       style={{ '--noise-alpha': 0.1 } as React.CSSProperties}
     >
       <figure className="container-page">
-        <blockquote className="mx-auto max-w-[1054px] font-display text-quote leading-[1.25] text-black uppercase">
+        <blockquote className="mx-auto max-w-[calc(1054*var(--k))] font-display text-quote leading-[1.25] text-black uppercase">
           <Lines text={quote.text} />
         </blockquote>
-        <figcaption className="mt-[20px] font-display text-attrib font-light leading-[1.49] text-black">
+        <figcaption className="mt-[calc(20*var(--k))] font-display text-attrib font-light leading-[1.49] text-black">
           {quote.attribution}
         </figcaption>
       </figure>

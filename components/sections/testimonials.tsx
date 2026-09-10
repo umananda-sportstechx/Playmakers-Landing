@@ -9,7 +9,7 @@ import { testimonials } from '@/lib/content';
  */
 export function Testimonials() {
   return (
-    <section className="bg-page py-[98px]">
+    <section className="bg-page py-[calc(98*var(--k))]">
       <div className="container-page">
         <p className="text-center font-label text-label font-medium leading-[1.25] tracking-[0.1em] text-[#4b4b4b] uppercase">
           {testimonials.eyebrow}
@@ -17,27 +17,27 @@ export function Testimonials() {
 
         <Carousel
           label="Testimonials"
-          arrow={{ src: '/vectors/chevron-testimonial', w: 9, h: 20 }}
-          className="mt-[52px] px-[52px]"
-          trackClassName="gap-[40px]"
+          arrow="chevron-testimonial"
+          className="mt-[calc(52*var(--k))] px-[calc(52*var(--k))]"
+          trackClassName="gap-[calc(40*var(--k))]"
         >
           {testimonials.items.map((t, i) => (
-            <figure key={i} className="w-full shrink-0 snap-start px-4 text-center lg:w-1/2">
-              <blockquote className="mx-auto max-w-[520px] font-sans text-lead-lg leading-[1.35] text-black">
+            <figure key={i} className="w-full shrink-0 snap-start px-[calc(16*var(--k))] text-center lg:w-1/2">
+              <blockquote className="mx-auto max-w-[calc(520*var(--k))] font-sans text-lead-lg leading-[1.35] text-black">
                 {t.quote}
               </blockquote>
 
-              <figcaption className="mt-[38px] flex items-center justify-center gap-[16px]">
+              <figcaption className="mt-[calc(38*var(--k))] flex items-center justify-center gap-[calc(16*var(--k))]">
                 <Image
                   src={src('testimonial-avatar')}
                   alt=""
                   width={72}
                   height={72}
-                  className="size-[72px] rounded-full object-cover"
+                  className="size-[calc(72*var(--k))] rounded-full object-cover"
                 />
                 <div className="text-left">
-                  <p className="font-display text-[18px] font-medium leading-[1.2] text-black">{t.name}</p>
-                  <p className="font-label text-[11px] leading-[1.5] text-black">{t.role}</p>
+                  <p className="font-display text-[max(15px,calc(18*var(--k)))] font-medium leading-[1.2] text-black">{t.name}</p>
+                  <p className="font-label text-[max(10px,calc(11*var(--k)))] leading-[1.5] text-black">{t.role}</p>
                 </div>
               </figcaption>
             </figure>

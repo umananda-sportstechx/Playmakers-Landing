@@ -1,4 +1,5 @@
 import { Lines } from '@/components/lines';
+import { Art } from '@/components/art';
 import { howToJoin } from '@/lib/content';
 
 /**
@@ -16,7 +17,7 @@ import { howToJoin } from '@/lib/content';
 export function HowToJoin() {
   return (
     <section
-      className="noise bg-band-warm py-[120px]"
+      className="noise bg-band-warm py-[calc(120*var(--k))]"
       style={{ '--noise-alpha': 0.12 } as React.CSSProperties}
     >
       <div className="container-page">
@@ -24,39 +25,33 @@ export function HowToJoin() {
           {howToJoin.title}
         </h2>
 
-        <ol className="mt-[110px] grid gap-x-[50px] gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-[calc(110*var(--k))] grid gap-x-[calc(50*var(--k))] gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {howToJoin.steps.map((step) => (
             <li
               key={step.n}
-              className="relative lg:before:absolute lg:before:-left-[25px] lg:before:top-[41px] lg:before:bottom-[41px] lg:before:border-l lg:before:border-dashed lg:before:border-black/40 lg:first:before:hidden"
+              className="relative lg:before:absolute lg:before:-left-[calc(25*var(--k))] lg:before:top-[calc(41*var(--k))] lg:before:bottom-[calc(41*var(--k))] lg:before:border-l lg:before:border-dashed lg:before:border-black/40 lg:first:before:hidden"
             >
               <article
-                className="noise relative isolate flex h-full min-h-[360px] flex-col overflow-hidden rounded-[20px] p-[25px] inset-shadow-glow"
+                className="noise relative isolate flex h-full min-h-[calc(360*var(--k))] flex-col overflow-hidden rounded-[calc(20*var(--k))] p-[calc(25*var(--k))] inset-shadow-glow"
                 style={{ '--noise-alpha': 0.22 } as React.CSSProperties}
               >
                 {/* The card's colour is exported artwork, not a CSS gradient. */}
-                {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
-                <img
-                  src="/vectors/card-gradient-step.svg"
-                  alt=""
-                  aria-hidden
-                  className="absolute inset-0 -z-10 size-full object-cover"
-                />
+                <Art name="card-gradient-step" fill className="absolute inset-0 -z-10" />
 
-                <div className="flex items-start gap-[12px]">
-                  <span className="grid size-[35px] shrink-0 place-items-center rounded-full border-[1.5px] border-white/90 font-label text-[21px] tracking-[0.1em] text-white">
+                <div className="flex items-start gap-[calc(12*var(--k))]">
+                  <span className="grid size-[calc(35*var(--k))] shrink-0 place-items-center rounded-full border-[1.5px] border-white/90 font-label text-[max(16px,calc(21*var(--k)))] tracking-[0.1em] text-white">
                     {step.n}
                   </span>
-                  <span className="mt-[9px] border-b border-dashed border-white pb-[3px] font-label text-eyebrow leading-[1.3] tracking-[0.1em] text-white uppercase">
+                  <span className="mt-[calc(9*var(--k))] border-b border-dashed border-white pb-[calc(3*var(--k))] font-label text-eyebrow leading-[1.3] tracking-[0.1em] text-white uppercase">
                     {step.eyebrow}
                   </span>
                 </div>
 
-                <h3 className="mt-[26px] font-display text-step-title leading-[1.05] text-white uppercase">
+                <h3 className="mt-[calc(26*var(--k))] font-display text-step-title leading-[1.05] text-white uppercase">
                   <Lines text={step.title} />
                 </h3>
 
-                <p className="mt-[22px] font-sans text-body-sm leading-[1.56] text-white">
+                <p className="mt-[calc(22*var(--k))] font-sans text-body-sm leading-[1.56] text-white">
                   {step.body}
                 </p>
               </article>
@@ -64,10 +59,10 @@ export function HowToJoin() {
           ))}
         </ol>
 
-        <div className="mt-[80px] flex justify-center">
+        <div className="mt-[calc(80*var(--k))] flex justify-center">
           <a
             href="#apply"
-            className="grid h-[54px] min-w-[244px] place-items-center rounded-full bg-accent px-8 font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
+            className="grid h-[calc(54*var(--k))] min-w-[calc(244*var(--k))] place-items-center rounded-full bg-accent px-[calc(32*var(--k))] font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
           >
             {howToJoin.cta}
           </a>

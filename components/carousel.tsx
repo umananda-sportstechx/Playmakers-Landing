@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Art } from '@/components/art';
 import { cn } from '@/lib/utils';
 
 /**
@@ -28,8 +29,8 @@ export function Carousel({
   className?: string;
   trackClassName?: string;
   arrowClassName?: string;
-  /** Exported chevron pair, e.g. { src: '/vectors/chevron-trusted', w: 16, h: 37 } */
-  arrow: { src: string; w: number; h: number };
+  /** Asset-name stem of the exported chevron pair, e.g. 'chevron-trusted'. */
+  arrow: string;
   label: string;
 }) {
   const track = useRef<HTMLDivElement>(null);
@@ -109,7 +110,7 @@ function Arrow({
   label,
 }: {
   side: 'left' | 'right';
-  arrow: { src: string; w: number; h: number };
+  arrow: string;
   disabled: boolean;
   onClick: () => void;
   className?: string;
@@ -122,7 +123,7 @@ function Arrow({
       disabled={disabled}
       aria-label={label}
       className={cn(
-        'absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center p-3',
+        'absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center p-[calc(12*var(--k))]',
         'transition-[opacity,scale] duration-[80ms] ease-out',
         'hover:opacity-50 active:opacity-100 motion-safe:active:scale-[0.85]',
         // A disabled arrow takes no pointer events, so the states above cannot
@@ -132,15 +133,7 @@ function Arrow({
         className
       )}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element -- next/image does
-          not optimise SVG, so it is pure overhead for an exported vector. */}
-      <img
-        src={`${arrow.src}-${side}.svg`}
-        alt=""
-        width={arrow.w}
-        height={arrow.h}
-        className="block"
-      />
+      <Art name={`${arrow}-${side}`} />
     </button>
   );
 }

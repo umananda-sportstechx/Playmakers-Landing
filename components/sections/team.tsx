@@ -12,7 +12,7 @@ import { team } from '@/lib/content';
  */
 export function Team() {
   return (
-    <section id="team" className="relative isolate overflow-hidden bg-hero py-[108px]">
+    <section id="team" className="relative isolate overflow-hidden bg-hero py-[calc(108*var(--k))]">
       {/* fills[0] on the artboard: 45% opacity, exposure -0.62, saturation -1,
           plus a crop. The desaturation is what turns green stadium seats into
           the grey-navy field the design shows. */}
@@ -48,15 +48,15 @@ export function Team() {
         <h2 className="text-center font-display text-section leading-[1.25] tracking-[0.05em] text-white uppercase">
           {team.title}
         </h2>
-        <p className="mx-auto mt-[18px] max-w-[900px] text-center font-sans text-lead font-medium leading-[1.48] text-white">
+        <p className="mx-auto mt-[calc(18*var(--k))] max-w-[calc(900*var(--k))] text-center font-sans text-lead font-medium leading-[1.48] text-white">
           <Lines text={team.lead} />
         </p>
 
-        <ul className="mt-[115px] grid gap-[36px] lg:grid-cols-2">
+        <ul className="mt-[calc(115*var(--k))] grid gap-[calc(36*var(--k))] lg:grid-cols-2">
           {team.members.map((m) => (
             <li key={m.name}>
-              <article className="flex h-full overflow-hidden rounded-[16px] border-[1.5px] border-white bg-white">
-                <div className="relative w-[254px] shrink-0 self-stretch">
+              <article className="flex h-full overflow-hidden rounded-[calc(16*var(--k))] border-[1.5px] border-white bg-white">
+                <div className="relative w-[calc(254*var(--k))] shrink-0 self-stretch">
                   <Image
                     src={src(m.photo)}
                     alt={m.name}
@@ -67,14 +67,14 @@ export function Team() {
                   />
                 </div>
 
-                <div className="min-w-0 flex-1 px-[38px] py-[23px]">
-                  <p className="inline-block border-b border-dashed border-black/70 pb-[6px] font-label text-body-sm leading-[1.3] tracking-[0.1em] text-[#88413d] uppercase">
+                <div className="min-w-0 flex-1 px-[calc(38*var(--k))] py-[calc(23*var(--k))]">
+                  <p className="inline-block border-b border-dashed border-black/70 pb-[calc(6*var(--k))] font-label text-body-sm leading-[1.3] tracking-[0.1em] text-[#88413d] uppercase">
                     {m.role}
                   </p>
-                  <h3 className="mt-[24px] font-display text-card-title leading-[1.05] text-black uppercase">
+                  <h3 className="mt-[calc(24*var(--k))] font-display text-card-title leading-[1.05] text-black uppercase">
                     {m.name}
                   </h3>
-                  <p className="mt-[8px] font-sans text-[14px] font-medium leading-[1.5] text-black">
+                  <p className="mt-[calc(8*var(--k))] font-sans text-[max(13px,calc(14*var(--k)))] font-medium leading-[1.5] text-black">
                     {m.bio}
                   </p>
                 </div>
