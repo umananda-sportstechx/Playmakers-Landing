@@ -6,12 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "design": "node --env-file=.env.local scripts/fig-pull.mjs",
+    "design:list": "node --env-file=.env.local scripts/fig-pull.mjs --list",
+    "design:check": "node --env-file=.env.local scripts/fig-pull.mjs --check",
+    "design:screens": "node --env-file=.env.local scripts/fig-pull.mjs --screens",
+    "design:images": "node --env-file=.env.local scripts/fig-pull.mjs --images",
+    "design:vectors": "node --env-file=.env.local scripts/fig-pull.mjs --vectors"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "next": "16.3.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

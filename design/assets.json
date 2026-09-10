@@ -1,0 +1,289 @@
+{
+  "hero-bg": {
+    "file": "/images/hero-bg.webp",
+    "node": "9071:398",
+    "ref": "a8293369d76327046f1fc862a9ea87b71cbe02fc",
+    "w": 2730,
+    "h": 1536,
+    "bytes": 196838,
+    "originalBytes": 2299290
+  },
+  "final-hero-bg": {
+    "file": "/images/final-hero-bg.webp",
+    "node": "9073:1267",
+    "ref": "06a209122478d42dcf448604d6fd7b63dcf11dc7",
+    "w": 1513,
+    "h": 693,
+    "bytes": 220530,
+    "originalBytes": 2854881
+  },
+  "team-bg": {
+    "file": "/images/team-bg.webp",
+    "node": "9073:1353",
+    "ref": "6539029b7bd86034f6a231200219abaa740622d9",
+    "w": 1513,
+    "h": 1005,
+    "bytes": 811112,
+    "originalBytes": 7141182
+  },
+  "offer-card-photo": {
+    "file": "/images/offer-card-photo.webp",
+    "node": "9072:1073",
+    "ref": "e46c8be621c9cb8f6bd21375bfc57a8bb20cccdd",
+    "w": 434,
+    "h": 642,
+    "bytes": 226928,
+    "originalBytes": 14108189
+  },
+  "testimonial-avatar": {
+    "file": "/images/testimonial-avatar.png",
+    "node": "9072:1146",
+    "ref": "f342d6ba5294b3826aea6f316b6dda7b25b5d6a7",
+    "w": 72,
+    "h": 72,
+    "bytes": 297461
+  },
+  "member-1": {
+    "file": "/images/member-1.jpg",
+    "node": "9071:349",
+    "ref": "d9507786c8d804464ff9ed4185c7c3dde2675563",
+    "w": 210,
+    "h": 232,
+    "bytes": 76472
+  },
+  "member-2": {
+    "file": "/images/member-2.jpg",
+    "node": "9071:356",
+    "ref": "17495777b6f375488fdef0cd10bfe5a730b103ac",
+    "w": 210,
+    "h": 232,
+    "bytes": 91255
+  },
+  "member-3": {
+    "file": "/images/member-3.jpg",
+    "node": "9071:363",
+    "ref": "17495777b6f375488fdef0cd10bfe5a730b103ac",
+    "w": 210,
+    "h": 232,
+    "bytes": 91255
+  },
+  "member-4": {
+    "file": "/images/member-4.jpg",
+    "node": "9071:370",
+    "ref": "68e925ea570debe02d3fbad1f2da6b269789b18a",
+    "w": 210,
+    "h": 232,
+    "bytes": 106348
+  },
+  "member-5": {
+    "file": "/images/member-5.jpg",
+    "node": "9071:377",
+    "ref": "4b66197f9eb7e0792df1f70079064ea2dc357fc6",
+    "w": 210,
+    "h": 232,
+    "bytes": 148290
+  },
+  "team-1": {
+    "file": "/images/team-1.webp",
+    "node": "9073:1273",
+    "ref": "f61a61f9b631a5d5ebfa43f726bc67e6ad8058f4",
+    "w": 254,
+    "h": 248,
+    "bytes": 23990,
+    "originalBytes": 1875949
+  },
+  "team-2": {
+    "file": "/images/team-2.webp",
+    "node": "9073:1341",
+    "ref": "48bf1622d6a4508ae2e37748662d757f2247b687",
+    "w": 254,
+    "h": 248,
+    "bytes": 17258,
+    "originalBytes": 673463
+  },
+  "team-3": {
+    "file": "/images/team-3.webp",
+    "node": "9073:1344",
+    "ref": "f977922ea0b8bc07e33bcde415cf4cad217e3b6b",
+    "w": 254,
+    "h": 248,
+    "bytes": 10750,
+    "originalBytes": 572299
+  },
+  "team-4": {
+    "file": "/images/team-4.png",
+    "node": "9073:1347",
+    "ref": "3bc3754254fe7798113df092238ed85571436200",
+    "w": 254,
+    "h": 248,
+    "bytes": 364573
+  },
+  "mark-p": {
+    "file": "/vectors/mark-p.svg",
+    "node": "9071:419",
+    "w": 37,
+    "h": 44
+  },
+  "wordmark-hero": {
+    "file": "/vectors/wordmark-hero.svg",
+    "node": "9071:412",
+    "w": 628,
+    "h": 82
+  },
+  "wordmark-final": {
+    "file": "/vectors/wordmark-final.svg",
+    "node": "9071:127",
+    "w": 432,
+    "h": 76
+  },
+  "wordmark-footer": {
+    "file": "/vectors/wordmark-footer.svg",
+    "node": "9073:1261",
+    "w": 230,
+    "h": 31
+  },
+  "chevron-trusted-left": {
+    "file": "/vectors/chevron-trusted-left.svg",
+    "node": "9071:343",
+    "w": 16,
+    "h": 37
+  },
+  "chevron-trusted-right": {
+    "file": "/vectors/chevron-trusted-right.svg",
+    "node": "9071:344",
+    "w": 16,
+    "h": 37
+  },
+  "chevron-offers-left": {
+    "file": "/vectors/chevron-offers-left.svg",
+    "node": "9072:1118",
+    "w": 16,
+    "h": 36
+  },
+  "chevron-offers-right": {
+    "file": "/vectors/chevron-offers-right.svg",
+    "node": "9072:1120",
+    "w": 16,
+    "h": 36
+  },
+  "chevron-testimonial-left": {
+    "file": "/vectors/chevron-testimonial-left.svg",
+    "node": "9072:1161",
+    "w": 9,
+    "h": 20
+  },
+  "chevron-testimonial-right": {
+    "file": "/vectors/chevron-testimonial-right.svg",
+    "node": "9072:1162",
+    "w": 9,
+    "h": 20
+  },
+  "icon-mail": {
+    "file": "/vectors/icon-mail.svg",
+    "node": "9071:71",
+    "w": 17,
+    "h": 13
+  },
+  "icon-pin": {
+    "file": "/vectors/icon-pin.svg",
+    "node": "9071:74",
+    "w": 15,
+    "h": 19
+  },
+  "icon-linkedin": {
+    "file": "/vectors/icon-linkedin.svg",
+    "node": "9071:98",
+    "w": 18,
+    "h": 18
+  },
+  "icon-youtube": {
+    "file": "/vectors/icon-youtube.svg",
+    "node": "9071:101",
+    "w": 18,
+    "h": 12
+  },
+  "icon-instagram": {
+    "file": "/vectors/icon-instagram.svg",
+    "node": "9071:104",
+    "w": 18,
+    "h": 18
+  },
+  "icon-x": {
+    "file": "/vectors/icon-x.svg",
+    "node": "9071:107",
+    "w": 18,
+    "h": 16
+  },
+  "icon-plus": {
+    "file": "/vectors/icon-plus.svg",
+    "node": "9071:133",
+    "w": 20,
+    "h": 20
+  },
+  "icon-bullet": {
+    "file": "/vectors/icon-bullet.svg",
+    "node": "9072:545",
+    "w": 22,
+    "h": 22
+  },
+  "circle-52": {
+    "file": "/vectors/circle-52.svg",
+    "node": "9072:1067",
+    "w": 52,
+    "h": 52
+  },
+  "circle-35": {
+    "file": "/vectors/circle-35.svg",
+    "node": "9072:1181",
+    "w": 35,
+    "h": 35
+  },
+  "logo-bcg": {
+    "file": "/vectors/logo-bcg.svg",
+    "node": "9071:351",
+    "w": 56,
+    "h": 23
+  },
+  "card-gradient-step": {
+    "file": "/vectors/card-gradient-step.svg",
+    "node": "9072:1169",
+    "w": 301,
+    "h": 360
+  },
+  "card-offer-1-base": {
+    "file": "/vectors/card-offer-1-base.svg",
+    "node": "9072:481",
+    "w": 1040,
+    "h": 643
+  },
+  "card-offer-1-gradient": {
+    "file": "/vectors/card-offer-1-gradient.svg",
+    "node": "9071:259",
+    "w": 1040,
+    "h": 643
+  },
+  "card-offer-2-base": {
+    "file": "/vectors/card-offer-2-base.svg",
+    "node": "9072:559",
+    "w": 1040,
+    "h": 613
+  },
+  "card-offer-2-gradient": {
+    "file": "/vectors/card-offer-2-gradient.svg",
+    "node": "9072:586",
+    "w": 1040,
+    "h": 613
+  },
+  "card-offer-3-base": {
+    "file": "/vectors/card-offer-3-base.svg",
+    "node": "9072:535",
+    "w": 1040,
+    "h": 583
+  },
+  "card-offer-3-gradient": {
+    "file": "/vectors/card-offer-3-gradient.svg",
+    "node": "9072:588",
+    "w": 1350,
+    "h": 583
+  }
+}
