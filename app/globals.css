@@ -1,26 +1,303 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Playmakers landing — design tokens.
+ *
+ * Every value here is measured off the Figma frame "Lightmode" (1512x7747), not
+ * eyeballed. The file is light-mode only and has no auto-layout and no mobile
+ * artboard, so: no dark theme here, and the fluid ramp's low end is invented
+ * rather than measured (see the ramp note below).
+ * ───────────────────────────────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── raw palette: named for what it is ── */
+  --navy: #111133;
+  --pink: #f3b2af;
+  --cream: #f6f6ec;
+  --cream-warm: #f4ede0;
+  --ink: #091539;
+  --ink-2: #232529;
+  --olive: #3a3c2d;
+  --stone: #565450;
+  --on-pink: #492d2c;
+  --rule: #b6b6b6;
+  --rule-2: #bababa;
+
+  /* ── semantic: named for what it does ── */
+  /* --page is load-bearing. Membership Offers (y1692-2630) and Testimonials
+   * (y2728-3012) have no background of their own, so ~1300px of the page shows
+   * the frame's own fill through. That fill is #ffffff. */
+  --page: #ffffff;
+  --hero: var(--navy);
+  --band: var(--cream);
+  --band-warm: var(--cream-warm);
+  --fg: var(--ink);
+  --fg-muted: var(--stone);
+  --heading: var(--ink-2);
+  --accent: var(--pink);
+  --accent-fg: var(--on-pink);
+  --line: var(--rule);
+
+  /* ── card gradients: pairs, not a scale ── */
+  --card-1-from: color-mix(in srgb, #102d28 88%, transparent);
+  --card-1-to: #111321;
+  --card-2-from: #594944;
+  --card-2-to: color-mix(in srgb, #111321 94%, transparent);
+  --card-3-from: #5b5855;
+  --card-3-to: color-mix(in srgb, #111321 94%, transparent);
+
+  /* ── layout ── */
+  /* Content runs x78..x1434 on the 1512 artboard. */
+  --content: 1356px;
+  --gutter: clamp(20px, 5vw, 78px);
+
+  /* ── the fluid type ramp ──
+   * There is only a 1512 artboard, so there is no measured second end to
+   * interpolate from — the low end is chosen. Rather than guess twenty times,
+   * each tier gets ONE ratio and every token in it is derived:
+   *
+   *   min   = round(figma_px * r)          r: display .42  heading .55
+   *   slope = (figma - min) / 1110 * 100vw    lead .72  body .90  label 1.0
+   *   inter = min - (figma - min) * 0.36216   (= min - slope * 402/100)
+   *
+   * so each clamp hits its floor at 402px and its Figma value at exactly 1512px.
+   * Keeping one ratio per tier is what stops the ramp drifting out of
+   * proportion as tokens get added. */
+
+  /* display — Teko */
+  --fs-headline: clamp(43px, 21.63px + 5.315vw, 102px); /* hero, Teko 300/102 */
+  --fs-quote: clamp(27px, 13.6px + 3.333vw, 64px); /* pull quote, Teko 400/64 */
+  /* heading — Teko */
+  --fs-section: clamp(30px, 20.95px + 2.252vw, 55px); /* section heads, Teko 400/55 */
+  --fs-offer-title: clamp(31px, 21.95px + 2.252vw, 56px); /* offer card, Teko 400/56 */
+  --fs-attrib: clamp(23px, 16.48px + 1.622vw, 41px); /* — Warren Buffett, Teko 300/41 */
+  --fs-card-title: clamp(22px, 15.48px + 1.622vw, 40px); /* team name, Teko 400/40 */
+  --fs-step-title: clamp(21px, 14.72px + 1.541vw, 38px); /* step card, Teko 400/38 */
+  /* lead — Inter */
+  --fs-lead-lg: clamp(19px, 16.47px + 0.631vw, 26px); /* Inter 500/26 - testimonial quote + final-hero lead */
+  --fs-lead: clamp(15px, 12.83px + 0.541vw, 21px); /* section sub + FAQ, Inter 500/21 */
+  --fs-cta: clamp(16px, 14.19px + 0.45vw, 21px); /* Space Grotesk 500/21 */
+  /* body — Inter */
+  --fs-body: clamp(16px, 15.28px + 0.18vw, 18px); /* Inter 400/18 */
+  --fs-body-sm: clamp(14px, 13.28px + 0.18vw, 16px); /* Inter 400/16 */
+  /* label — flat: 16px and under do not shrink */
+  --fs-col-head: 22px; /* footer column head, Bebas Neue 400/22 */
+  --fs-label: 16px; /* nav + buttons, Space Grotesk 500/16 */
+  --fs-bullet: 15px; /* offer bullets, Space Grotesk 400/15 */
+  --fs-micro: 14px; /* vertical card tags, Space Grotesk 400/14 */
+  --fs-eyebrow: 10px; /* step card label, Space Grotesk 400/10 */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--page);
+  --color-hero: var(--hero);
+  --color-band: var(--band);
+  --color-band-warm: var(--band-warm);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-heading: var(--heading);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-navy: var(--navy);
+  --color-pink: var(--pink);
+  --color-ink: var(--ink);
+  --color-olive: var(--olive);
+  --color-stone: var(--stone);
+  --color-line: var(--line);
+  --color-rule-2: var(--rule-2);
+
+  --font-display: var(--font-teko), "Teko", Impact, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-label: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-bebas: var(--font-bebas-neue), "Bebas Neue", Impact, sans-serif;
+
+  /* No --scale-* knobs. Teko is condensed, so its 102px reads like ~70px of a
+   * normal grotesque and needs no retuning; the brief is a pixel match. If that
+   * ever changes, add a single --scale-display rather than one knob per tier. */
+  --text-headline: var(--fs-headline);
+  --text-quote: var(--fs-quote);
+  --text-section: var(--fs-section);
+  --text-offer-title: var(--fs-offer-title);
+  --text-attrib: var(--fs-attrib);
+  --text-card-title: var(--fs-card-title);
+  --text-step-title: var(--fs-step-title);
+  --text-lead-lg: var(--fs-lead-lg);
+  --text-lead: var(--fs-lead);
+  --text-cta: var(--fs-cta);
+  --text-body: var(--fs-body);
+  --text-body-sm: var(--fs-body-sm);
+  --text-col-head: var(--fs-col-head);
+  --text-label: var(--fs-label);
+  --text-bullet: var(--fs-bullet);
+  --text-micro: var(--fs-micro);
+  --text-eyebrow: var(--fs-eyebrow);
+
+  /* Straight off the artboard's effects. */
+  --shadow-cta: 2px 8px 20px rgb(9 21 57 / 0.32);
+  --shadow-nav: 0 0 39.4px rgb(0 0 0 / 0.08);
+  --shadow-card: 0 0 16px rgb(0 0 0 / 0.39);
+  --shadow-deck: 0 4px 39px rgb(0 0 0 / 0.24);
+  /* The dark cards carry a green INNER_SHADOW, easy to miss and easy to leave out. */
+  --inset-shadow-glow: inset 0 0 24px rgb(75 175 142 / 0.18);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--page);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container-page {
+  width: 100%;
+  max-width: calc(var(--content) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Every all-caps label in this design is tracked out. Figma letter-spacing is
+ * absolute px at a given size; these are the two ratios it works out to. */
+@utility tracked {
+  letter-spacing: 0.1em;
+}
+
+@utility tracked-tight {
+  letter-spacing: 0.05em;
+}
+
+/* Figma NOISE effect, on 8 of the 11 sections.
+ *
+ * Ported verbatim from the sibling landing site, including this note, because
+ * the naive version is wrong in a way that is hard to see and harder to
+ * diagnose. The grain MUST be mean-neutral or it shifts the colour underneath:
+ * white speckles at normal blend have a positive mean and lift a #111133 band
+ * by about +11 on every channel.
+ *
+ * So: opaque greyscale turbulence centred on 50% grey, composited with
+ * `overlay`. Overlay against 50% grey is an identity operation, so the average
+ * colour is preserved by construction however hard the grain is driven, while
+ * individual pixels still swing either side of the base. Strength comes from
+ * --noise-alpha, set per surface. */
+@utility noise {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--noise-alpha, 0);
+    mix-blend-mode: overlay;
+    /* feColorMatrix copies red into R/G/B and forces alpha to 1, turning the
+     * turbulence into an opaque grey field rather than a semi-transparent one —
+     * a partially transparent layer would dilute the overlay and barely show.
+     *
+     * color-interpolation-filters=sRGB is essential: SVG filters default to
+     * linearRGB, where the turbulence's midpoint of 0.5 lands at about 0.73 in
+     * sRGB. That is brighter than mid-grey, so overlay stops being an identity
+     * and lifts the band anyway, most visibly in the blue channel. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Content must sit above the grain. */
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* ── the membership deck rig ─────────────────────────────────────────────────
+ * The three cards are one composition, not three independent boxes: on the
+ * artboard each card behind steps +155x / +15y / -30h from the one in front.
+ * Driving every dimension off a single --k derived from the container width
+ * keeps those relationships exact at any size, which a set of independent
+ * clamps would not — each would drift on its own curve and the stack would
+ * stop lining up.
+ *
+ * 1350 is the artboard block width: the 1040 card plus 2 x 155 of step.
+ *
+ * These rules are scoped to classnames Tailwind utilities never generate, so
+ * an unlayered plain-CSS rule cannot out-specify a utility on the same element. */
+@media (width >= 64rem) {
+  .deck-rig {
+    container-type: inline-size;
+    --k: calc(100cqw / 1350);
+  }
+
+  .deck-card {
+    width: calc(1040 * var(--k));
+    height: calc((643 - var(--slot) * 30) * var(--k));
+    translate: calc(var(--slot) * 155 * var(--k)) calc(var(--slot) * 15 * var(--k));
+    z-index: calc(3 - var(--slot));
+    border-radius: calc(20 * var(--k));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .deck-card {
+      transition:
+        translate 260ms ease-out,
+        height 260ms ease-out;
+    }
+  }
+}
+
+/* ── entrance motion ─────────────────────────────────────────────────────────
+ * Each major section rises 40px as it comes within 40px of the bottom of the
+ * window. Elements inside a section are deliberately left alone; animating
+ * those too reads as fussy.
+ *
+ * The resting state is the default. Nothing is hidden by the stylesheet alone —
+ * an element is only hidden once components/rise.tsx has armed it, so a script
+ * that never runs leaves a readable page rather than a blank one. That is the
+ * failure this pattern exists to avoid, and it is why the selector is
+ * [data-rise-armed] rather than [data-rise]. */
+:root {
+  --rise-distance: 40px;
+  --rise-duration: 120ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-rise-armed]:not([data-shown]) {
+    opacity: 0;
+    translate: 0 var(--rise-distance);
+  }
+
+  /* The transition lives on the shown state alone: declaring it on the hidden
+   * one would make arming an element visibly fade it out. */
+  [data-rise-armed][data-shown] {
+    transition:
+      opacity var(--rise-duration) ease-out,
+      translate var(--rise-duration) ease-out;
+  }
 }
