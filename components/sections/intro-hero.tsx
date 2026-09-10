@@ -1,0 +1,79 @@
+import Image from 'next/image';
+import { Lines } from '@/components/lines';
+import { src } from '@/lib/assets';
+import { hero } from '@/lib/content';
+import { NavBar } from './nav-bar';
+
+/**
+ * Intro Hero — 1512x1004 on the artboard.
+ *
+ * The photograph is drawn 2730x1536 and bled well past the frame, so it is a
+ * cover fill rather than a sized image. Over it sits a four-stop vertical
+ * gradient of the page navy (0.80 → 0.40 → 0.40 → 1.00), which is what keeps
+ * the headline legible against the busy middle of the shot.
+ *
+ * Not built: the "Trust Partners" logo row (FIFA / Juventus / BCG / GSIC / …)
+ * and a "BG Detail" rig of green gradient squares. Both are switched off in the
+ * design — see scripts/fig-pull.mjs --check, which fails the build if that
+ * changes without anyone noticing.
+ */
+export function IntroHero() {
+  return (
+    <section
+      className="noise relative isolate flex min-h-[1004px] flex-col items-center justify-center overflow-hidden bg-hero px-4 text-center"
+      style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
+    >
+      {/* 0.41 fill-opacity on the artboard, over the frame's navy. */}
+      <Image
+        src={src('hero-bg')}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="-z-10 object-cover opacity-[0.41]"
+      />
+      {/* The artboard's scrim is a four-stop gradient whose handles span only
+          y 0.332 → 0.883 of the frame, not the whole height — so the 0.80 top
+          stop holds flat over the first third and the 1.00 bottom stop over the
+          last eighth. Those percentages below are that mapping worked out; a
+          plain from/via/to ramp lightens the middle far too early. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            'linear-gradient(to bottom,' +
+            ' rgb(17 17 51 / 0.8) 0%,' +
+            ' rgb(17 17 51 / 0.8) 33.17%,' +
+            ' rgb(17 17 51 / 0.4) 43.27%,' +
+            ' rgb(17 17 51 / 0.4) 71.80%,' +
+            ' rgb(17 17 51 / 1) 88.35%)',
+        }}
+      />
+
+      <NavBar />
+
+      <div className="flex w-full max-w-[1128px] flex-col items-center">
+        {/* eslint-disable-next-line @next/next/no-img-element -- exported vector */}
+        <img
+          src="/vectors/wordmark-hero.svg"
+          alt="Playmakers"
+          width={628}
+          height={82}
+          className="block w-[min(628px,80vw)]"
+        />
+
+        <h1 className="mt-[41px] font-display text-headline font-light leading-[1.03] text-white">
+          <Lines text={hero.headline} />
+        </h1>
+
+        <a
+          href="#apply"
+          className="mt-[46px] grid h-[54px] min-w-[304px] place-items-center rounded-full bg-accent px-8 font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
+        >
+          {hero.cta}
+        </a>
+      </div>
+    </section>
+  );
+}
