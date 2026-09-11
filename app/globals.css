@@ -73,7 +73,7 @@
 }
 
 .page-rig {
-  --k: clamp(0.42px, calc(100cqw / 1512), 1.2px);
+  --k: clamp(0.42px, calc(100cqw / 1512), 1px);
 
   /* ── layout ── */
   /* Content runs x78..x1434 on the 1512 artboard. */

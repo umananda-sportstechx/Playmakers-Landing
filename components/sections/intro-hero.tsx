@@ -8,6 +8,11 @@ import { NavBar } from './nav-bar';
 /**
  * Intro Hero — 1512x1004 on the artboard.
  *
+ * The height is also capped to the viewport: 1004 artboard pixels is taller than
+ * a 1080p laptop's usable height once browser chrome is taken off, and a hero
+ * whose call to action sits below the fold on the most common desktop size is
+ * not doing its job.
+ *
  * The photograph is drawn 2730x1536 and bled well past the frame, so it is a
  * cover fill rather than a sized image. Over it sits a four-stop vertical
  * gradient of the page navy (0.80 → 0.40 → 0.40 → 1.00), which is what keeps
@@ -21,7 +26,7 @@ import { NavBar } from './nav-bar';
 export function IntroHero() {
   return (
     <section
-      className="noise relative isolate flex min-h-[max(560px,calc(1004*var(--k)))] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
+      className="noise relative isolate flex min-h-[min(100svh,max(560px,calc(1004*var(--k))))] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
       style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
     >
       {/* 0.41 fill-opacity on the artboard, over the frame's navy. */}
