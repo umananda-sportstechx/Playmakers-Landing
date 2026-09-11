@@ -309,12 +309,18 @@
  * Scoped to classnames Tailwind never generates, so an unlayered plain-CSS rule
  * cannot out-specify a utility on the same element. */
 @media (width >= 64rem) {
+  /* The deck is its own artboard block, 1350 wide (a 1040 card plus two 155
+   * steps), centred in whatever the section gives it. It does NOT stretch with
+   * the page: a card has a fixed 1040:643 ratio and stretching it distorts the
+   * composition. Sizing the rig to the deck rather than the container is also
+   * what keeps the arrows beside the cards instead of out at the page edge. */
+  .deck-rig {
+    width: calc(1350 * var(--k));
+    margin-inline: auto;
+  }
+
   .deck-card {
-    /* The card fills the deck rig less the two steps behind it, rather than a
-     * fixed 1040. The rig is the page container, which is now full-bleed, so a
-     * fixed width left the deck short of the right-hand arrow by 300-odd pixels
-     * on a wide screen and the arrow read as unattached to anything. */
-    width: calc(100% - 310 * var(--k));
+    width: calc(1040 * var(--k));
     height: calc((643 - var(--slot) * 30) * var(--k));
     translate: calc(var(--slot) * 155 * var(--k)) calc(var(--slot) * 15 * var(--k));
     z-index: calc(3 - var(--slot));

@@ -108,7 +108,9 @@ export const offers = {
     {
       n: '3',
       tag: 'SPORTS TECH INTELLIGENCE',
-      title: '¬',
+      // The artboard leaves this as a literal "¬". Titled from the card's own
+      // vertical tag, which is the only place its subject is stated.
+      title: 'SPORTS TECH  INTELLIGENCE',
       leadIn: 'Founder-to-Founder Advisory Board',
       body: ' confidential, professionally facilitated monthly core group sessions (9x/year) between 6-9 Playmakers members, providing the real-world strategic guidance of a high-caliber advisory board without the six-figure cost or time drain.',
       bullets: [
