@@ -347,11 +347,12 @@ export const footer = {
       ],
     },
   ],
+  // Asset names; <Art> resolves the path and size from design/assets.json.
   social: [
-    { label: 'LinkedIn', icon: '/vectors/icon-linkedin.svg', w: 18, h: 18 },
-    { label: 'Youtube', icon: '/vectors/icon-youtube.svg', w: 18, h: 12 },
-    { label: 'Instagram', icon: '/vectors/icon-instagram.svg', w: 18, h: 18 },
-    { label: 'X', icon: '/vectors/icon-x.svg', w: 18, h: 16 },
+    { label: 'LinkedIn', icon: 'icon-linkedin' },
+    { label: 'Youtube', icon: 'icon-youtube' },
+    { label: 'Instagram', icon: 'icon-instagram' },
+    { label: 'X', icon: 'icon-x' },
   ],
   legal: '© 2026 SportsTechX GmbH. All rights reserved.',
   meta: 'Privacy · Imprint · The Inner Circle of Sports Tech',

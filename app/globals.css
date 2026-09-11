@@ -459,3 +459,25 @@
     }
   }
 }
+
+/* Footer "Cloud grid": the two vertical rules between the link columns.
+ *
+ * They are NOT full-height cell borders. On the artboard the horizontals sit at
+ * y7283 and y7661 while the verticals run y7313-7631, so each is inset 30 from
+ * both rules. The content box is padded 53/67, hence the negative offsets: the
+ * rule has to reach back out past the padding to land 30 inside the block. */
+@media (width >= 64rem) {
+  .footer-cell {
+    position: relative;
+    padding-left: calc(57 * var(--k));
+  }
+
+  .footer-cell::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(-23 * var(--k));
+    bottom: calc(-37 * var(--k));
+    border-left: 2px solid var(--rule-2);
+  }
+}
