@@ -143,7 +143,8 @@
   --fs-card-title: max(22px, calc(40 * var(--k) * var(--teko-fit))); /* team name, Teko 400/40 */
   --fs-step-title: max(21px, calc(38 * var(--k) * var(--teko-fit))); /* step card, Teko 400/38 */
   /* lead — Inter */
-  --fs-lead-lg: max(17px, calc(26 * var(--k))); /* testimonial quote + final-hero lead, Inter 500/26 */
+  --fs-lead-lg: max(17px, calc(26 * var(--k))); /* final-hero lead, Inter 500/26 */
+  --fs-quote-sm: max(17px, calc(24 * var(--k))); /* testimonial quote, Inter 400/24 */
   --fs-lead: max(16px, calc(21 * var(--k))); /* section sub + FAQ, Inter 500/21 */
   --fs-cta: max(15px, calc(21 * var(--k))); /* Space Grotesk 500/21 */
   /* body — Inter */
@@ -191,6 +192,7 @@
   --text-card-title: var(--fs-card-title);
   --text-step-title: var(--fs-step-title);
   --text-lead-lg: var(--fs-lead-lg);
+  --text-quote-sm: var(--fs-quote-sm);
   --text-lead: var(--fs-lead);
   --text-cta: var(--fs-cta);
   --text-body: var(--fs-body);

@@ -20,6 +20,7 @@ const FONT_SIZES = [
   'card-title',
   'step-title',
   'lead-lg',
+  'quote-sm',
   'lead',
   'cta',
   'body',
