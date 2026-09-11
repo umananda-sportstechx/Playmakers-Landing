@@ -74,7 +74,8 @@ export const trustedBy = {
 };
 
 export const offers = {
-  eyebrow: 'WHAT MEMBERSHIP OFFERS',
+  // Teko 400/55 centred section head on the artboard, same as the others.
+  title: 'What Membership Offers',
   // FIXME(design): cards 2 and 3 were never given their own copy. Card 2 still
   // repeats card 1's title, card 3's title is literally "¬", and all three share
   // one body and one bullet list. Their real subjects survive only in the

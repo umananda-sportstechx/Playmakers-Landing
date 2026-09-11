@@ -310,7 +310,11 @@
  * cannot out-specify a utility on the same element. */
 @media (width >= 64rem) {
   .deck-card {
-    width: calc(1040 * var(--k));
+    /* The card fills the deck rig less the two steps behind it, rather than a
+     * fixed 1040. The rig is the page container, which is now full-bleed, so a
+     * fixed width left the deck short of the right-hand arrow by 300-odd pixels
+     * on a wide screen and the arrow read as unattached to anything. */
+    width: calc(100% - 310 * var(--k));
     height: calc((643 - var(--slot) * 30) * var(--k));
     translate: calc(var(--slot) * 155 * var(--k)) calc(var(--slot) * 15 * var(--k));
     z-index: calc(3 - var(--slot));
