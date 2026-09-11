@@ -77,8 +77,12 @@
 
   /* ── layout ── */
   /* Content runs x78..x1434 on the 1512 artboard. */
-  --content: calc(1356 * var(--k));
-  --gutter: calc(78 * var(--k));
+  /* One inset for the whole page, nav included, so every edge on the site lines
+   * up. 107 is the artboard's own nav inset; using it everywhere means the page
+   * matches the design exactly at 1512 and keeps tracking the viewport above it,
+   * instead of the body content stopping at a centred 1512 column while the bar
+   * above it ran full-bleed. */
+  --page-inset: calc(107 * var(--k));
 
   /* ── the scale model ──
    * ONE artboard exists: 1512 wide. Everything on it is drawn in artboard
@@ -234,9 +238,7 @@
 
 @utility container-page {
   width: 100%;
-  max-width: calc(var(--content) + 2 * var(--gutter));
-  margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: var(--page-inset);
 }
 
 /* Every all-caps label in this design is tracked out. Figma letter-spacing is

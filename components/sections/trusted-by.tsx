@@ -31,6 +31,7 @@ export function TrustedBy() {
         <Carousel
           label="Members"
           arrow="chevron-trusted"
+          autoScroll="rtl"
           className="mt-[calc(56*var(--k))] px-[calc(52*var(--k))]"
           trackClassName="gap-[calc(74*var(--k))]"
         >

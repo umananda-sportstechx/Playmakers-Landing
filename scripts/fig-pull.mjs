@@ -294,11 +294,29 @@ const svgFor = (node, name) => {
   emit(node.strokeGeometry, node.strokes, 's');
 
   const opacity = node.opacity != null && node.opacity < 1 ? ` opacity="${node.opacity}"` : '';
+
+  // fillGeometry is in the node's OWN space and does not carry the node's
+  // rotation. Every "previous" chevron in this file is the "next" one at 180
+  // degrees, so without this they export identical and both arrows point the
+  // same way — which looks like a naming mistake and is not one.
+  const deg = ((node.rotation ?? 0) * -180) / Math.PI; // Figma: radians, CCW+. SVG: degrees, CW+.
+  let inner = body.join('');
+  if (Math.abs(deg) > 0.01) {
+    if (Math.abs(((deg % 90) + 90) % 90) > 0.01) {
+      // absoluteBoundingBox is the AABB of the ROTATED node, so an off-axis
+      // angle would need the local bounds recomputed from the path data before
+      // the viewBox could be placed. Nothing in this file needs that; say so
+      // rather than quietly emit wrong artwork.
+      console.warn(`  ! ${name}: ${deg.toFixed(1)}deg is not a right angle - viewBox may be off`);
+    }
+    inner = `<g transform="rotate(${deg.toFixed(4)} ${(w / 2).toFixed(4)} ${(h / 2).toFixed(4)})">${inner}</g>`;
+  }
+
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"` +
     ` viewBox="0 0 ${w} ${h}" fill="none"${opacity}>` +
     (defs.length ? `<defs>${defs.join('')}</defs>` : '') +
-    body.join('') +
+    inner +
     `</svg>\n`
   );
 };
