@@ -10,8 +10,10 @@ import { Art } from '@/components/art';
  * artboard and centre, which put 204px of dead space either side of the bar on a
  * 1920 screen; it is now full-bleed at the artboard's own 107 inset.
  *
- * The top offset is 48 rather than the artboard's 85 — asked for directly; the
- * artboard value reads as too much air once the bar is no longer boxed in.
+ * Two values diverge from the artboard, both asked for directly: the top offset
+ * is 48 rather than 85 (85 reads as too much air once the bar is no longer
+ * boxed in), and the LOG IN capsule is padded 30 rather than 15, which takes it
+ * from the artboard's 108 wide to about 138.
  *
  * Both pills are glass over the hero photograph, not solid fills: the links sit
  * on white at 10%, the LOG IN button on the accent at 5% with a 28px backdrop
@@ -44,7 +46,7 @@ export function NavBar() {
 
           <a
             href={nav.cta.href}
-            className="grid h-[calc(58*var(--k))] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 px-[calc(15*var(--k))] font-label text-label font-medium tracking-[0.1em] text-accent backdrop-blur-[28px] transition-colors hover:bg-accent/15"
+            className="grid h-[calc(58*var(--k))] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 px-[calc(30*var(--k))] font-label text-label font-medium tracking-[0.1em] text-accent backdrop-blur-[28px] transition-colors hover:bg-accent/15"
           >
             {nav.cta.label}
           </a>
