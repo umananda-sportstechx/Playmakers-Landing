@@ -8,8 +8,8 @@ import { Art } from '@/components/art';
  * semantics and browser find-in-page opening the matching row all come free,
  * and a scripted accordion would have to reimplement each of them.
  *
- * The design draws every row collapsed, so there are no answers in the file
- * yet — the panel renders whatever content.ts grows later.
+ * The artboard draws every row collapsed, so it specifies no open state at all —
+ * the panel's type and spacing below are ours, not the design's.
  */
 export function Faq() {
   return (
@@ -24,12 +24,22 @@ export function Faq() {
         </h2>
 
         <div className="mx-auto mt-[calc(120*var(--k))] max-w-[calc(652*var(--k))]">
-          {faq.questions.map((q) => (
-            <details key={q} className="group border-b border-dashed border-line py-[calc(17*var(--k))]">
+          {faq.items.map(({ q, a }) => (
+            <details
+              key={q}
+              className="faq-row group border-b border-dashed border-line py-[calc(17*var(--k))]"
+            >
               <summary className="flex cursor-pointer list-none items-start justify-between gap-[calc(24*var(--k))] [&::-webkit-details-marker]:hidden">
                 <span className="font-sans text-lead font-medium leading-[1.33] text-black">{q}</span>
-                <Art name="icon-plus" className="mt-[calc(4*var(--k))] shrink-0 transition-transform duration-200 group-open:rotate-45" />
+                <Art
+                  name="icon-plus"
+                  className="mt-[calc(4*var(--k))] shrink-0 transition-transform duration-200 group-open:rotate-45"
+                />
               </summary>
+
+              <p className="pt-[calc(14*var(--k))] pr-[calc(44*var(--k))] font-sans text-body leading-[1.6] text-black/70">
+                {a}
+              </p>
             </details>
           ))}
         </div>

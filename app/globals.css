@@ -434,3 +434,28 @@
       translate var(--rise-duration) ease-out;
   }
 }
+
+/* FAQ rows open with a height transition where the browser supports animating
+ * to `auto`. Everything is wrapped in @supports because without
+ * interpolate-size the height rules would pin the panel at 0 and the answer
+ * would never appear at all — a progressive enhancement that fails closed is
+ * worse than no animation. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-row::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 220ms ease,
+        content-visibility 220ms allow-discrete;
+    }
+
+    .faq-row[open]::details-content {
+      height: auto;
+    }
+  }
+}

@@ -239,22 +239,87 @@ export const team = {
   ] satisfies Member[],
 };
 
-// FIXME(design): the design draws every row collapsed, so no answers exist yet.
+/**
+ * The artboard draws every row collapsed, so it contains no answers at all.
+ *
+ * Where the rest of the design states a fact, the answer below is taken from it
+ * and is accurate: the eligibility criteria come from How-to-Join step 1, the
+ * 9x/year core group sessions and the 6-9 group size from the offer card, the
+ * quarterly intake from step 3, the 60-day placement from step 4. Those are
+ * marked `derived`.
+ *
+ * The rest are marked `draft` and are INVENTED — written so the accordion has
+ * something to open while the real copy is collected. They are plausible, which
+ * makes them dangerous: they read as fact and are not. Get them replaced before
+ * this is public.
+ *
+ * The cost answer deliberately quotes no number. Do not let one be guessed into
+ * it — an invented price on a real membership page is the one mistake here that
+ * could actually cost somebody something.
+ */
 export const faq = {
   title: 'Frequently Asked Questions',
-  questions: [
-    "What's included in Playmakers membership?",
-    'How much does it cost?',
-    'What are the requirements to join?',
-    'How much time commitment does Playmakers take?',
-    'Who else is in the network?',
-    "What's the acceptance rate?",
-    'How long is the membership?',
-    'Is Playmakers a digital network or do you meet in person?',
-    'Who will be in my core group?',
-    "What if I don't connect well with my core group?",
-    'How do the curated introductions work? Can you help me connect with investors or potential clients?',
-    'How is Playmakers different from other founder communities like Hampton, YPO, Vistage or EO?',
+  items: [
+    {
+      q: "What's included in Playmakers membership?",
+      // derived: the three offer cards
+      a: 'Three things. A confidential core group of 6-9 founders that meets nine times a year with professional facilitation; an insider network across the sports industry; and the sports tech intelligence that comes out of both.',
+    },
+    {
+      q: 'How much does it cost?',
+      // draft — and no figure, deliberately. See the note above.
+      a: 'Pricing is shared on the alignment call, once we both know the fit is right.',
+    },
+    {
+      q: 'What are the requirements to join?',
+      // derived: How-to-Join step 1, verbatim criteria
+      a: 'Every member is the founder or CEO of a sports tech startup doing at least €1M in revenue, or having raised €3M+ in funding, or with a company exit above €5M behind them.',
+    },
+    {
+      q: 'How much time commitment does Playmakers take?',
+      // derived: 9x/year sessions from the offer card
+      a: 'Nine core group sessions a year, roughly monthly. Everything else — the network, the introductions, the intelligence — you use at whatever pace suits you.',
+    },
+    {
+      q: 'Who else is in the network?',
+      // derived in part: "by-invitation private network for high growth sports tech founders and CEOs"
+      a: 'Founders and CEOs of high growth sports tech companies, admitted by invitation against the same criteria you would be.',
+    },
+    {
+      q: "What's the acceptance rate?",
+      // draft
+      a: 'We do not publish a number. Spots open at the beginning of each quarter and the cap is set by how many core groups we can facilitate properly, not by demand.',
+    },
+    {
+      q: 'How long is the membership?',
+      // draft
+      a: 'Membership runs annually and renews by choice, not by default.',
+    },
+    {
+      q: 'Is Playmakers a digital network or do you meet in person?',
+      // derived in part: "immediate access to our digital community" (step 4)
+      a: 'Both. The community and the core group sessions run digitally, which is what makes a network this senior possible across markets.',
+    },
+    {
+      q: 'Who will be in my core group?',
+      // derived: 6-9 members, curated, placed within 60 days (offer card + step 4)
+      a: 'Six to nine members at a comparable stage, curated rather than assigned. Placement happens within 60 days of joining — it is deliberate and cannot be rushed.',
+    },
+    {
+      q: "What if I don't connect well with my core group?",
+      // draft
+      a: 'Tell us and we will move you. A group that does not fit is worth nothing to you and nothing to the other members in it.',
+    },
+    {
+      q: 'How do the curated introductions work? Can you help me connect with investors or potential clients?',
+      // draft
+      a: 'Introductions are made on request and only where there is a real reason for both sides to meet. We would rather make five that matter than fifty that do not.',
+    },
+    {
+      q: 'How is Playmakers different from other founder communities like Hampton, YPO, Vistage or EO?',
+      // draft
+      a: 'Those are cross-industry. This one is not — every member is building in sports tech, so the context is shared before anyone starts talking.',
+    },
   ],
 };
 
