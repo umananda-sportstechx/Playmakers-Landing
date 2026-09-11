@@ -2,9 +2,18 @@ import { nav } from '@/lib/content';
 import { Art } from '@/components/art';
 
 /**
- * Overlays the hero (y85 inside the 1004-tall Intro Hero), so it is absolute
- * here — one of the few places the artboard's absolute positioning survives
- * into the build.
+ * Overlays the hero, so it is absolute here — one of the few places the
+ * artboard's absolute positioning survives into the build.
+ *
+ * Deliberately NOT in .container-page. That container caps at the 1512 artboard
+ * and centres, which is right for the body copy but wrong for a nav: on a 1920
+ * screen it put 204px of dead space either side of the bar before its own 78px
+ * gutter even started, so the mark floated 282px in from the corner. The bar is
+ * full-bleed instead and insets by the artboard's own 107, which lands exactly
+ * on the design at 1512 and keeps hugging the edges above it.
+ *
+ * The top offset is 48 rather than the artboard's 85 — asked for directly; the
+ * artboard value reads as too much air once the bar is no longer boxed in.
  *
  * Both pills are glass over the hero photograph, not solid fills: the links sit
  * on white at 10%, the LOG IN button on the accent at 5% with a 28px backdrop
@@ -13,8 +22,8 @@ import { Art } from '@/components/art';
  */
 export function NavBar() {
   return (
-    <header className="absolute inset-x-0 top-[calc(85*var(--k))] z-50">
-      <div className="container-page flex items-center justify-between gap-[calc(24*var(--k))]">
+    <header className="absolute inset-x-0 top-[calc(48*var(--k))] z-50 px-[calc(107*var(--k))]">
+      <div className="flex items-center justify-between gap-[calc(24*var(--k))]">
         <a href="#" aria-label="Playmakers — home">
           <Art name="mark-p" />
         </a>
