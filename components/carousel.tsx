@@ -47,6 +47,7 @@ export function Carousel({
   arrow,
   label,
   autoScroll,
+  alwaysShowArrows,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -57,6 +58,15 @@ export function Carousel({
   label: string;
   /** Drift the rail continuously. 'rtl' moves cards leftward, 'ltr' rightward. */
   autoScroll?: 'ltr' | 'rtl';
+  /**
+   * Keep the arrows on screen even when everything already fits.
+   *
+   * Off by default: two arrows that cannot move anything are worse than none.
+   * On where the design draws them as part of the composition and the rail is
+   * expected to fill up — the testimonials, which ship with two placeholder
+   * quotes but will not stay that way.
+   */
+  alwaysShowArrows?: boolean;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const paused = useRef(false);
@@ -243,8 +253,9 @@ export function Carousel({
       </div>
 
       {/* Both ends at once means the content already fits, so there is nowhere
-          to page — show no affordance rather than two dead arrows. */}
-      {!(atStart && atEnd && !autoScroll) && (
+          to page — show no affordance rather than two dead arrows, unless the
+          caller wants them held in place. */}
+      {(alwaysShowArrows || !(atStart && atEnd && !autoScroll)) && (
         <>
           <Arrow
             side="left"
@@ -306,8 +317,10 @@ function Arrow({
         'transition-[opacity,scale] duration-[80ms] ease-out',
         'hover:opacity-50 active:opacity-100 motion-safe:active:scale-[0.85]',
         // A disabled arrow takes no pointer events, so the states above cannot
-        // fight this.
-        'disabled:pointer-events-none disabled:opacity-25',
+        // fight this. 40% rather than 25: where the arrows are held on screen
+        // as part of the composition, 25% reads as a rendering fault rather
+        // than as an end-of-rail state.
+        'disabled:pointer-events-none disabled:opacity-40',
         side === 'left' ? 'left-0' : 'right-0',
         className
       )}

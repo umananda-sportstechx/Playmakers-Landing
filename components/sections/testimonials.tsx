@@ -31,6 +31,7 @@ export function Testimonials() {
           className="mt-[calc(73*var(--k))]"
           trackClassName="gap-[calc(130*var(--k))]"
           arrowClassName="text-black"
+          alwaysShowArrows
         >
           {testimonials.items.map((t, i) => (
             <figure
