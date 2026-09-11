@@ -12,7 +12,7 @@ import { team } from '@/lib/content';
  */
 export function Team() {
   return (
-    <section id="team" className="relative isolate overflow-hidden bg-hero py-[calc(108*var(--k))]">
+    <section id="team" className="relative isolate overflow-hidden bg-hero py-[calc(150*var(--k))]">
       {/* fills[0] on the artboard: 45% opacity, exposure -0.62, saturation -1,
           plus a crop. The desaturation is what turns green stadium seats into
           the grey-navy field the design shows. */}
@@ -52,11 +52,13 @@ export function Team() {
           <Lines text={team.lead} />
         </p>
 
-        <ul className="mt-[calc(115*var(--k))] grid gap-[calc(36*var(--k))] lg:grid-cols-2">
+        <ul className="team-row mt-[calc(115*var(--k))] grid gap-x-[calc(33*var(--k))] gap-y-[calc(36*var(--k))] lg:grid-cols-2">
           {team.members.map((m) => (
             <li key={m.name}>
-              <article className="flex h-full overflow-hidden rounded-[calc(16*var(--k))] border-[1.5px] border-white bg-white">
-                <div className="relative w-[calc(254*var(--k))] shrink-0 self-stretch">
+              <article className="team-card flex h-full overflow-hidden rounded-[calc(16*var(--k))] bg-white">
+                {/* 254 of the card's 674 on the artboard; a share rather than a fixed
+                    width so it scales with the card. */}
+                <div className="relative w-[37.686%] shrink-0 self-stretch">
                   <Image
                     src={src(m.photo)}
                     alt={m.name}

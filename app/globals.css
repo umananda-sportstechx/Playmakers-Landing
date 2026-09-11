@@ -320,6 +320,25 @@
  *
  * Scoped to classnames Tailwind never generates, so an unlayered plain-CSS rule
  * cannot out-specify a utility on the same element. */
+/* Team: two 674x248 member cards per row, 33 apart, 1381 in all.
+ *
+ * Same shape as the step cards — the width is capped at the artboard's 674 so
+ * it stops widening once there is more page than design, and the height follows
+ * from the width so the 2.718 ratio holds instead of drifting as the row
+ * stretches. 247 is the page inset both sides plus the one gap. */
+@media (width >= 64rem) {
+  .team-row {
+    --member-w: min(calc(674 * var(--k)), calc((100cqw - 247 * var(--k)) / 2));
+    width: calc(var(--member-w) * 2 + 33 * var(--k));
+    margin-inline: auto;
+    grid-template-columns: repeat(2, var(--member-w));
+  }
+
+  .team-card {
+    min-height: calc(var(--member-w) * 248 / 674);
+  }
+}
+
 /* The four-up needs more room than `lg`: at 1024 it squeezes the cards to
  * 192px and the copy pushes them out of shape. Below 80rem the row falls back
  * to the plain two-up above, where a card is twice as wide and readable. */
