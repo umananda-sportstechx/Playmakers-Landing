@@ -25,14 +25,14 @@ export function HowToJoin() {
           {howToJoin.title}
         </h2>
 
-        <ol className="mt-[calc(110*var(--k))] grid gap-x-[calc(50*var(--k))] gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="steps-row mt-[calc(110*var(--k))] grid gap-x-[calc(50*var(--k))] gap-y-10 sm:grid-cols-2 xl:grid-cols-4">
           {howToJoin.steps.map((step) => (
             <li
               key={step.n}
-              className="relative lg:before:absolute lg:before:-left-[calc(25*var(--k))] lg:before:top-[calc(41*var(--k))] lg:before:bottom-[calc(41*var(--k))] lg:before:border-l lg:before:border-dashed lg:before:border-black/40 lg:first:before:hidden"
+              className="relative xl:before:absolute xl:before:-left-[calc(25*var(--k))] xl:before:top-[calc(41*var(--k))] xl:before:bottom-[calc(41*var(--k))] xl:before:border-l xl:before:border-dashed xl:before:border-black/40 xl:first:before:hidden"
             >
               <article
-                className="noise relative isolate flex h-full min-h-[calc(360*var(--k))] flex-col overflow-hidden rounded-[calc(20*var(--k))] p-[calc(25*var(--k))] inset-shadow-glow"
+                className="step-card noise relative isolate flex h-full flex-col overflow-hidden rounded-[calc(20*var(--k))] p-[calc(25*var(--k))] inset-shadow-glow"
                 style={{ '--noise-alpha': 0.22 } as React.CSSProperties}
               >
                 {/* The card's colour is exported artwork, not a CSS gradient. */}

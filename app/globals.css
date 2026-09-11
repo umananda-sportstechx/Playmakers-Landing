@@ -320,6 +320,35 @@
  *
  * Scoped to classnames Tailwind never generates, so an unlayered plain-CSS rule
  * cannot out-specify a utility on the same element. */
+/* The four-up needs more room than `lg`: at 1024 it squeezes the cards to
+ * 192px and the copy pushes them out of shape. Below 80rem the row falls back
+ * to the plain two-up above, where a card is twice as wide and readable. */
+@media (width >= 80rem) {
+  /* How-to-join: four 301x360 step cards with 50 gaps, 1354 in all.
+   *
+   * The card width is capped at the artboard's 301 so it stops widening once
+   * there is more page than design, and the height follows from that width, so
+   * the ratio is fixed rather than drifting as the row stretches. Raised from
+   * the artboard's 360 to 400 by request — the cards read short at 360 once the
+   * copy is in.
+   *
+   * 100cqw resolves against .page-container (see the warning above .page-rig);
+   * 364 is the page inset both sides plus the three gaps. A percentage would be
+   * wrong here: it is used to derive a min-HEIGHT, where a percentage resolves
+   * against the parent's height rather than its width. */
+  .steps-row {
+    --step-w: min(calc(301 * var(--k)), calc((100cqw - 364 * var(--k)) / 4));
+    width: calc(var(--step-w) * 4 + 150 * var(--k));
+    margin-inline: auto;
+    grid-template-columns: repeat(4, var(--step-w));
+  }
+
+  .step-card {
+    min-height: calc(var(--step-w) * 400 / 301);
+  }
+
+}
+
 @media (width >= 64rem) {
   /* The deck is its own artboard block: a 1040x643 card plus two 155 steps
    * behind it, 1350 in all, centred in whatever the section gives it.
