@@ -72,6 +72,16 @@
   container-type: inline-size;
 }
 
+/* Do NOT add `container-type` to anything inside .page-rig.
+ *
+ * 100cqw is a UNIT, not a var(), so unlike the var()s around it it is resolved
+ * where --k is USED, not where it is declared. A new query container part-way
+ * down the tree therefore re-resolves it against that container and silently
+ * rescales every calc(N * var(--k)) beneath it — a container on the offer-deck
+ * wrapper took --k from 0.99 to 0.85 and shrank the whole deck by 15% with no
+ * error anywhere. If a subtree genuinely needs a container, give it its own
+ * variable rather than letting it capture this one. */
+
 .page-rig {
   --k: clamp(0.42px, calc(100cqw / 1512), 1px);
 
@@ -309,19 +319,28 @@
  * Scoped to classnames Tailwind never generates, so an unlayered plain-CSS rule
  * cannot out-specify a utility on the same element. */
 @media (width >= 64rem) {
-  /* The deck is its own artboard block, 1350 wide (a 1040 card plus two 155
-   * steps), centred in whatever the section gives it. It does NOT stretch with
-   * the page: a card has a fixed 1040:643 ratio and stretching it distorts the
-   * composition. Sizing the rig to the deck rather than the container is also
-   * what keeps the arrows beside the cards instead of out at the page edge. */
+  /* The deck is its own artboard block: a 1040x643 card plus two 155 steps
+   * behind it, 1350 in all, centred in whatever the section gives it.
+   *
+   * The card keeps the artboard's 1040:643 ratio at every width — stretching it
+   * with the page distorted the composition — but 1350 does not always fit,
+   * since the page container is 100% - 2x107, or 1298 at a 1512 viewport. So the
+   * card takes the artboard size only while there is room, and `aspect-ratio`
+   * pins the shape.
+   *
+   * aspect-ratio rather than a computed height, and a percentage rather than a
+   * container query, both for the same reason: see the warning above .page-rig
+   * about cqw. Deriving the height from a percentage width is circular (100%
+   * means the parent's WIDTH under `width` but its HEIGHT under `height`), and
+   * making this a query container rescales --k for everything inside it. */
   .deck-rig {
-    width: calc(1350 * var(--k));
+    width: min(calc(1350 * var(--k)), 100%);
     margin-inline: auto;
   }
 
   .deck-card {
-    width: calc(1040 * var(--k));
-    height: calc((643 - var(--slot) * 30) * var(--k));
+    width: min(calc(1040 * var(--k)), calc(100% - 310 * var(--k)));
+    aspect-ratio: 1040 / calc(643 - var(--slot) * 30);
     translate: calc(var(--slot) * 155 * var(--k)) calc(var(--slot) * 15 * var(--k));
     z-index: calc(3 - var(--slot));
     border-radius: calc(20 * var(--k));

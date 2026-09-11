@@ -38,7 +38,7 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
   const step = (dir: 1 | -1) => setFront((f) => (f + dir + cards.length) % cards.length);
 
   return (
-    <div className="deck-rig relative lg:h-[calc(643*var(--k))]">
+    <div className="deck-rig relative">
       {/* Stacked at lg and up; a plain list below it. */}
       <div className="flex flex-col gap-[calc(32*var(--k))] lg:block">
         {cards.map((card, i) => {
@@ -50,7 +50,9 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
               style={{ '--slot': slot, '--noise-alpha': 0.18 } as CSSProperties}
               className={cn(
                 'deck-card noise relative isolate overflow-hidden rounded-[calc(20*var(--k))] shadow-card inset-shadow-glow',
-                'lg:absolute lg:top-0 lg:left-0'
+                // The front card stays in flow so the rig takes its height;
+                // the others stack behind it.
+                isFront ? 'lg:relative' : 'lg:absolute lg:top-0 lg:left-0'
               )}
               // Only the front card is reachable; the others show nothing but
               // their tag strip, so their content would be noise to a screen
@@ -153,7 +155,11 @@ function DeckArrow({ side, onClick }: { side: 'left' | 'right'; onClick: () => v
         'absolute top-[calc(321*var(--k))] z-10 hidden -translate-y-1/2 p-[calc(12*var(--k))] lg:block',
         'transition-[opacity,scale] duration-[80ms] ease-out',
         'hover:opacity-50 active:opacity-100 motion-safe:active:scale-[0.85]',
-        side === 'left' ? 'left-[calc(-51*var(--k))]' : 'right-[calc(-31*var(--k))]'
+        // 40px of clear air between the chevron and the card on both sides.
+        // The button is 12 + 16 glyph + 12 = 40 wide, so the offset is 68: at
+        // the artboard's own -51/-31 the right-hand button actually overlapped
+        // the deck by 9px.
+        side === 'left' ? 'left-[calc(-68*var(--k))]' : 'right-[calc(-68*var(--k))]'
       )}
     >
       <Art name={`chevron-offers-${side}`} />
