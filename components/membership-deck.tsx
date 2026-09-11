@@ -54,11 +54,6 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                 // the others stack behind it.
                 isFront ? 'lg:relative' : 'lg:absolute lg:top-0 lg:left-0'
               )}
-              // Only the front card is reachable; the others show nothing but
-              // their tag strip, so their content would be noise to a screen
-              // reader and their links must not be tabbable.
-              aria-hidden={!isFront}
-              inert={!isFront}
             >
               {/* Opaque base first, then the colour over it. */}
               <Art name={`card-offer-${card.n}-base`} fill className="absolute inset-0 -z-20" />
@@ -85,7 +80,10 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                 </div>
               )}
 
-              <div className="p-[calc(32*var(--k))] lg:p-0">
+              {/* inert sits on the copy, not the card. On the card it also
+                  killed pointer events, so a card behind could not be clicked
+                  to bring it forward. */}
+              <div className="p-[calc(32*var(--k))] lg:p-0" aria-hidden={!isFront} inert={!isFront}>
                 <div className="lg:w-[calc(544*var(--k))] lg:pt-[calc(66*var(--k))] lg:pl-[calc(76*var(--k))]">
                   <h3 className="font-display text-offer-title leading-[0.96] tracking-[0.1em] text-white uppercase">
                     <Lines text={card.title} />
@@ -113,7 +111,10 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
               </div>
 
               {/* Tag strip — the only part of a card behind that shows. */}
-              <div className="absolute top-[calc(73*var(--k))] right-[calc(78*var(--k))] hidden w-[calc(52*var(--k))] flex-col items-center lg:flex">
+              <div
+                aria-hidden
+                className="absolute top-[calc(73*var(--k))] right-[calc(78*var(--k))] hidden w-[calc(52*var(--k))] flex-col items-center lg:flex"
+              >
                 <span className="relative grid size-[calc(52*var(--k))] place-items-center">
                   <Art name="circle-52" className="absolute inset-0" />
                   <span className="relative font-label text-[calc(28*var(--k))] leading-none tracking-[0.1em] text-white">
@@ -131,6 +132,18 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                   </span>
                 </span>
               </div>
+              {/* A card behind is its own control: click anywhere on the part
+                  of it you can see to bring it forward. A real button, so it is
+                  reachable by keyboard and announced with the card's subject
+                  rather than being a click handler on a div. */}
+              {!isFront && (
+                <button
+                  type="button"
+                  onClick={() => setFront(i)}
+                  aria-label={`Show ${card.tag}`}
+                  className="absolute inset-0 z-20 hidden cursor-pointer lg:block"
+                />
+              )}
             </article>
           );
         })}

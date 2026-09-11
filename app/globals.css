@@ -481,3 +481,41 @@
     border-left: 2px solid var(--rule-2);
   }
 }
+
+/* Page scrollbar, in the site's own colours: a navy thumb on the cream band,
+ * going accent-pink on hover like every other interactive thing here.
+ *
+ * Scoped to `html`, not bare `::-webkit-scrollbar`. The carousels hide their own
+ * scrollbars with a Tailwind utility, and unlayered plain CSS out-specifies a
+ * layered utility — a global rule here would put a scrollbar back under every
+ * rail. `@layer base` keeps this below the utilities either way, and the `html`
+ * scope means it never reaches them at all.
+ *
+ * scrollbar-color first for Firefox and current Chrome; the -webkit- block is
+ * the fallback for engines that still only understand the pseudo-elements. */
+@layer base {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink) var(--band);
+  }
+
+  html::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: var(--band);
+  }
+
+  html::-webkit-scrollbar-thumb {
+    /* The border is the same colour as the track, which reads as padding and
+     * leaves the thumb a slim pill rather than a full-width slab. */
+    background: var(--ink);
+    border: 3px solid var(--band);
+    border-radius: 99px;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-fg);
+  }
+}
