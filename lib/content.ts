@@ -124,7 +124,16 @@ export const offers = {
 
 export const testimonials = {
   eyebrow: 'PLAYMAKERS TESTIMONIALS',
-  // FIXME(design): both cards are the same placeholder quote and person.
+  /**
+   * FIXME(design): the artboard has two cards carrying the same placeholder
+   * quote and person. The first two below are that, verbatim.
+   *
+   * FIXME(placeholder): the remaining four are INVENTED — written only so the
+   * rail has something to page through while the real quotes are collected.
+   * The names are not real people and none of this is a real endorsement, so
+   * delete the lot before this goes anywhere public. They are deliberately all
+   * different so it is obvious which card you are looking at while testing.
+   */
   items: [
     {
       quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
@@ -135,6 +144,26 @@ export const testimonials = {
       quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
       name: 'Alexander Janssen',
       role: 'CEO, Dutch SportsTech Fund',
+    },
+    {
+      quote: '“Two of my core group had solved the exact problem I was stuck on. That call saved us a quarter.”',
+      name: 'Placeholder Two',
+      role: 'Founder, Placeholder Analytics',
+    },
+    {
+      quote: '“The introductions were the opposite of networking. Every one of them went somewhere.”',
+      name: 'Placeholder Three',
+      role: 'CEO, Placeholder Performance',
+    },
+    {
+      quote: '“I stopped guessing what good looked like at our stage. I could just ask someone who had been there.”',
+      name: 'Placeholder Four',
+      role: 'Co-Founder, Placeholder Labs',
+    },
+    {
+      quote: '“It is the only room where I can say the quiet part out loud and get a straight answer back.”',
+      name: 'Placeholder Five',
+      role: 'Managing Director, Placeholder Ventures',
     },
   ],
 };
