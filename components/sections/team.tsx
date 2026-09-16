@@ -48,17 +48,20 @@ export function Team() {
         <h2 className="text-center font-display text-section leading-[1.25] tracking-[0.05em] text-white uppercase">
           {team.title}
         </h2>
-        <p className="mx-auto mt-[calc(18*var(--k))] max-w-[calc(900*var(--k))] text-center font-sans text-lead font-medium leading-[1.48] text-white">
+        <p className="mx-auto mt-[calc(18*var(--k))] lg:max-w-[calc(900*var(--k))] text-center font-sans text-lead font-medium leading-[1.48] text-white">
           <Lines text={team.lead} />
         </p>
 
         <ul className="team-row mt-[calc(115*var(--k))] grid gap-x-[calc(33*var(--k))] gap-y-[calc(36*var(--k))] lg:grid-cols-2">
           {team.members.map((m) => (
             <li key={m.name}>
-              <article className="team-card flex h-full overflow-hidden rounded-[calc(16*var(--k))] bg-white">
+              {/* Stacked below lg. The artboard's 38/62 photo-text split is a desktop
+                  shape: at 390px it leaves a 113px photo and ~155px of measure for
+                  a 150-character bio, about 18 characters a line. */}
+              <article className="team-card flex h-full flex-col overflow-hidden rounded-[calc(16*var(--k))] bg-white lg:flex-row">
                 {/* 254 of the card's 674 on the artboard; a share rather than a fixed
                     width so it scales with the card. */}
-                <div className="relative w-[37.686%] shrink-0 self-stretch">
+                <div className="relative aspect-[254/248] w-full shrink-0 lg:aspect-auto lg:w-[37.686%] lg:self-stretch">
                   <Image
                     src={src(m.photo)}
                     alt={m.name}
@@ -69,7 +72,7 @@ export function Team() {
                   />
                 </div>
 
-                <div className="min-w-0 flex-1 px-[calc(38*var(--k))] py-[calc(23*var(--k))]">
+                <div className="min-w-0 flex-1 px-[max(20px,calc(38*var(--k)))] py-[max(20px,calc(23*var(--k)))]">
                   <p className="inline-block border-b border-dashed border-black/70 pb-[calc(6*var(--k))] font-label text-body-sm leading-[1.3] tracking-[0.1em] text-[#88413d] uppercase">
                     {m.role}
                   </p>

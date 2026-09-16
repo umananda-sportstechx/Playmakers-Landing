@@ -59,7 +59,7 @@ export function FinalHero() {
         <Lines text={finalHero.headline} />
       </h2>
 
-      <p className="mt-[calc(26*var(--k))] max-w-[calc(560*var(--k))] font-sans text-lead-lg font-medium leading-[1.46] text-white/80">
+      <p className="mt-[calc(26*var(--k))] lg:max-w-[calc(560*var(--k))] font-sans text-lead-lg font-medium leading-[1.46] text-white/80">
         <Lines text={finalHero.lead} />
       </p>
 

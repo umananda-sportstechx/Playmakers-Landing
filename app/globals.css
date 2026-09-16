@@ -23,6 +23,12 @@
   --rule: #b6b6b6;
   --rule-2: #bababa;
 
+  /* The docked nav's glass. Translucent on purpose — a solid fill would give
+   * the backdrop blur nothing to work against. Page navy at the alpha ramp the
+   * sibling site uses, so the band reads the same over navy, cream and white. */
+  --nav-scrim-from: rgb(17 17 51 / 0.8);
+  --nav-scrim-to: rgb(17 17 51 / 0.29);
+
   /* ── semantic: named for what it does ── */
   /* --page is load-bearing. Membership Offers (y1692-2630) and Testimonials
    * (y2728-3012) have no background of their own, so ~1300px of the page shows
@@ -155,8 +161,25 @@
   --fs-label: max(14px, calc(16 * var(--k))); /* nav + buttons, Space Grotesk 500/16 */
   --fs-bullet: max(13px, calc(15 * var(--k))); /* offer bullets, Space Grotesk 400/15 */
   --fs-micro: max(11px, calc(14 * var(--k))); /* vertical card tags, Space Grotesk 400/14 */
-  --fs-eyebrow: max(9px, calc(10 * var(--k))); /* step card label, Space Grotesk 400/10 */
+  --fs-eyebrow: max(11px, calc(10 * var(--k))); /* step card label, Space Grotesk 400/10 */
 }
+
+/* Below the desktop layout the page stops being a scale drawing.
+ *
+ * --k floors at 0.42, which binds at a 635px viewport, so every artboard-derived
+ * length freezes there — including the page inset, which stuck at 107 x 0.42 =
+ * 45px and ate 23% of a 390px phone before any content was drawn. A phone wants
+ * a real gutter, not a scaled-down desktop one.
+ *
+ * This MUST come after the .page-rig block above. Same specificity, so the later
+ * declaration wins; placed before it, the 107 * --k simply overrode it and the
+ * gutter never changed. */
+@media (width < 64rem) {
+  .page-rig {
+    --page-inset: clamp(20px, 5vw, 48px);
+  }
+}
+
 
 @theme inline {
   --color-page: var(--page);
@@ -215,6 +238,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* The bar is fixed, so without this every nav jump lands its heading
+     * underneath it. Roughly the docked bar's own height. */
+    scroll-padding-top: calc(96 * var(--k));
   }
 
   body {
@@ -518,4 +544,30 @@
   html::-webkit-scrollbar-thumb:hover {
     background: var(--accent-fg);
   }
+}
+
+/* The mobile drawer's corner.
+ *
+ * The shell's own rounded corner belongs to the top of the document, so it
+ * scrolls out of view and the page reads square once you have moved down. This
+ * repaints the same 41 radius at the viewport's edge. The element is masked to
+ * the region OUTSIDE the radius and its child carries the panel's colour and
+ * grain, so the corner is a piece of the drawer rather than a flat repaint —
+ * painting the navy directly leaves a visibly smooth triangle against the
+ * grained panel. */
+.corner-notch {
+  -webkit-mask-image: radial-gradient(circle 41px at 100% 100%, transparent 0 41px, #000 41px);
+  mask-image: radial-gradient(circle 41px at 100% 100%, transparent 0 41px, #000 41px);
+}
+
+.corner-notch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 41px at 100% 100%,
+    transparent 0 39.5px,
+    rgb(190 190 190 / 0.4) 39.5px 41.5px,
+    transparent 41.5px
+  );
 }

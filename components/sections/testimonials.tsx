@@ -28,7 +28,9 @@ export function Testimonials() {
         <Carousel
           label="Testimonials"
           arrow="chevron-testimonial"
-          className="mt-[calc(73*var(--k))]"
+          // Room for the arrows, which are absolute at the rail's edges. Without
+          // it they sit on top of the first lines of the quote at every width.
+          className="mt-[calc(73*var(--k))] px-[52px] lg:px-[calc(52*var(--k))]"
           trackClassName="gap-[calc(130*var(--k))]"
           arrowClassName="text-black"
           alwaysShowArrows
@@ -38,7 +40,7 @@ export function Testimonials() {
               key={i}
               className="w-full shrink-0 snap-start text-center lg:w-[calc((100%-130*var(--k))/2)]"
             >
-              <blockquote className="mx-auto max-w-[calc(563*var(--k))] font-sans text-quote-sm leading-[1.42] text-black">
+              <blockquote className="mx-auto lg:max-w-[calc(563*var(--k))] font-sans text-quote-sm leading-[1.42] text-black">
                 {t.quote}
               </blockquote>
 
@@ -57,7 +59,7 @@ export function Testimonials() {
                   <p className="font-display text-[max(16px,calc(22*var(--k)))] font-light leading-[1.2] text-black">
                     {t.name}
                   </p>
-                  <p className="font-label text-[max(10px,calc(11*var(--k)))] leading-[1.5] text-black">
+                  <p className="font-label text-[max(12px,calc(11*var(--k)))] leading-[1.5] text-black">
                     {t.role}
                   </p>
                 </div>

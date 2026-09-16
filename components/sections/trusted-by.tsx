@@ -24,7 +24,7 @@ export function TrustedBy() {
         <h2 className="text-center font-display text-section leading-[1.25] text-olive uppercase">
           {trustedBy.title}
         </h2>
-        <p className="mx-auto mt-[calc(10*var(--k))] max-w-[calc(900*var(--k))] text-center font-sans text-lead font-medium leading-[1.48] text-stone">
+        <p className="mx-auto mt-[calc(10*var(--k))] lg:max-w-[calc(900*var(--k))] text-center font-sans text-lead font-medium leading-[1.48] text-stone">
           <Lines text={trustedBy.lead} />
         </p>
 
@@ -35,9 +35,12 @@ export function TrustedBy() {
           className="mt-[calc(56*var(--k))] px-[calc(52*var(--k))]"
           trackClassName="gap-[calc(74*var(--k))]"
         >
+          {/* 210 artboard px is an 88px stamp once --k floors at 0.42, so the
+              card width carries a floor of its own and the photo follows by
+              aspect-ratio rather than a second frozen length. */}
           {trustedBy.members.map((m, i) => (
-            <article key={i} className="w-[calc(210*var(--k))] shrink-0 snap-start text-center">
-              <div className="relative h-[calc(232*var(--k))] w-[calc(210*var(--k))] overflow-hidden rounded-[calc(6*var(--k))]">
+            <article key={i} className="w-[max(160px,calc(210*var(--k)))] shrink-0 snap-start text-center">
+              <div className="relative aspect-[210/232] w-full overflow-hidden rounded-[max(6px,calc(6*var(--k)))]">
                 <Image src={src(m.photo)} alt={m.name} fill sizes="210px" className="object-cover" />
                 <div
                   aria-hidden
@@ -49,7 +52,7 @@ export function TrustedBy() {
               <p className="mt-[calc(15*var(--k))] font-display text-[max(15px,calc(18*var(--k)))] font-medium leading-[1.2] text-[#232529]">
                 {m.name}
               </p>
-              <p className="font-label text-[max(10px,calc(11*var(--k)))] leading-[1.5] text-[#232529]">{m.role}</p>
+              <p className="font-label text-[max(12px,calc(11*var(--k)))] leading-[1.5] text-[#232529]">{m.role}</p>
             </article>
           ))}
         </Carousel>

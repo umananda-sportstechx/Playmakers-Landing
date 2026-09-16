@@ -25,7 +25,7 @@ export function HowToJoin() {
           {howToJoin.title}
         </h2>
 
-        <ol className="steps-row mt-[calc(110*var(--k))] grid gap-x-[calc(50*var(--k))] gap-y-10 sm:grid-cols-2 xl:grid-cols-4">
+        <ol className="steps-row mt-[calc(110*var(--k))] grid gap-x-[calc(50*var(--k))] gap-y-[calc(50*var(--k))] sm:grid-cols-2 xl:grid-cols-4">
           {howToJoin.steps.map((step) => (
             <li
               key={step.n}

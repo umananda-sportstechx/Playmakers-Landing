@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type CSSProperties } from 'react';
+import { useState, useSyncExternalStore, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { Art } from '@/components/art';
 import { cssFilter } from '@/components/figma-image';
@@ -32,8 +32,28 @@ import type { Offer } from '@/lib/content';
  * through. That was why the deck looked translucent and the text appeared
  * doubled: it was the card behind bleeding through the front one.
  */
+/**
+ * True while the deck is in its stacked, one-card-at-a-time state.
+ *
+ * Read from the same media query the CSS uses, so the two cannot disagree —
+ * the accessibility attributes below depend on it and a mismatch means cards
+ * that are visible but hidden from assistive tech.
+ */
+const STACKED = '(min-width: 64rem)';
+const subscribeMQ = (onChange: () => void) => {
+  const mq = window.matchMedia(STACKED);
+  mq.addEventListener('change', onChange);
+  return () => mq.removeEventListener('change', onChange);
+};
+const useIsStacked = () =>
+  useSyncExternalStore(subscribeMQ, () => window.matchMedia(STACKED).matches, () => true);
+
 export function MembershipDeck({ cards }: { cards: Offer[] }) {
   const [front, setFront] = useState(0);
+  // The deck only stacks at lg and up. Below that the three cards are a plain
+  // list and every one of them is readable, so nothing may be inert — see the
+  // note on the card copy below.
+  const stacked = useIsStacked();
   const slotOf = (i: number) => (i - front + cards.length) % cards.length;
   const step = (dir: 1 | -1) => setFront((f) => (f + dir + cards.length) % cards.length);
 
@@ -80,11 +100,28 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                 </div>
               )}
 
-              {/* inert sits on the copy, not the card. On the card it also
+              {/* inert sits on the copy, not the card: on the card it also
                   killed pointer events, so a card behind could not be clicked
-                  to bring it forward. */}
-              <div className="p-[calc(32*var(--k))] lg:p-0" aria-hidden={!isFront} inert={!isFront}>
+                  forward.
+                  
+                  And it only applies while the deck is STACKED. Below lg the
+                  cards are a plain list, so hiding two of the three from
+                  assistive tech made two of the three membership offers
+                  unreadable and unselectable on every phone — with no control
+                  to promote them, since the arrows and the click-to-front
+                  button are lg-only. */}
+              <div
+                className="p-[calc(32*var(--k))] lg:p-0"
+                aria-hidden={stacked && !isFront}
+                inert={stacked && !isFront}
+              >
                 <div className="lg:w-[calc(544*var(--k))] lg:pt-[calc(66*var(--k))] lg:pl-[calc(76*var(--k))]">
+                  {/* Stacked, the tag strip is hidden and the card loses its
+                      number with it. Put the badge back above the title. */}
+                  <span className="mb-[calc(24*var(--k))] grid size-[44px] place-items-center rounded-full border-2 border-white/70 font-label text-[18px] tracking-[0.1em] text-white lg:hidden">
+                    {card.n}
+                  </span>
+
                   <h3 className="font-display text-offer-title leading-[0.96] tracking-[0.1em] text-white uppercase">
                     <Lines text={card.title} />
                   </h3>
@@ -101,7 +138,7 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                         <span className="grid size-[calc(34*var(--k))] shrink-0 place-items-center rounded-full bg-accent">
                           <Art name="icon-bullet" />
                         </span>
-                        <span className="max-w-[calc(484*var(--k))] font-label text-bullet leading-[1.27] text-white">
+                        <span className="lg:max-w-[calc(484*var(--k))] font-label text-bullet leading-[1.27] text-white">
                           {b}
                         </span>
                       </li>

@@ -23,7 +23,7 @@ export function Faq() {
           {faq.title}
         </h2>
 
-        <div className="mx-auto mt-[calc(120*var(--k))] max-w-[calc(652*var(--k))]">
+        <div className="mx-auto mt-[calc(120*var(--k))] lg:max-w-[calc(652*var(--k))]">
           {faq.items.map(({ q, a }) => (
             <details
               key={q}

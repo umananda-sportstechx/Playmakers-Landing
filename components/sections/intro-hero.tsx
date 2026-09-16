@@ -3,7 +3,6 @@ import { Art } from '@/components/art';
 import { Lines } from '@/components/lines';
 import { src } from '@/lib/assets';
 import { hero } from '@/lib/content';
-import { NavBar } from './nav-bar';
 
 /**
  * Intro Hero — 1512x1004 on the artboard.
@@ -17,6 +16,11 @@ import { NavBar } from './nav-bar';
  * cover fill rather than a sized image. Over it sits a four-stop vertical
  * gradient of the page navy (0.80 → 0.40 → 0.40 → 1.00), which is what keeps
  * the headline legible against the busy middle of the shot.
+ *
+ * The nav bar is NOT here any more. It used to be an absolute child of this
+ * section, which meant it scrolled away with the hero and never came back, and
+ * its z-index was trapped in this section's `isolate` stacking context. It is
+ * fixed at page level now, in app/layout.tsx.
  *
  * Not built: the "Trust Partners" logo row (FIFA / Juventus / BCG / GSIC / …)
  * and a "BG Detail" rig of green gradient squares. Both are switched off in the
@@ -56,8 +60,6 @@ export function IntroHero() {
             ' rgb(17 17 51 / 1) 88.35%)',
         }}
       />
-
-      <NavBar />
 
       <div className="flex w-full max-w-[calc(1128*var(--k))] flex-col items-center">
         <Art name="wordmark-hero" alt="Playmakers" />

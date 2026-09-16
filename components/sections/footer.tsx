@@ -27,7 +27,7 @@ export function Footer() {
             <div>
               <Art name="wordmark-footer" alt="Playmakers" />
 
-              <p className="mt-[calc(28*var(--k))] max-w-[calc(451*var(--k))] font-sans text-body leading-[1.78]">
+              <p className="mt-[calc(28*var(--k))] lg:max-w-[calc(451*var(--k))] font-sans text-body leading-[1.78]">
                 {footer.description}
               </p>
 

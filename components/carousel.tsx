@@ -232,6 +232,12 @@ export function Carousel({
         onPointerLeave={resume}
         onFocusCapture={pause}
         onBlurCapture={resume}
+        // Touch does not reliably fire pointerleave, so a drifting rail could
+        // stay paused forever after one tap. Pause on touch start and resume
+        // when the finger lifts or the gesture is cancelled.
+        onTouchStart={pause}
+        onTouchEnd={resume}
+        onTouchCancel={resume}
         role="group"
         aria-label={label}
         tabIndex={0}
@@ -313,7 +319,10 @@ function Arrow({
       disabled={disabled}
       aria-label={label}
       className={cn(
-        'absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center p-[calc(12*var(--k))]',
+        // A 44px minimum box around the glyph. At --k's floor the artboard's
+        // own 12 padding around a 16px chevron gives a ~17px tap target, which
+        // is half the accessible minimum on the device most likely to use it.
+        'absolute top-1/2 z-10 grid size-[44px] -translate-y-1/2 place-items-center lg:size-auto lg:p-[calc(12*var(--k))]',
         'transition-[opacity,scale] duration-[80ms] ease-out',
         'hover:opacity-50 active:opacity-100 motion-safe:active:scale-[0.85]',
         // A disabled arrow takes no pointer events, so the states above cannot
