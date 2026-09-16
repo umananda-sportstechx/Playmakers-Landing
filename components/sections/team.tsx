@@ -55,13 +55,22 @@ export function Team() {
         <ul className="team-row mt-[calc(115*var(--k))] grid gap-x-[calc(33*var(--k))] gap-y-[calc(36*var(--k))] lg:grid-cols-2">
           {team.members.map((m) => (
             <li key={m.name}>
-              {/* Stacked below lg. The artboard's 38/62 photo-text split is a desktop
-                  shape: at 390px it leaves a 113px photo and ~155px of measure for
-                  a 150-character bio, about 18 characters a line. */}
-              <article className="team-card flex h-full flex-col overflow-hidden rounded-[calc(16*var(--k))] bg-white lg:flex-row">
+              {/* Stacked on a phone only. The artboard's 38/62 photo-text split is a
+                  desktop shape: at 390px it leaves a 113px photo and ~155px of
+                  measure for a 150-character bio, about 18 characters a line.
+                  It reflows at md rather than lg because the row itself only
+                  goes two-up at lg — so between 768 and 1023 a card has the
+                  full column, and stacked that makes the photo a ~691-wide,
+                  675-tall slab above four lines of text. */}
+              <article className="team-card flex h-full flex-col overflow-hidden rounded-[calc(16*var(--k))] bg-white md:flex-row">
                 {/* 254 of the card's 674 on the artboard; a share rather than a fixed
                     width so it scales with the card. */}
-                <div className="relative aspect-[254/248] w-full shrink-0 lg:aspect-auto lg:w-[37.686%] lg:self-stretch">
+                {/* The artboard ratio is kept through md and only dropped at lg.
+                    Stretching to the card's height at md gave a 260x164 box for
+                    a portrait crop — object-cover then threw away the top and
+                    bottom of every face. At lg the row is two-up and the card
+                    has a min-height, so there the photo can fill it. */}
+                <div className="relative aspect-[254/248] w-full shrink-0 md:w-[37.686%] lg:aspect-auto lg:self-stretch">
                   <Image
                     src={src(m.photo)}
                     alt={m.name}

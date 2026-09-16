@@ -508,6 +508,24 @@
   }
 }
 
+/* Stacked, the same columns have nothing between them but a gap, so the block
+ * reads as three loose piles of links. The verticals above cannot simply be
+ * rotated: they are sized to the artboard's own 30-unit insets and they belong
+ * BETWEEN columns, of which there is one here.
+ *
+ * A rule above each link column instead — the sibling site's mobile footer does
+ * the same, and deliberately gives its brand cell none, so the mark stays the
+ * top of the block rather than becoming a fourth entry in a list. Half alpha
+ * because at this width the rule is a separator, not part of the artboard's
+ * "Cloud grid" frame, and the full #bababa reads as heavy as the block's own
+ * border-y. */
+@media (width < 64rem) {
+  .footer-cell {
+    border-top: 2px solid rgb(from var(--rule-2) r g b / 0.5);
+    padding-top: calc(28 * var(--k));
+  }
+}
+
 /* Page scrollbar, in the site's own colours: a navy thumb on the cream band,
  * going accent-pink on hover like every other interactive thing here.
  *

@@ -32,8 +32,20 @@ export function TrustedBy() {
           label="Members"
           arrow="chevron-trusted"
           autoScroll="rtl"
-          className="mt-[calc(56*var(--k))] px-[calc(52*var(--k))]"
-          trackClassName="gap-[calc(74*var(--k))]"
+          // Full-bleed below lg, by the sibling site's method: a negative margin
+          // equal to the container's own padding, on a child of container-page.
+          // Not w-screen or 100vw — those overshoot by the scrollbar width and
+          // put the page into horizontal overflow.
+          //
+          // The 52 padding exists ONLY to clear the arrows, which are absolute
+          // at the rail's edges; with the arrows gone below lg it is the one
+          // thing left holding the cards off the edge, so it goes lg-only too.
+          className="mt-[calc(56*var(--k))] -mx-(--page-inset) lg:mx-0 lg:px-[calc(52*var(--k))]"
+          trackClassName="gap-[12px] lg:gap-[calc(74*var(--k))]"
+          // `lg:grid`, not `lg:block`: the arrow's own base class is
+          // `grid place-items-center`, and restoring it as a block would
+          // un-center the chevron inside its 44px tap box.
+          arrowClassName="hidden lg:grid"
         >
           {/* 210 artboard px is an 88px stamp once --k floors at 0.42, so the
               card width carries a floor of its own and the photo follows by

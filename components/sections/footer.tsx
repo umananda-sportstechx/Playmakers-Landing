@@ -22,24 +22,28 @@ export function Footer() {
     <footer className="bg-page pt-[calc(71*var(--k))] pb-[calc(52*var(--k))] text-ink">
       <div className="container-page">
         <div className="border-y-2 border-rule-2 pt-[calc(53*var(--k))] pb-[calc(67*var(--k))]">
-          <div className="grid gap-y-[calc(48*var(--k))] lg:grid-cols-[57.40%_21.23%_21.37%] lg:gap-y-0">
+          {/* One column on a phone, three on the artboard — and two in between,
+              or the 768-1023 band renders the phone stack across 691px with an
+              empty right half. The brand cell spans both so only the two link
+              columns pair up. */}
+          <div className="grid gap-y-[calc(48*var(--k))] md:grid-cols-2 md:gap-x-[calc(48*var(--k))] lg:grid-cols-[57.40%_21.23%_21.37%] lg:gap-y-0">
             {/* Left cell — mark, blurb, contact */}
-            <div>
-              <Art name="wordmark-footer" alt="Playmakers" />
+            <div className="md:col-span-2 lg:col-span-1">
+              <Art name="wordmark-footer" alt="Playmakers" min={140} />
 
-              <p className="mt-[calc(28*var(--k))] lg:max-w-[calc(451*var(--k))] font-sans text-body leading-[1.78]">
+              <p className="mt-[calc(28*var(--k))] md:max-w-[58ch] lg:max-w-[calc(451*var(--k))] font-sans text-body leading-[1.78]">
                 {footer.description}
               </p>
 
               <ul className="mt-[calc(28*var(--k))]">
                 <li className="flex items-center gap-[calc(13*var(--k))]">
-                  <Art name="icon-mail" />
+                  <Art name="icon-mail" min={18} />
                   <a href={`mailto:${footer.email}`} className="font-sans text-body-sm leading-[2] hover:underline">
                     {footer.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-[calc(13*var(--k))]">
-                  <Art name="icon-pin" />
+                  <Art name="icon-pin" min={18} />
                   <span className="font-sans text-body-sm leading-[2]">{footer.location}</span>
                 </li>
               </ul>
@@ -75,7 +79,7 @@ export function Footer() {
                       href="#"
                       className="flex items-center gap-[calc(15*var(--k))] font-sans text-body leading-[1.78] hover:underline"
                     >
-                      <Art name={s.icon} />
+                      <Art name={s.icon} min={18} />
                       {s.label}
                     </a>
                   </li>

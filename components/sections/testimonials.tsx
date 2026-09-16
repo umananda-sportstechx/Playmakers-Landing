@@ -28,17 +28,37 @@ export function Testimonials() {
         <Carousel
           label="Testimonials"
           arrow="chevron-testimonial"
-          // Room for the arrows, which are absolute at the rail's edges. Without
-          // it they sit on top of the first lines of the quote at every width.
-          className="mt-[calc(73*var(--k))] px-[52px] lg:px-[calc(52*var(--k))]"
-          trackClassName="gap-[calc(130*var(--k))]"
-          arrowClassName="text-black"
+          // Full-bleed below lg — same negative-margin breakout as the members
+          // rail. The lg padding is room for the arrows, which are absolute at
+          // the rail's edges; without it they sit on top of the first lines of
+          // the quote.
+          className="mt-[calc(73*var(--k))] -mx-(--page-inset) lg:mx-0 lg:px-[calc(52*var(--k))]"
+          // Unlike the members rail this one SNAPS and is one-up, so a flush
+          // edge would put quote text against the glass. The track bleeds and
+          // then puts the gutter back as its own padding.
+          //
+          // scroll-px matters as much as px: snap-start aligns to the scroll
+          // port's edge, not the padding box, so without it every quote parks
+          // one gutter to the left of where it was padded to.
+          //
+          // overscroll-x-contain because a full-bleed swipe rail sitting at
+          // scrollLeft 0 otherwise hands the gesture to the browser's
+          // back-navigation. The members rail gets this from the autoScroll
+          // branch in Carousel; this one does not.
+          trackClassName="gap-[16px] overscroll-x-contain px-(--page-inset) scroll-px-(--page-inset) lg:gap-[calc(130*var(--k))] lg:px-0 lg:scroll-px-0"
+          // Hidden below lg, matching the sibling site. The peeking next quote
+          // (see the card width) is what replaces them as the swipe affordance.
+          arrowClassName="hidden text-black lg:grid"
           alwaysShowArrows
         >
           {testimonials.items.map((t, i) => (
             <figure
               key={i}
-              className="w-full shrink-0 snap-start text-center lg:w-[calc((100%-130*var(--k))/2)]"
+              // Deliberately narrower than the track's content box below lg, so
+              // ~40px of the next quote shows past the right edge. With the
+              // arrows hidden and pagination numbers rejected, that peek is the
+              // only thing telling a reader there is more than one story.
+              className="w-[calc(100%-44px)] shrink-0 snap-start text-center lg:w-[calc((100%-130*var(--k))/2)]"
             >
               <blockquote className="mx-auto lg:max-w-[calc(563*var(--k))] font-sans text-quote-sm leading-[1.42] text-black">
                 {t.quote}
