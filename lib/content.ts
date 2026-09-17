@@ -28,10 +28,29 @@ export type Member = {
   name: string;
   role: string;
   bio: string;
-  /** Asset name from design/assets.json, resolved via lib/assets. */
+  /** Asset name from design/assets.json, or an absolute CMS URL. Both go
+   *  through lib/assets' src(). */
   photo: string;
-  /** Colour adjustments carried by the photo's fill in Figma, if any. */
+  /** Colour adjustments carried by the photo's fill in Figma, if any. CMS
+   *  uploads are graded before upload, so they carry none. */
   fill: FigmaFill;
+};
+
+/** A trusted-by card: a person, and optionally the company mark drawn over
+ *  their photo. `logo` is an asset name or an absolute CMS URL. */
+export type TrustedMember = {
+  name: string;
+  role: string;
+  photo: string;
+  logo: string | null;
+};
+
+export type Story = {
+  quote: string;
+  name: string;
+  role: string;
+  /** Asset name or CMS URL; falls back to the artboard's avatar. */
+  photo: string | null;
 };
 
 export type Offer = {
@@ -66,11 +85,13 @@ export const trustedBy = {
   // caption typography drifts across them (Teko 300/22 on 1-2, Teko 500/18 on
   // 3-7, the role on card 7 is CommitMono where the rest are Space Grotesk).
   // Normalised to the majority styling here.
+  // Shown until an admin fills Site assets -> Playmakers -> Carousel gallery.
   members: Array.from({ length: 5 }, (_, i) => ({
     name: 'Alexander Janssen',
     role: 'CEO, Dutch SportsTech Fund',
     photo: `member-${i + 1}`,
-  })),
+    logo: null,
+  })) satisfies TrustedMember[],
 };
 
 export const offers = {
@@ -133,39 +154,47 @@ export const testimonials = {
    * The names are not real people and none of this is a real endorsement, so
    * delete the lot before this goes anywhere public. They are deliberately all
    * different so it is obvious which card you are looking at while testing.
+   * All of it disappears the moment an admin adds one real testimonial in
+   * Site assets -> Playmakers -> Testimonials.
    */
   items: [
     {
       quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
       name: 'Alexander Janssen',
       role: 'CEO, Dutch SportsTech Fund',
+      photo: null,
     },
     {
       quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
       name: 'Alexander Janssen',
       role: 'CEO, Dutch SportsTech Fund',
+      photo: null,
     },
     {
       quote: '“Two of my core group had solved the exact problem I was stuck on. That call saved us a quarter.”',
       name: 'Placeholder Two',
       role: 'Founder, Placeholder Analytics',
+      photo: null,
     },
     {
       quote: '“The introductions were the opposite of networking. Every one of them went somewhere.”',
       name: 'Placeholder Three',
       role: 'CEO, Placeholder Performance',
+      photo: null,
     },
     {
       quote: '“I stopped guessing what good looked like at our stage. I could just ask someone who had been there.”',
       name: 'Placeholder Four',
       role: 'Co-Founder, Placeholder Labs',
+      photo: null,
     },
     {
       quote: '“It is the only room where I can say the quiet part out loud and get a straight answer back.”',
       name: 'Placeholder Five',
       role: 'Managing Director, Placeholder Ventures',
+      photo: null,
     },
-  ],
+  ] satisfies Story[],
 };
 
 export const quote = {

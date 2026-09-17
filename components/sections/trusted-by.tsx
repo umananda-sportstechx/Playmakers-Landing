@@ -3,7 +3,7 @@ import { Art } from '@/components/art';
 import { Carousel } from '@/components/carousel';
 import { Lines } from '@/components/lines';
 import { src } from '@/lib/assets';
-import { trustedBy } from '@/lib/content';
+import { trustedBy, type TrustedMember } from '@/lib/content';
 
 /**
  * Trusted by — 1513x688 on cream, a rail of 210x232 member photos.
@@ -14,7 +14,7 @@ import { trustedBy } from '@/lib/content';
  * Two dashed "Breaker" lines inside this section are switched off in the
  * design and are not built.
  */
-export function TrustedBy() {
+export function TrustedBy({ members = trustedBy.members }: { members?: TrustedMember[] }) {
   return (
     <section
       className="noise bg-band py-[calc(104*var(--k))]"
@@ -50,7 +50,7 @@ export function TrustedBy() {
           {/* 210 artboard px is an 88px stamp once --k floors at 0.42, so the
               card width carries a floor of its own and the photo follows by
               aspect-ratio rather than a second frozen length. */}
-          {trustedBy.members.map((m, i) => (
+          {members.map((m, i) => (
             <article key={i} className="w-[max(160px,calc(210*var(--k)))] shrink-0 snap-start text-center">
               <div className="relative aspect-[210/232] w-full overflow-hidden rounded-[max(6px,calc(6*var(--k)))]">
                 <Image src={src(m.photo)} alt={m.name} fill sizes="210px" className="object-cover" />
@@ -58,7 +58,19 @@ export function TrustedBy() {
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-[calc(72*var(--k))] bg-linear-to-b from-[#454545]/0 to-[#232529]"
                 />
-                <Art name="logo-bcg" className="absolute bottom-[calc(18*var(--k))] left-1/2 -translate-x-1/2" />
+                {/* The company mark at the middle bottom of the photo. An
+                    uploaded logo replaces the artboard's flattened BCG vector. */}
+                {m.logo ? (
+                  <Image
+                    src={src(m.logo)}
+                    alt=""
+                    width={120}
+                    height={24}
+                    className="absolute bottom-[calc(18*var(--k))] left-1/2 h-[calc(20*var(--k))] w-auto max-w-[62%] -translate-x-1/2 object-contain"
+                  />
+                ) : (
+                  <Art name="logo-bcg" className="absolute bottom-[calc(18*var(--k))] left-1/2 -translate-x-1/2" />
+                )}
               </div>
 
               <p className="mt-[calc(15*var(--k))] font-display text-[max(15px,calc(18*var(--k)))] font-medium leading-[1.2] text-[#232529]">

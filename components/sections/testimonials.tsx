@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Carousel } from '@/components/carousel';
 import { src } from '@/lib/assets';
-import { testimonials } from '@/lib/content';
+import { testimonials, type Story } from '@/lib/content';
 
 /**
  * Testimonials — 1434x284, transparent over the page white.
@@ -17,7 +17,7 @@ import { testimonials } from '@/lib/content';
  * exactly fill the rail, so the arrows take themselves away until there is a
  * third story to scroll to.
  */
-export function Testimonials() {
+export function Testimonials({ items = testimonials.items }: { items?: Story[] }) {
   return (
     <section className="bg-page py-[calc(98*var(--k))]">
       <div className="container-page">
@@ -51,7 +51,7 @@ export function Testimonials() {
           arrowClassName="hidden text-black lg:grid"
           alwaysShowArrows
         >
-          {testimonials.items.map((t, i) => (
+          {items.map((t, i) => (
             <figure
               key={i}
               // Deliberately narrower than the track's content box below lg, so
@@ -66,7 +66,9 @@ export function Testimonials() {
 
               <figcaption className="mt-[calc(29*var(--k))] flex items-center justify-center gap-[calc(17*var(--k))]">
                 <Image
-                  src={src('testimonial-avatar')}
+                  // Per-item photo when the admin supplied one, otherwise the
+                  // artboard's avatar — this design always draws a face.
+                  src={src(t.photo ?? 'testimonial-avatar')}
                   alt=""
                   width={72}
                   height={72}

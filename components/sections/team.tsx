@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FigmaImage, cssFilter } from '@/components/figma-image';
 import { Lines } from '@/components/lines';
 import { src } from '@/lib/assets';
-import { team } from '@/lib/content';
+import { team, type Member } from '@/lib/content';
 
 /**
  * Team — 1513x1005, a stadium photograph under a navy wash, four 674x248 white
@@ -10,7 +10,7 @@ import { team } from '@/lib/content';
  *
  * The artboard's "BG Detail" green-square rig is switched off and not built.
  */
-export function Team() {
+export function Team({ members = team.members }: { members?: Member[] }) {
   return (
     <section id="team" className="relative isolate overflow-hidden bg-hero py-[calc(150*var(--k))]">
       {/* fills[0] on the artboard: 45% opacity, exposure -0.62, saturation -1,
@@ -53,7 +53,7 @@ export function Team() {
         </p>
 
         <ul className="team-row mt-[calc(115*var(--k))] grid gap-x-[calc(33*var(--k))] gap-y-[calc(36*var(--k))] lg:grid-cols-2">
-          {team.members.map((m) => (
+          {members.map((m) => (
             <li key={m.name}>
               {/* Stacked on a phone only. The artboard's 38/62 photo-text split is a
                   desktop shape: at 390px it leaves a 113px photo and ~155px of

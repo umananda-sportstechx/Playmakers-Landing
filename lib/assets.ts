@@ -19,5 +19,14 @@ export function asset(name: string): Asset {
   return hit;
 }
 
-/** Just the public path, for the common case. */
-export const src = (name: string) => asset(name).file;
+/**
+ * Just the public path, for the common case.
+ *
+ * An absolute http(s) URL passes straight through: CMS images (admin panel ->
+ * Site assets) are runtime URLs with no manifest entry, and every component
+ * already routes its image through here, so this is the only place that has to
+ * know the difference. Remote hosts must also be in next.config.ts's
+ * images.remotePatterns or next/image rejects them.
+ */
+export const src = (name: string) =>
+  /^https?:\/\//.test(name) ? name : asset(name).file;
