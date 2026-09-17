@@ -86,6 +86,16 @@ export function Carousel({
    */
   const [copies, setCopies] = useState(2);
   const copyWidth = useRef(0);
+  /**
+   * The real cards already fit the rail, so there is nothing to scroll to.
+   *
+   * Without this the repeat logic below happily tiled a single card eight times
+   * to manufacture something to loop — a CMS gallery with one partner in it
+   * rendered as a wall of the same face. When everything is visible the rail
+   * should just show it, centred, and stay still.
+   */
+  const [fits, setFits] = useState(false);
+  const looping = Boolean(autoScroll) && !fits;
 
   useEffect(() => {
     if (!autoScroll) return;
@@ -93,10 +103,28 @@ export function Carousel({
     if (!el) return;
     const measure = () => {
       const items = flexItems(el);
-      const perCopy = items.length / copies;
+      if (items.length === 0) return;
+      const perCopy = Math.max(1, Math.round(items.length / copies));
       const first = items[0];
+      const lastOfCopy = items[perCopy - 1];
+      if (!first || !lastOfCopy) return;
+
+      // One copy's visible width, with no trailing gap. Measured from the copy
+      // itself rather than from the pitch, so it still works once we have
+      // collapsed to a single copy and there is no second one to measure to.
+      const contentW = lastOfCopy.offsetLeft + lastOfCopy.offsetWidth - first.offsetLeft;
+      const fitsNow = contentW <= el.clientWidth + 1;
+      setFits(fitsNow);
+      if (fitsNow) {
+        if (copies !== 1) setCopies(1);
+        return;
+      }
+
       const second = items[perCopy];
-      if (!first || !second) return;
+      if (!second) {
+        if (copies < 2) setCopies(2);
+        return;
+      }
       // The distance from one copy's first card to the next copy's first card.
       //
       // NOT scrollWidth / copies: the final copy has no trailing gap, so that
@@ -133,7 +161,7 @@ export function Carousel({
 
   useEffect(() => {
     const el = track.current;
-    if (!el || !autoScroll) return;
+    if (!el || !looping) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const dir = autoScroll === 'ltr' ? -1 : 1;
@@ -170,7 +198,7 @@ export function Carousel({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [autoScroll, copies]);
+  }, [looping, copies]);
 
   /**
    * One card per press.
@@ -243,14 +271,17 @@ export function Carousel({
         tabIndex={0}
         className={cn(
           'flex overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-          autoScroll ? 'overscroll-x-contain' : 'snap-x snap-mandatory scroll-smooth',
+          looping ? 'overscroll-x-contain' : 'snap-x snap-mandatory scroll-smooth',
+          // Everything is visible: centre it instead of leaving the cards
+          // hugging the left edge with dead space beside them.
+          fits && 'justify-center',
           trackClassName
         )}
       >
         {children}
         {/* Repeats make the wrap seamless; hidden from assistive tech so the
             rail reads as its real contents once, not once per copy. */}
-        {autoScroll &&
+        {looping &&
           Array.from({ length: copies - 1 }, (_, i) => (
             <div key={i} className="contents" aria-hidden>
               {children}
@@ -261,12 +292,12 @@ export function Carousel({
       {/* Both ends at once means the content already fits, so there is nowhere
           to page — show no affordance rather than two dead arrows, unless the
           caller wants them held in place. */}
-      {(alwaysShowArrows || !(atStart && atEnd && !autoScroll)) && (
+      {(alwaysShowArrows || !(atStart && atEnd && !looping)) && (
         <>
           <Arrow
             side="left"
             arrow={arrow}
-            disabled={!autoScroll && atStart}
+            disabled={!looping && atStart}
             onClick={() => page(-1)}
             onHold={pause}
             onRelease={resume}
@@ -276,7 +307,7 @@ export function Carousel({
           <Arrow
             side="right"
             arrow={arrow}
-            disabled={!autoScroll && atEnd}
+            disabled={!looping && atEnd}
             onClick={() => page(1)}
             onHold={pause}
             onRelease={resume}
