@@ -64,9 +64,9 @@ export function TrustedBy({ members = trustedBy.members }: { members?: TrustedMe
                   <Image
                     src={src(m.logo)}
                     alt=""
-                    width={120}
-                    height={24}
-                    className="absolute bottom-[calc(18*var(--k))] left-1/2 h-[calc(20*var(--k))] w-auto max-w-[62%] -translate-x-1/2 object-contain"
+                    width={160}
+                    height={48}
+                    className="absolute bottom-[calc(18*var(--k))] left-1/2 h-auto max-h-[max(24px,calc(36*var(--k)))] w-auto max-w-[40%] -translate-x-1/2 object-contain"
                   />
                 ) : (
                   <Art name="logo-bcg" className="absolute bottom-[calc(18*var(--k))] left-1/2 -translate-x-1/2" />
