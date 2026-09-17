@@ -53,8 +53,8 @@ export function Team({ members = team.members }: { members?: Member[] }) {
         </p>
 
         <ul className="team-row mt-[calc(115*var(--k))] grid gap-x-[calc(33*var(--k))] gap-y-[calc(36*var(--k))] lg:grid-cols-2">
-          {members.map((m) => (
-            <li key={m.name}>
+          {members.map((m, i) => (
+            <li key={`${m.name}-${i}`}>
               {/* Stacked on a phone only. The artboard's 38/62 photo-text split is a
                   desktop shape: at 390px it leaves a 113px photo and ~155px of
                   measure for a 150-character bio, about 18 characters a line.
@@ -72,7 +72,7 @@ export function Team({ members = team.members }: { members?: Member[] }) {
                     has a min-height, so there the photo can fill it. */}
                 <div className="relative aspect-[254/248] w-full shrink-0 md:w-[37.686%] lg:aspect-auto lg:self-stretch">
                   <Image
-                    src={src(m.photo)}
+                    src={src(m.photo, 'team-1')}
                     alt={m.name}
                     fill
                     sizes="254px"

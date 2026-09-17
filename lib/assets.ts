@@ -28,5 +28,14 @@ export function asset(name: string): Asset {
  * know the difference. Remote hosts must also be in next.config.ts's
  * images.remotePatterns or next/image rejects them.
  */
-export const src = (name: string) =>
-  /^https?:\/\//.test(name) ? name : asset(name).file;
+export const src = (name: string, fallback?: string): string => {
+  if (/^https?:\/\//.test(name)) return name;
+  // A blank name is what a CMS row with no image collapses to. asset() throws
+  // on an unknown name, and every caller here is a Server Component, so an
+  // unguarded '' took the whole page down with a 500 instead of degrading.
+  if (!name) {
+    if (fallback) return src(fallback);
+    throw new Error('src() called with an empty asset name - pass a fallback');
+  }
+  return asset(name).file;
+};

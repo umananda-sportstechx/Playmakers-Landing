@@ -53,7 +53,7 @@ export function TrustedBy({ members = trustedBy.members }: { members?: TrustedMe
           {members.map((m, i) => (
             <article key={i} className="w-[max(160px,calc(210*var(--k)))] shrink-0 snap-start text-center">
               <div className="relative aspect-[210/232] w-full overflow-hidden rounded-[max(6px,calc(6*var(--k)))]">
-                <Image src={src(m.photo)} alt={m.name} fill sizes="210px" className="object-cover" />
+                <Image src={src(m.photo, 'member-1')} alt={m.name} fill sizes="210px" className="object-cover" />
                 <div
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-[calc(72*var(--k))] bg-linear-to-b from-[#454545]/0 to-[#232529]"

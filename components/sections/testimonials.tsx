@@ -68,7 +68,7 @@ export function Testimonials({ items = testimonials.items }: { items?: Story[] }
                 <Image
                   // Per-item photo when the admin supplied one, otherwise the
                   // artboard's avatar — this design always draws a face.
-                  src={src(t.photo ?? 'testimonial-avatar')}
+                  src={src(t.photo || '', 'testimonial-avatar')}
                   alt=""
                   width={72}
                   height={72}
