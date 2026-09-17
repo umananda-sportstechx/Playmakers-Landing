@@ -8,6 +8,12 @@ import { Art } from '@/components/art';
  * semantics and browser find-in-page opening the matching row all come free,
  * and a scripted accordion would have to reimplement each of them.
  *
+ * `name` is what makes it an accordion rather than 12 independent disclosures —
+ * same name, at most one open, so opening a row closes the last. Without it
+ * every row stayed open, which is the whole of what "the accordion logic is
+ * wrong" meant. Do not remove it in favour of an onToggle handler; the point of
+ * this component is that the browser does all of it.
+ *
  * The artboard draws every row collapsed, so it specifies no open state at all —
  * the panel's type and spacing below are ours, not the design's.
  */
@@ -27,6 +33,7 @@ export function Faq() {
           {faq.items.map(({ q, a }) => (
             <details
               key={q}
+              name="faq"
               className="faq-row group border-b border-dashed border-line py-[calc(17*var(--k))]"
             >
               <summary className="flex cursor-pointer list-none items-start justify-between gap-[calc(24*var(--k))] [&::-webkit-details-marker]:hidden">
