@@ -5,9 +5,17 @@ import { Rise } from '@/components/rise';
 import { termsOfMembership } from '@/lib/legal';
 
 export const metadata: Metadata = {
-  title: 'Terms of Membership — Playmakers',
+  // Bare title: the root layout supplies the ' — Playmakers' template.
+  title: 'Terms of Membership',
   description:
     'The terms governing membership of Playmakers, the by-invitation network for sports tech founders and CEOs.',
+  alternates: { canonical: '/terms' },
+  openGraph: {
+    title: 'Terms of Membership — Playmakers',
+    description:
+      'The terms governing membership of Playmakers, the by-invitation network for sports tech founders and CEOs.',
+    url: '/terms',
+  },
 };
 
 export default function TermsPage() {
