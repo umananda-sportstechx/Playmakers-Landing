@@ -122,7 +122,12 @@ export function Carousel({
       // itself rather than from the pitch, so it still works once we have
       // collapsed to a single copy and there is no second one to measure to.
       const contentW = lastOfCopy.offsetLeft + lastOfCopy.offsetWidth - first.offsetLeft;
-      const fitsNow = contentW <= el.clientWidth + 1;
+      // "Fits" has to mean there is room for ANOTHER card, not merely that the
+      // current ones squeeze in. A rail left with 50px of slack still reads as
+      // full, and a full rail that refuses to move just looks broken.
+      const nextItem = items[1];
+      const cardStride = nextItem ? nextItem.offsetLeft - first.offsetLeft : lastOfCopy.offsetWidth;
+      const fitsNow = el.clientWidth - contentW >= cardStride;
       setFits(fitsNow);
       // Collapsing to one copy is what makes a fitting rail static. With
       // alwaysLoop the rail still has to wrap, so it needs its copies.
