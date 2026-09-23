@@ -48,6 +48,7 @@ export function Carousel({
   label,
   autoScroll,
   alwaysShowArrows,
+  alwaysLoop,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -67,6 +68,14 @@ export function Carousel({
    * quotes but will not stay that way.
    */
   alwaysShowArrows?: boolean;
+  /**
+   * Drift even when the cards already fit.
+   *
+   * For the built-in placeholder set, which IS the designed full rail: a wide
+   * screen where its five cards happen to fit should still move. Uploaded cards
+   * get the opposite treatment - see `fits`.
+   */
+  alwaysLoop?: boolean;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const paused = useRef(false);
@@ -95,7 +104,7 @@ export function Carousel({
    * should just show it, centred, and stay still.
    */
   const [fits, setFits] = useState(false);
-  const looping = Boolean(autoScroll) && !fits;
+  const looping = Boolean(autoScroll) && (alwaysLoop || !fits);
 
   useEffect(() => {
     if (!autoScroll) return;
@@ -115,7 +124,9 @@ export function Carousel({
       const contentW = lastOfCopy.offsetLeft + lastOfCopy.offsetWidth - first.offsetLeft;
       const fitsNow = contentW <= el.clientWidth + 1;
       setFits(fitsNow);
-      if (fitsNow) {
+      // Collapsing to one copy is what makes a fitting rail static. With
+      // alwaysLoop the rail still has to wrap, so it needs its copies.
+      if (fitsNow && !alwaysLoop) {
         if (copies !== 1) setCopies(1);
         return;
       }
@@ -140,7 +151,7 @@ export function Carousel({
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [autoScroll, copies]);
+  }, [autoScroll, copies, alwaysLoop]);
 
   const sync = useCallback(() => {
     const el = track.current;
@@ -274,7 +285,7 @@ export function Carousel({
           looping ? 'overscroll-x-contain' : 'snap-x snap-mandatory scroll-smooth',
           // Everything is visible: centre it instead of leaving the cards
           // hugging the left edge with dead space beside them.
-          fits && 'justify-center',
+          fits && !alwaysLoop && 'justify-center',
           trackClassName
         )}
       >

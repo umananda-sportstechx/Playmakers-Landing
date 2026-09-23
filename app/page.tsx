@@ -56,7 +56,7 @@ export default async function Home() {
       <main>
         <IntroHero />
         <div data-rise>
-          <TrustedBy members={members} />
+          <TrustedBy members={members} isPlaceholder={!cms.gallery?.length} />
         </div>
         <div data-rise>
           <MembershipOffers />

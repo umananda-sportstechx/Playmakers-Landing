@@ -14,7 +14,14 @@ import { trustedBy, type TrustedMember } from '@/lib/content';
  * Two dashed "Breaker" lines inside this section are switched off in the
  * design and are not built.
  */
-export function TrustedBy({ members = trustedBy.members }: { members?: TrustedMember[] }) {
+export function TrustedBy({
+  members = trustedBy.members,
+  isPlaceholder = true,
+}: {
+  members?: TrustedMember[];
+  /** No CMS cards uploaded yet, so the rail is the designed placeholder set. */
+  isPlaceholder?: boolean;
+}) {
   return (
     <section
       className="noise bg-band py-[calc(104*var(--k))]"
@@ -32,6 +39,7 @@ export function TrustedBy({ members = trustedBy.members }: { members?: TrustedMe
           label="Members"
           arrow="chevron-trusted"
           autoScroll="rtl"
+          alwaysLoop={isPlaceholder}
           // Full-bleed below lg, by the sibling site's method: a negative margin
           // equal to the container's own padding, on a child of container-page.
           // Not w-screen or 100vw — those overshoot by the scrollbar width and
