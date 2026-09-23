@@ -65,12 +65,14 @@ export type Offer = {
 export const nav = {
   // FIXME(design): reads "EXPLORE¬ MEMBERSHIP" in Figma. U+00AC is a stray
   // line-break marker, not copy — dropped here.
+  /* Root-relative: a bare '#team' resolves to /terms#team on a sub-route and
+     scrolls nowhere. */
   links: [
-    { label: 'EXPLORE MEMBERSHIP', href: '#membership' },
-    { label: 'ABOUT US', href: '#team' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'EXPLORE MEMBERSHIP', href: '/#membership' },
+    { label: 'ABOUT US', href: '/#team' },
+    { label: 'FAQ', href: '/#faq' },
   ],
-  cta: { label: 'LOG IN', href: '#login' },
+  cta: { label: 'LOG IN', href: '/#login' },
 };
 
 export const hero = {
@@ -368,11 +370,11 @@ export const footer = {
     {
       heading: 'Quick Links',
       links: [
-        'Explore Membership',
-        'How to Join',
-        'About us',
-        'FAQ',
-        'Terms of membership',
+        { label: 'Explore Membership', href: '/#membership' },
+        { label: 'How to Join', href: '/#how-to-join' },
+        { label: 'About us', href: '/#team' },
+        { label: 'FAQ', href: '/#faq' },
+        { label: 'Terms of membership', href: '/terms' },
       ],
     },
   ],

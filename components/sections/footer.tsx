@@ -57,9 +57,9 @@ export function Footer() {
                 </h2>
                 <ul className="mt-[calc(21*var(--k))]">
                   {col.links.map((l) => (
-                    <li key={l}>
-                      <a href="#" className="font-sans text-body leading-[1.78] hover:underline">
-                        {l}
+                    <li key={l.label}>
+                      <a href={l.href} className="font-sans text-body leading-[1.78] hover:underline">
+                        {l.label}
                       </a>
                     </li>
                   ))}
@@ -91,7 +91,13 @@ export function Footer() {
 
         <div className="mt-[calc(22*var(--k))] flex flex-col gap-[calc(8*var(--k))] font-label text-[max(12px,calc(13*var(--k)))] leading-[2.46] lg:flex-row lg:justify-between">
           <p>{footer.legal}</p>
-          <p>{footer.meta}</p>
+          <p>
+            <a href="/terms" className="hover:underline">
+              Terms of Membership
+            </a>
+            {' · '}
+            {footer.meta}
+          </p>
         </div>
       </div>
     </footer>

@@ -97,7 +97,7 @@ export function NavBar() {
           <MobileMenuButton className="lg:hidden" />
 
           <a
-            href="#top"
+            href="/#top"
             aria-label="Playmakers — back to top"
             className="grid min-h-[44px] min-w-[44px] place-items-center lg:min-h-0 lg:min-w-0"
           >
