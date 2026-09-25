@@ -62,6 +62,13 @@ export function TrustedBy({
             <article key={i} className="w-[max(160px,calc(210*var(--k)))] shrink-0 snap-start text-center">
               <div className="relative aspect-[210/232] w-full overflow-hidden rounded-[max(6px,calc(6*var(--k)))]">
                 <Image src={src(m.photo, 'member-1')} alt={m.name} fill sizes="210px" className="object-cover" />
+                {/* A flat dim across the whole photo. The logos that go over
+                    these are white, and a headshot can be light enough to
+                    swallow one — the gradient below only darkens the bottom
+                    strip, which is not enough once a real mark is wider than
+                    the flattened vector it replaced. Ordered before the logo so
+                    it never dims the mark itself. */}
+                <div aria-hidden className="absolute inset-0 bg-black/30" />
                 <div
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-[calc(72*var(--k))] bg-linear-to-b from-[#454545]/0 to-[#232529]"
@@ -81,10 +88,11 @@ export function TrustedBy({
                 )}
               </div>
 
-              <p className="mt-[calc(15*var(--k))] font-display text-[max(15px,calc(18*var(--k)))] font-medium leading-[1.2] text-[#232529]">
+              {/* Both up 2pt on the artboard's 18/11, floors with them. */}
+              <p className="mt-[calc(15*var(--k))] font-display text-[max(17px,calc(20*var(--k)))] font-medium leading-[1.2] text-[#232529]">
                 {m.name}
               </p>
-              <p className="font-label text-[max(12px,calc(11*var(--k)))] leading-[1.5] text-[#232529]">{m.role}</p>
+              <p className="font-label text-[max(14px,calc(13*var(--k)))] leading-[1.5] text-[#232529]">{m.role}</p>
             </article>
           ))}
         </Carousel>
