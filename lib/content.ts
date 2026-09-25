@@ -57,8 +57,11 @@ export type Offer = {
   n: string;
   tag: string;
   title: string;
-  leadIn: string;
-  body: string;
+  /**
+   * The card's prose, as lead-in/body pairs — the lead-in renders bold. Cards 2
+   * and 3 carry two each on the live page, which is why this is a list.
+   */
+  paras: { leadIn: string; body: string }[];
   bullets: string[];
 };
 
@@ -99,17 +102,21 @@ export const trustedBy = {
 export const offers = {
   // Teko 400/55 centred section head on the artboard, same as the others.
   title: 'What Membership Offers',
-  // FIXME(design): cards 2 and 3 were never given their own copy. Card 2 still
-  // repeats card 1's title, card 3's title is literally "¬", and all three share
-  // one body and one bullet list. Their real subjects survive only in the
-  // vertical tags, which is what `tag` holds.
+  // Cards 2 and 3 were placeholders on the artboard — it repeated card 1's
+  // title and body for card 2 and left card 3's title as a literal "¬", so all
+  // three shipped identical prose. Their real copy is taken from the live page;
+  // the vertical `tag` was the only place their subjects had survived.
   cards: [
     {
       n: '1',
       tag: 'YOUR PERSONAL BOARD OF ADVISORS',
       title: 'YOUR PERSONAL  BOARD OF ADVISORS',
-      leadIn: 'Founder-to-Founder Advisory Board',
-      body: ' confidential, professionally facilitated monthly core group sessions (9x/year) between 6-9 Playmakers members, providing the real-world strategic guidance of a high-caliber advisory board without the six-figure cost or time drain.',
+      paras: [
+        {
+          leadIn: 'Founder-to-Founder Advisory Board',
+          body: ' confidential, professionally facilitated monthly core group sessions (9x/year) between 6-9 Playmakers members, providing the real-world strategic guidance of a high-caliber advisory board without the six-figure cost or time drain',
+        },
+      ],
       bullets: [
         "Skip costly trial-and-error by learning from other founders who've been there",
         'Scale faster with advice from leaders who have navigated complex growth',
@@ -119,27 +126,41 @@ export const offers = {
     {
       n: '2',
       tag: 'INSIDER SPORTS INDUSTRY NETWORK',
-      title: 'YOUR PERSONAL  BOARD OF ADVISORS',
-      leadIn: 'Founder-to-Founder Advisory Board',
-      body: ' confidential, professionally facilitated monthly core group sessions (9x/year) between 6-9 Playmakers members, providing the real-world strategic guidance of a high-caliber advisory board without the six-figure cost or time drain.',
+      title: 'INSIDER SPORTS  INDUSTRY NETWORK',
+      paras: [
+        {
+          leadIn: 'Member Events',
+          body: ' that go beyond surface-level networking and turn your peers into partners',
+        },
+        {
+          leadIn: 'Curated Introductions',
+          body: ' to other members, investors and key sports industry stakeholders leveraging the collective network of the core team and members',
+        },
+      ],
       bullets: [
-        "Skip costly trial-and-error by learning from other founders who've been there",
-        'Scale faster with advice from leaders  who have navigated complex growth',
-        'Stay mentally resilient with a circle that understands your journey',
+        'Create high impact relationships with sports industry leaders',
+        'Grow your personal profile and visibility to top leaders in sports',
+        'Gain access to new partners, markets and investment to accelerate business growth',
       ],
     },
     {
       n: '3',
       tag: 'SPORTS TECH INTELLIGENCE',
-      // The artboard leaves this as a literal "¬". Titled from the card's own
-      // vertical tag, which is the only place its subject is stated.
       title: 'SPORTS TECH  INTELLIGENCE',
-      leadIn: 'Founder-to-Founder Advisory Board',
-      body: ' confidential, professionally facilitated monthly core group sessions (9x/year) between 6-9 Playmakers members, providing the real-world strategic guidance of a high-caliber advisory board without the six-figure cost or time drain.',
+      paras: [
+        {
+          leadIn: 'Pro-Level Access to the SportsTechX Intelligence Hub',
+          body: ' providing actionable insights on global sports tech trends and innovation',
+        },
+        {
+          leadIn: 'Digital Community',
+          body: ' for continuous peer-to-peer exchange of best operator knowledge and strategic playbooks in sports tech',
+        },
+      ],
       bullets: [
-        "Skip costly trial-and-error by learning from other founders who've been there",
-        'Scale faster with advice from leaders  who have navigated complex growth',
-        'Stay mentally resilient with a circle that understands your journey',
+        'Build with anytime / anywhere access to the best knowledge in sports tech',
+        'Inform your strategy with world-class sports tech market data and research',
+        'Leverage insider expertise to obtain a competitive advantage',
       ],
     },
   ] satisfies Offer[],

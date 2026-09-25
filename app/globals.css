@@ -422,6 +422,17 @@
     border-radius: calc(20 * var(--k));
   }
 
+  /* The front card is the only one whose copy is read, and a ratio cannot hold
+   * text: the same words rewrap to more lines as the card narrows, so a shape
+   * that fits at 1440 clips at 1024 — which it already did before cards 2 and 3
+   * were given their own copy. Its height follows the content instead, with the
+   * artboard's 643 as a floor so a short card still draws at the drawn size.
+   * The cards behind keep the ratio; they are shape only. */
+  .deck-card[data-front] {
+    aspect-ratio: auto;
+    min-height: calc(643 * var(--k));
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .deck-card {
       transition:

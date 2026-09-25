@@ -67,6 +67,9 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
           return (
             <article
               key={card.n}
+              // Only the front card shows its copy, so only it needs to size to
+              // it — see .deck-card[data-front] in globals.css.
+              data-front={isFront || undefined}
               style={{ '--slot': slot, '--noise-alpha': 0.18 } as CSSProperties}
               className={cn(
                 'deck-card noise relative isolate overflow-hidden rounded-[calc(20*var(--k))] shadow-card inset-shadow-glow',
@@ -115,7 +118,11 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                 aria-hidden={stacked && !isFront}
                 inert={stacked && !isFront}
               >
-                <div className="lg:w-[calc(544*var(--k))] lg:pt-[calc(66*var(--k))] lg:pl-[calc(76*var(--k))]">
+                {/* pb matches pt. The artboard's fixed card height used to
+                    supply the space under the last bullet; now that the front
+                    card sizes to its copy, the padding has to be real or the
+                    bullet sits on the card's bottom edge. */}
+                <div className="lg:w-[calc(544*var(--k))] lg:pt-[calc(66*var(--k))] lg:pr-[calc(40*var(--k))] lg:pb-[calc(66*var(--k))] lg:pl-[calc(76*var(--k))]">
                   {/* Stacked, the tag strip is hidden and the card loses its
                       number with it. Put the badge back above the title. */}
                   <span className="mb-[calc(24*var(--k))] grid size-[44px] place-items-center rounded-full border-2 border-white/70 font-label text-[18px] tracking-[0.1em] text-white lg:hidden">
@@ -126,10 +133,17 @@ export function MembershipDeck({ cards }: { cards: Offer[] }) {
                     <Lines text={card.title} />
                   </h3>
 
-                  <p className="mt-[calc(31*var(--k))] font-sans text-body leading-[1.72] text-white">
-                    <strong className="font-semibold">{card.leadIn}</strong>
-                    {card.body}
-                  </p>
+                  {/* Two paragraphs on cards 2 and 3, one on card 1 — the live
+                      page leads each with its own bold phrase. */}
+                  {card.paras.map((para) => (
+                    <p
+                      key={para.leadIn}
+                      className="mt-[calc(31*var(--k))] font-sans text-body leading-[1.72] text-white"
+                    >
+                      <strong className="font-semibold">{para.leadIn}</strong>
+                      {para.body}
+                    </p>
+                  ))}
 
                   <ul className="mt-[calc(31*var(--k))] space-y-[calc(30*var(--k))]">
                     {card.bullets.map((b) => (
