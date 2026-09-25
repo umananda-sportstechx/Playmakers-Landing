@@ -76,12 +76,16 @@ export function TrustedBy({
                 {/* The company mark at the middle bottom of the photo. An
                     uploaded logo replaces the artboard's flattened BCG vector. */}
                 {m.logo ? (
+                  /* grayscale because the marks have to read as one set.
+                     Sourcing B&W files was the standing ask, but uploads arrive
+                     in whatever the company publishes — doing it here makes the
+                     rule hold regardless. */
                   <Image
                     src={src(m.logo)}
                     alt=""
                     width={160}
                     height={48}
-                    className="absolute bottom-[calc(18*var(--k))] left-1/2 h-auto max-h-[max(24px,calc(36*var(--k)))] w-auto max-w-[40%] -translate-x-1/2 object-contain"
+                    className="absolute bottom-[calc(18*var(--k))] left-1/2 h-auto max-h-[max(24px,calc(36*var(--k)))] w-auto max-w-[40%] -translate-x-1/2 object-contain grayscale"
                   />
                 ) : (
                   <Art name="logo-bcg" className="absolute bottom-[calc(18*var(--k))] left-1/2 -translate-x-1/2" />
