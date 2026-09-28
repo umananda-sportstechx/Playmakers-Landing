@@ -94,7 +94,9 @@ export function NavBar() {
               — and the only way out: it flips to an X, so it must NOT be faded
               while the drawer is open. The click-away overlay behind the page
               and Escape are both invisible affordances on a phone. */}
-          <MobileMenuButton className="lg:hidden" />
+          {/* Shown at every width now: above lg the drawer carries the route
+              back to sportstechx.com, which the bar has no other link to. */}
+          <MobileMenuButton />
 
           <a
             href="/#top"

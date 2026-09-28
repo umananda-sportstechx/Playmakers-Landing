@@ -78,6 +78,28 @@ export const nav = {
   cta: { label: 'LOG IN', href: '/#login' },
 };
 
+/**
+ * Back to the mothership. Playmakers is its own deployment on joinplaymakers.co,
+ * so these must be absolute — a root-relative '/#solutions' lands on this site,
+ * which has no such section.
+ *
+ * "Investors Circle" is another name for Playmakers and has no page of its own;
+ * the STX site's own footer points both at joinplaymakers.co, so this matches
+ * rather than inventing a destination.
+ */
+export const STX_HOME = 'https://sportstechx.com';
+export const stxNav = {
+  solutions: [
+    { label: 'Playmakers', href: 'https://joinplaymakers.co' },
+    { label: 'Atlas', href: 'https://atlas.sportstechx.com' },
+    { label: 'Investors Circle', href: 'https://joinplaymakers.co' },
+  ],
+  links: [
+    { label: 'MEDIA', href: `${STX_HOME}/#media` },
+    { label: 'ABOUT', href: `${STX_HOME}/about` },
+  ],
+};
+
 export const hero = {
   headline: "WHERE SPORTS TECH'S BEST BUILD  SMARTER, FASTER, TOGETHER.",
   cta: 'BECOME A MEMBER',

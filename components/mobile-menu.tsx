@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Art } from '@/components/art';
-import { nav } from '@/lib/content';
+import { nav, stxNav, STX_HOME } from '@/lib/content';
 import { cn } from '@/lib/utils';
 
 /**
@@ -115,7 +115,10 @@ export function MobileMenuPanel() {
         id="mobile-menu"
         aria-hidden={!open}
         className={cn(
-          'fixed inset-y-0 left-0 z-10 w-[min(87.3%,351px)] lg:hidden',
+          // Reachable at every width now: this panel is the only route back to
+          // sportstechx.com. Above lg the shell no longer slides off it, so the
+          // panel has to come up over the shell and its nav.
+          'fixed inset-y-0 left-0 z-10 w-[min(87.3%,351px)] lg:z-60',
           // The page does the pushing; the panel travels a short way with it so
           // it arrives rather than being uncovered fully formed.
           //
@@ -129,13 +132,47 @@ export function MobileMenuPanel() {
         {/* Grain lives on this inner box: the `noise` utility sets
             position: relative, which would undo the fixed panel above it. */}
         <div
-          className="noise h-full overflow-y-auto bg-hero px-[30px] py-[26px]"
+          className="noise relative h-full overflow-y-auto bg-hero px-[30px] py-[26px]"
           style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
         >
-          <Art name="mark-p" />
+          {/* Desktop only. On a phone the page slides right and carries the
+              nav's own X into view; as an overlay the panel covers it, so the
+              drawer needs its own way out besides Escape and the click-away. */}
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close menu"
+            tabIndex={open ? undefined : -1}
+            className="absolute top-[20px] right-[22px] hidden size-10 place-items-center text-white/70 transition-colors hover:text-white lg:grid"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden className="size-[22px]" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <path d="M6 6 18 18M18 6 6 18" />
+            </svg>
+          </button>
 
-          <nav aria-label="Mobile" className="mt-[56px] flex flex-col gap-[2px]">
-            {nav.links.map((link) => (
+          {/* SportsTechX, not Playmakers: this panel exists because neither
+              sub-site had any way back to the main site. */}
+          <a href={STX_HOME} onClick={close} tabIndex={open ? undefined : -1} className="inline-block">
+            {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size bitmap mark */}
+            <img src="/stx-wordmark-white.png" alt="SportsTechX" className="h-[30px] w-auto" />
+          </a>
+
+          <nav aria-label="SportsTechX" className="mt-[44px] flex flex-col gap-[2px]">
+            <span className="block pt-[14px] pb-[6px] font-label text-[12px] tracking-[0.14em] text-white/45 uppercase">
+              Solutions
+            </span>
+            {stxNav.solutions.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={close}
+                tabIndex={open ? undefined : -1}
+                className="block py-[10px] pl-[14px] font-label text-[16px] leading-none font-medium tracking-[0.02em] text-white/85 transition-opacity duration-[80ms] ease-out hover:opacity-70 active:opacity-50"
+              >
+                {link.label}
+              </a>
+            ))}
+            {stxNav.links.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -148,20 +185,41 @@ export function MobileMenuPanel() {
             ))}
           </nav>
 
-          <a
-            href={nav.cta.href}
-            onClick={close}
-            tabIndex={open ? undefined : -1}
+          {/* This site's own links are in the bar above lg — only the phone
+              needs them here, which is what the drawer was built for. */}
+          <div className="w-full lg:hidden">
+            <span aria-hidden className="my-[26px] block h-px bg-white/15" />
+            <Art name="mark-p" />
+
+            <nav aria-label="This page" className="mt-[24px] flex flex-col gap-[2px]">
+              {nav.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={close}
+                  tabIndex={open ? undefined : -1}
+                  className="block py-[14px] font-label text-[18px] leading-none font-medium tracking-[0.1em] text-white transition-opacity duration-[80ms] ease-out hover:opacity-70 active:opacity-50"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            <a
+              href={nav.cta.href}
+              onClick={close}
+              tabIndex={open ? undefined : -1}
             // Width pinned to the REVEAL, not the panel. The panel is wider than
             // the page slides (340 against 275 at 390px) so that the shell's
             // 41px rounded corner has something behind it — which means the
             // right ~65px of the panel sits underneath the page. The links are
             // left-aligned so they never notice; a full-width centred pill gets
             // its end cut off and its label thrown off-centre.
-            className="mt-[40px] grid h-[52px] w-[calc(min(70.4vw,283px)-60px)] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 font-label text-[16px] font-medium tracking-[0.1em] text-accent"
-          >
-            {nav.cta.label}
-          </a>
+              className="mt-[40px] grid h-[52px] w-[calc(min(70.4vw,283px)-60px)] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 font-label text-[16px] font-medium tracking-[0.1em] text-accent"
+            >
+              {nav.cta.label}
+            </a>
+          </div>
         </div>
       </div>
 
@@ -205,8 +263,12 @@ export function MobileMenuShell({ nav, children }: { nav: React.ReactNode; child
         // falls back to the :root 1px and the bar stops scaling.
         'page-rig relative z-20 min-h-dvh bg-page',
         'transition-[translate,border-radius,box-shadow] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+        // Push on a phone, overlay above lg: the slide works on a phone because
+        // the bar holds only the burger and the mark, but at desktop width the
+        // links capsule and LOG IN ride 283px off the right edge and clip
+        // mid-word, which reads as broken rather than as a menu.
         open &&
-          'translate-x-[min(70.4%,283px)] overflow-hidden rounded-tl-[41px] border-l-2 border-[#bebebe]/40 shadow-[-11px_0_42.2px_rgb(0_0_0/0.13)]'
+          'translate-x-[min(70.4%,283px)] overflow-hidden rounded-tl-[41px] border-l-2 border-[#bebebe]/40 shadow-[-11px_0_42.2px_rgb(0_0_0/0.13)] lg:translate-x-0 lg:overflow-visible lg:rounded-none lg:border-l-0 lg:shadow-none'
       )}
     >
       {nav}
@@ -227,7 +289,7 @@ export function MobileMenuShell({ nav, children }: { nav: React.ReactNode; child
           type="button"
           aria-label="Close menu"
           onClick={close}
-          className="absolute inset-0 z-40 cursor-pointer bg-transparent lg:hidden"
+          className="absolute inset-0 z-40 cursor-pointer bg-transparent"
         />
       )}
     </div>
