@@ -87,7 +87,10 @@ export const nav = {
  * the STX site's own footer points both at joinplaymakers.co, so this matches
  * rather than inventing a destination.
  */
-export const STX_HOME = 'https://sportstechx.com';
+/* TEMPORARY host. The STX site is served from a Vercel preview until it moves
+   back to its own domain — put https://sportstechx.com back here when it does.
+   No trailing slash: the links below append their own paths. */
+export const STX_HOME = 'https://sports-tech-x-landing.vercel.app';
 export const stxNav = {
   solutions: [
     { label: 'Playmakers', href: 'https://joinplaymakers.co' },

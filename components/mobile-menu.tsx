@@ -154,7 +154,7 @@ export function MobileMenuPanel() {
               sub-site had any way back to the main site. */}
           <a href={STX_HOME} onClick={close} tabIndex={open ? undefined : -1} className="inline-block">
             {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size bitmap mark */}
-            <img src="/stx-wordmark-white.png" alt="SportsTechX" className="h-[30px] w-auto" />
+            <img src="/stx-wordmark-white.png" alt="SportsTechX" className="h-[40px] w-auto" />
           </a>
 
           <nav aria-label="SportsTechX" className="mt-[44px] flex flex-col gap-[2px]">
