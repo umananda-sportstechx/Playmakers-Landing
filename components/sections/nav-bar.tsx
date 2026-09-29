@@ -3,15 +3,19 @@
 import { useSyncExternalStore } from 'react';
 import { Art } from '@/components/art';
 import { MobileMenuButton, useMobileMenu } from '@/components/mobile-menu';
-import { nav } from '@/lib/content';
+import { nav, STX_HOME } from '@/lib/content';
 import { cn } from '@/lib/utils';
 
 /**
- * The bar's resting gap above the page, in artboard pixels.
+ * The bar's resting gap above the page.
+ *
+ * Real pixels, not artboard ones through --k: this is the one measurement the
+ * three sites have to agree on, and sportstechx.com sets it at 16/24. The
+ * artboard's own 48 left this bar resting 46px down against the others' 24.
  *
  * Applied as a `translate`, never as `top` — see the transition note below.
  */
-const NAV_REST = 'translate-y-[calc(48*var(--k))]';
+const NAV_REST = 'translate-y-4 lg:translate-y-6';
 
 const subscribe = (onChange: () => void) => {
   window.addEventListener('scroll', onChange, { passive: true });
@@ -84,7 +88,7 @@ export function NavBar() {
         // The docked glass is suppressed while the drawer is out, or it paints
         // a translucent strip across the top of the slid page.
         scrolled && !drawerOpen
-          ? 'translate-y-0 bg-linear-to-b from-[var(--nav-scrim-from)] to-[var(--nav-scrim-to)] py-[calc(12*var(--k))] backdrop-blur-[11.6px]'
+          ? 'translate-y-0 bg-linear-to-b from-[var(--nav-scrim-from)] to-[var(--nav-scrim-to)] py-3 backdrop-blur-[11.6px]'
           : NAV_REST
       )}
     >
@@ -94,16 +98,18 @@ export function NavBar() {
               — and the only way out: it flips to an X, so it must NOT be faded
               while the drawer is open. The click-away overlay behind the page
               and Escape are both invisible affordances on a phone. */}
-          {/* Shown at every width now: above lg the drawer carries the route
-              back to sportstechx.com, which the bar has no other link to. */}
-          <MobileMenuButton />
+          {/* Below lg the links live in the drawer, so this is the only way in
+              — and the only way out: it flips to an X, so it must NOT be faded
+              while the drawer is open. */}
+          <MobileMenuButton className="lg:hidden" />
 
           <a
             href="/#top"
             aria-label="Playmakers — back to top"
-            className="grid min-h-[44px] min-w-[44px] place-items-center lg:min-h-0 lg:min-w-0"
+            className="grid min-h-[44px] place-items-center lg:min-h-0"
           >
-            <Art name="mark-p" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- SVG; next/image does not optimise it */}
+            <img src="/vectors/wordmark-final.svg" alt="Playmakers" className="h-[26px] w-auto lg:h-8" />
           </a>
         </div>
 
@@ -134,6 +140,17 @@ export function NavBar() {
             )}
           >
             {nav.cta.label}
+          </a>
+
+          {/* The way back to sportstechx.com, in the bar rather than behind a
+              hamburger. Last in the row, after the CTA, on every site. */}
+          <a
+            href={STX_HOME}
+            aria-label="SportsTechX"
+            className="grid size-[34px] shrink-0 place-items-center transition-[opacity,scale] hover:scale-105 hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size bitmap mark */}
+            <img src="/stx-s-white.png" alt="" className="h-[30px] w-auto" />
           </a>
         </div>
       </div>

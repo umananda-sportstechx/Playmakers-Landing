@@ -90,20 +90,7 @@ export const nav = {
    back to its own domain — put https://sportstechx.com back here when it does.
    No trailing slash: the links below append their own paths. */
 export const STX_HOME = 'https://sports-tech-x-landing.vercel.app';
-/* TEMPORARY host, same story as STX_HOME — restore https://joinplaymakers.co
-   when Playmakers is back on its own domain. */
-const PLAYMAKERS_HOME = 'https://playmakers-omega.vercel.app';
-export const stxNav = {
-  solutions: [
-    { label: 'Playmakers', href: PLAYMAKERS_HOME },
-    { label: 'Atlas', href: 'https://atlas.sportstechx.com' },
-    { label: 'Investors Circle', href: PLAYMAKERS_HOME },
-  ],
-  links: [
-    { label: 'MEDIA', href: `${STX_HOME}/#media` },
-    { label: 'ABOUT', href: `${STX_HOME}/about` },
-  ],
-};
+
 
 export const hero = {
   headline: "WHERE SPORTS TECH'S BEST BUILD  SMARTER, FASTER, TOGETHER.",
