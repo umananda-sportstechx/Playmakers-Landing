@@ -68,7 +68,6 @@ export function TrustedBy({
                     strip, which is not enough once a real mark is wider than
                     the flattened vector it replaced. Ordered before the logo so
                     it never dims the mark itself. */}
-                <div aria-hidden className="absolute inset-0 bg-black/30" />
                 <div
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-[calc(72*var(--k))] bg-linear-to-b from-[#454545]/0 to-[#232529]"

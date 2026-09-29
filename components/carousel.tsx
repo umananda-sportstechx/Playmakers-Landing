@@ -17,7 +17,8 @@ import { cn } from '@/lib/utils';
  * The drift pauses on hover and on focus so it cannot fight someone reading or
  * tabbing through, and never starts at all under prefers-reduced-motion.
  */
-const DRIFT_PX_PER_SEC = 24;
+/* 50, not 24 — see the note in the STX landing carousel. */
+const DRIFT_PX_PER_SEC = 50;
 
 /**
  * The track's real flex items.
