@@ -7,13 +7,16 @@
  * here. These are real people and real company marks, and a tidy-up pass is how
  * "CAMB.AI" turns into "Camb.ai" and an O'REILLY loses the capital on its R.
  *
- * The blurb describes the company, not the person. There are no photographs:
- * the source directory carries none either.
+ * The blurb describes the company, not the person. The portraits are the ones
+ * that page serves — it inlines each as a base64 JPEG rather than linking a
+ * file, so they were decoded out and committed under public/members.
  */
 export interface DirectoryMember {
   name: string;
   role: string;
   company: string;
+  /** Square-ish headshot under public/members. */
+  photo: string;
   blurb: string;
   linkedin: string;
   website: string;
@@ -25,6 +28,7 @@ export const memberDirectory = {
   members: [
   {
     name: 'CHRISTOF BABINSKY',
+    photo: '/members/christof-babinsky.jpg',
     role: 'CEO',
     company: 'ASB GlassFloor',
     blurb:
@@ -34,6 +38,7 @@ export const memberDirectory = {
   },
   {
     name: 'AVNEESH PRAKASH',
+    photo: '/members/avneesh-prakash.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'CAMB.AI',
     blurb:
@@ -43,6 +48,7 @@ export const memberDirectory = {
   },
   {
     name: 'DAVID SCIAMA',
+    photo: '/members/david-sciama.jpg',
     role: 'CO-FOUNDER',
     company: 'Coaches\' Voice',
     blurb:
@@ -52,6 +58,7 @@ export const memberDirectory = {
   },
   {
     name: 'SOWBHAGYA SHETTY',
+    photo: '/members/sowbhagya-shetty.jpg',
     role: 'FOUNDER & CEO',
     company: 'Data Sports Group',
     blurb:
@@ -61,6 +68,7 @@ export const memberDirectory = {
   },
   {
     name: 'VALTTERI SALOMAKI',
+    photo: '/members/valtteri-salomaki.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'EDGE Sound Research',
     blurb:
@@ -70,6 +78,7 @@ export const memberDirectory = {
   },
   {
     name: 'TOM KUHR',
+    photo: '/members/tom-kuhr.jpg',
     role: 'COO',
     company: 'FASTBREAK.AI',
     blurb:
@@ -79,6 +88,7 @@ export const memberDirectory = {
   },
   {
     name: 'TOBIAS HAUPT',
+    photo: '/members/tobias-haupt.jpg',
     role: 'FOUNDER & CEO',
     company: 'GAMECODE.AI',
     blurb:
@@ -88,6 +98,7 @@ export const memberDirectory = {
   },
   {
     name: 'HARRISON BROWN',
+    photo: '/members/harrison-brown.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'HeadCheck Health',
     blurb:
@@ -97,6 +108,7 @@ export const memberDirectory = {
   },
   {
     name: 'DROR ROSENFELD',
+    photo: '/members/dror-rosenfeld.jpg',
     role: 'CO-FOUNDER',
     company: 'Marquee.AI',
     blurb:
@@ -106,6 +118,7 @@ export const memberDirectory = {
   },
   {
     name: 'AGUSTIN ROZADAS',
+    photo: '/members/agustin-rozadas.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'OLIVER Sports',
     blurb:
@@ -115,6 +128,7 @@ export const memberDirectory = {
   },
   {
     name: 'MARTIN O\'REILLY',
+    photo: '/members/martin-o-reilly.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'Output Sports',
     blurb:
@@ -124,6 +138,7 @@ export const memberDirectory = {
   },
   {
     name: 'GUY AHARON',
+    photo: '/members/guy-aharon.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'Playermaker',
     blurb:
@@ -133,6 +148,7 @@ export const memberDirectory = {
   },
   {
     name: 'VICTORIEN TIXIER',
+    photo: '/members/victorien-tixier.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'ScorePlay',
     blurb:
@@ -142,6 +158,7 @@ export const memberDirectory = {
   },
   {
     name: 'ALDO COMI',
+    photo: '/members/aldo-comi.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'Soccerment',
     blurb:
@@ -151,6 +168,7 @@ export const memberDirectory = {
   },
   {
     name: 'CHRISTIAN RICHTER',
+    photo: '/members/christian-richter.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'Sporting Rock',
     blurb:
@@ -160,6 +178,7 @@ export const memberDirectory = {
   },
   {
     name: 'ERIK ANDERSON',
+    photo: '/members/erik-anderson.jpg',
     role: 'CEO',
     company: 'SportIQ',
     blurb:
@@ -169,6 +188,7 @@ export const memberDirectory = {
   },
   {
     name: 'MARTIN WIKLUND',
+    photo: '/members/martin-wiklund.jpg',
     role: 'FOUNDER & CEO',
     company: 'Sportswik',
     blurb:
@@ -178,6 +198,7 @@ export const memberDirectory = {
   },
   {
     name: 'SIDHHANT AGARWAL',
+    photo: '/members/sidhhant-agarwal.jpg',
     role: 'FOUNDER',
     company: 'SportVot',
     blurb:
@@ -187,6 +208,7 @@ export const memberDirectory = {
   },
   {
     name: 'CHRISTIAN THEIL',
+    photo: '/members/christian-theil.jpg',
     role: 'FOUNDER & CEO',
     company: 'TurfCoach',
     blurb:
@@ -196,6 +218,7 @@ export const memberDirectory = {
   },
   {
     name: 'ANDREW ZWIERS',
+    photo: '/members/andrew-zwiers.jpg',
     role: 'CO-FOUNDER & COO',
     company: 'Universal Speed Rating',
     blurb:
@@ -205,6 +228,7 @@ export const memberDirectory = {
   },
   {
     name: 'CHRISTOPHER JAHNS',
+    photo: '/members/christopher-jahns.jpg',
     role: 'FOUNDER & CEO',
     company: 'XU Group',
     blurb:
@@ -214,6 +238,7 @@ export const memberDirectory = {
   },
   {
     name: 'EERO KUUSI',
+    photo: '/members/eero-kuusi.jpg',
     role: 'CO-FOUNDER & CEO',
     company: 'Zenniz',
     blurb:
@@ -223,6 +248,7 @@ export const memberDirectory = {
   },
   {
     name: 'GREG BOBOLO',
+    photo: '/members/greg-bobolo.jpg',
     role: 'FOUNDER & CEO',
     company: 'SEVN Sports',
     blurb:
@@ -232,6 +258,7 @@ export const memberDirectory = {
   },
   {
     name: 'KEITH ENGLISH',
+    photo: '/members/keith-english.jpg',
     role: 'CEO',
     company: 'Skillmasters',
     blurb:
@@ -241,6 +268,7 @@ export const memberDirectory = {
   },
   {
     name: 'JEREMY STEELE',
+    photo: '/members/jeremy-steele.jpg',
     role: 'CEO',
     company: 'Control Bionics',
     blurb:
