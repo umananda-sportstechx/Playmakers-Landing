@@ -76,7 +76,9 @@ export const nav = {
     { label: 'FAQ', href: '/#faq' },
     { label: 'MEMBERS', href: '/members' },
   ],
-  cta: { label: 'LOG IN', href: '/#login' },
+  /* Members sign in through Circle, which hosts the community. request_host
+     tells Circle which community to land them in. */
+  cta: { label: 'LOG IN', href: 'https://login.circle.so/sign_in?request_host=www.joinplaymakers.co#email' },
 };
 
 /**
