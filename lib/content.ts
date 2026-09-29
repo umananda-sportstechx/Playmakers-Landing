@@ -74,6 +74,7 @@ export const nav = {
     { label: 'EXPLORE MEMBERSHIP', href: '/#membership' },
     { label: 'ABOUT US', href: '/#team' },
     { label: 'FAQ', href: '/#faq' },
+    { label: 'MEMBERS', href: '/members' },
   ],
   cta: { label: 'LOG IN', href: '/#login' },
 };
