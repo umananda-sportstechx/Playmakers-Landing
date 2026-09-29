@@ -108,15 +108,19 @@ export function NavBar() {
             aria-label="Playmakers — back to top"
             className="grid min-h-[44px] place-items-center lg:min-h-0"
           >
+            {/* wordmark-hero, not wordmark-final: in `final` the P mark sits BESIDE
+                the word, so the lockup reads "P PLAYMAKERS". Here the mark is the
+                word's own P. 28px tall puts it ~214 wide, next to the STX logo's
+                175 and Atlas's 140. */}
             {/* eslint-disable-next-line @next/next/no-img-element -- SVG; next/image does not optimise it */}
-            <img src="/vectors/wordmark-final.svg" alt="Playmakers" className="h-[26px] w-auto lg:h-8" />
+            <img src="/vectors/wordmark-hero.svg" alt="Playmakers" className="h-6 w-auto lg:h-7" />
           </a>
         </div>
 
         <div className="flex items-center gap-[calc(24*var(--k))]">
           <nav
             aria-label="Primary"
-            className="hidden h-[calc(58*var(--k))] items-center gap-[calc(36*var(--k))] rounded-full border-[1.5px] border-white/100 bg-white/10 px-[calc(35*var(--k))] shadow-nav backdrop-blur-sm lg:flex"
+            className="hidden h-[50px] items-center gap-[calc(36*var(--k))] rounded-full border-[1.5px] border-white/100 bg-white/10 px-[calc(35*var(--k))] shadow-nav backdrop-blur-sm lg:flex"
           >
             {nav.links.map((l) => (
               <a
@@ -132,7 +136,9 @@ export function NavBar() {
           <a
             href={nav.cta.href}
             className={cn(
-              'grid h-[calc(58*var(--k))] min-h-[44px] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 px-[calc(30*var(--k))]',
+              // Desktop-only, as on sportstechx.com: the drawer carries it on a
+              // phone, and the full wordmark leaves no room for it there.
+              'hidden h-[50px] min-h-[44px] place-items-center rounded-full border-[1.5px] border-accent bg-accent/5 px-[calc(30*var(--k))] lg:grid',
               'font-label text-label font-medium tracking-[0.1em] text-accent backdrop-blur-[28px] transition-colors hover:bg-accent/15',
               // On a phone the drawer already carries it; two copies of the
               // same control either side of the slide reads as a duplicate.
@@ -147,10 +153,10 @@ export function NavBar() {
           <a
             href={STX_HOME}
             aria-label="SportsTechX"
-            className="grid size-[34px] shrink-0 place-items-center transition-[opacity,scale] hover:scale-105 hover:opacity-80"
+            className="grid size-[38px] shrink-0 place-items-center transition-[opacity,scale] hover:scale-105 hover:opacity-80"
           >
             {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size bitmap mark */}
-            <img src="/stx-s-white.png" alt="" className="h-[30px] w-auto" />
+            <img src="/stx-s-white.png" alt="" className="h-9 w-auto" />
           </a>
         </div>
       </div>
