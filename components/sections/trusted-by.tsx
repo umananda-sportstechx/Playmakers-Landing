@@ -86,9 +86,13 @@ export function TrustedBy({
                     height={48}
                     className="absolute bottom-[calc(18*var(--k))] left-1/2 h-auto max-h-[max(24px,calc(36*var(--k)))] w-auto max-w-[40%] -translate-x-1/2 object-contain grayscale"
                   />
-                ) : (
+                ) : isPlaceholder ? (
+                  /* The artboard's BCG mark belongs to the designed placeholder
+                     rail ONLY. A real member uploaded without a logo gets
+                     nothing — putting BCG's mark on someone else's photo is
+                     worse than an empty space, and it reads as a real claim. */
                   <Art name="logo-bcg" className="absolute bottom-[calc(18*var(--k))] left-1/2 -translate-x-1/2" />
-                )}
+                ) : null}
               </div>
 
               {/* Both up 2pt on the artboard's 18/11, floors with them. */}
