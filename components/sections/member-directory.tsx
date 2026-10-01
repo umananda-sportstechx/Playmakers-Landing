@@ -37,7 +37,7 @@ export function MemberDirectory() {
           {memberDirectory.lead}
         </p>
 
-        <ul className="mt-[max(40px,calc(72*var(--k)))] grid gap-[max(16px,calc(24*var(--k)))] md:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-[max(40px,calc(72*var(--k)))] grid gap-[max(16px,calc(24*var(--k)))] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {memberDirectory.members.map((m) => (
             <li key={m.name}>
               <MemberCard member={m} />
@@ -57,8 +57,15 @@ function MemberCard({ member: m }: { member: DirectoryMember }) {
           src={m.photo}
           alt={m.name}
           fill
-          /* A third of the page at xl, half at md, the whole of it below. */
-          sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 90vw"
+          /* Has to match the real column count, and it did not: it claimed 30vw
+             while the grid was three-up, so Next requested a variant wider than
+             any source file and its optimiser upscaled 440px portraits into it.
+             Letting the browser downscale a correctly-sized file looks better
+             than serving one that was already stretched. */
+          sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 30vw, (min-width: 768px) 45vw, 90vw"
+          /* 75 is the default. These are small, soft source files to begin
+             with; the extra few KB buys back visible detail in the faces. */
+          quality={90}
           className="object-cover"
         />
       </div>
