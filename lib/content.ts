@@ -186,32 +186,52 @@ export const offers = {
 export const testimonials = {
   eyebrow: 'PLAYMAKERS TESTIMONIALS',
   /**
-   * Real member testimonials. `photo: null` falls back to the default avatar
-   * until headshots are added (Site assets -> Playmakers -> Testimonials).
+   * FIXME(design): the artboard has two cards carrying the same placeholder
+   * quote and person. The first two below are that, verbatim.
+   *
+   * FIXME(placeholder): the remaining four are INVENTED — written only so the
+   * rail has something to page through while the real quotes are collected.
+   * The names are not real people and none of this is a real endorsement, so
+   * delete the lot before this goes anywhere public. They are deliberately all
+   * different so it is obvious which card you are looking at while testing.
+   * All of it disappears the moment an admin adds one real testimonial in
+   * Site assets -> Playmakers -> Testimonials.
    */
   items: [
     {
-      quote: "“What makes Playmakers so valuable is that everyone gets it: the pressure, the loneliness, the highs and lows of building a high-growth sports tech business. You can show up with a real challenge, ask for help, and get a meaningful answer, introduction or opportunity — often within hours.”",
-      name: "Sowbhagya Shetty",
-      role: "Co-founder & CEO, Data Sports Group",
+      quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
+      name: 'Alexander Janssen',
+      role: 'CEO, Dutch SportsTech Fund',
       photo: null,
     },
     {
-      quote: "“The connections I've made through Playmakers have already paid off in a very concrete way. They've led to a new partnership with NVIDIA, and we've started working on a joint go-to-market approach with another member whose technology and customer base complement ours.”",
-      name: "Valtteri Salomäki",
-      role: "Founder & CEO, EDGE Sound Research",
+      quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
+      name: 'Alexander Janssen',
+      role: 'CEO, Dutch SportsTech Fund',
       photo: null,
     },
     {
-      quote: "“Within just a few months, we've already seen concrete collaborations emerge with other Playmakers members. There's so much high-quality innovation within the group, and we're now bringing some of those solutions into how we operate at Füchse Berlin. That's when you know a network is really working.”",
-      name: "Christopher Jahns",
-      role: "Co-founder & CEO, XU Group",
+      quote: '“Two of my core group had solved the exact problem I was stuck on. That call saved us a quarter.”',
+      name: 'Placeholder Two',
+      role: 'Founder, Placeholder Analytics',
       photo: null,
     },
     {
-      quote: "“Being part of Playmakers has helped me build meaningful connections with peers who are at the same stage, navigating similar challenges. There's a real sense of camaraderie and an understanding that we help each other out.”",
-      name: "Harrison Brown",
-      role: "Co-founder & CEO, HeadCheck Health",
+      quote: '“The introductions were the opposite of networking. Every one of them went somewhere.”',
+      name: 'Placeholder Three',
+      role: 'CEO, Placeholder Performance',
+      photo: null,
+    },
+    {
+      quote: '“I stopped guessing what good looked like at our stage. I could just ask someone who had been there.”',
+      name: 'Placeholder Four',
+      role: 'Co-Founder, Placeholder Labs',
+      photo: null,
+    },
+    {
+      quote: '“It is the only room where I can say the quiet part out loud and get a straight answer back.”',
+      name: 'Placeholder Five',
+      role: 'Managing Director, Placeholder Ventures',
       photo: null,
     },
   ] satisfies Story[],
