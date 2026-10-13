@@ -7,7 +7,7 @@ import "./globals.css";
 /** The public origin. */
 export const SITE_URL = "https://playmakers.sportstechx.com";
 
-const TITLE = "Playmakers — The Inner Circle of Sports Tech";
+const TITLE = "Playmakers — The private network for high-growth sports tech founders and CEOs";
 const DESCRIPTION =
   "A by-invitation private network for high growth sports tech founders and CEOs. Your peers. Your confidants. Your advantage.";
 

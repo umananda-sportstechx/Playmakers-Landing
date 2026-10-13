@@ -30,7 +30,7 @@ import { hero } from '@/lib/content';
 export function IntroHero() {
   return (
     <section
-      className="noise relative isolate flex min-h-[min(100svh,max(560px,calc(1004*var(--k))))] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
+      className="noise relative isolate flex min-h-[min(100svh,max(560px,calc(1004*var(--k))))] lg:min-h-[85svh] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
       style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
     >
       {/* 0.41 fill-opacity on the artboard, over the frame's navy. */}

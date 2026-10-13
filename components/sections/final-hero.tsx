@@ -53,7 +53,9 @@ export function FinalHero() {
         }}
       />
 
-      <Art name="wordmark-final" alt="Playmakers" />
+      {/* Use the opening screen's wordmark here — the `wordmark-final` asset
+          carries a duplicate "P" the design team flagged. */}
+      <Art name="wordmark-hero" alt="Playmakers" />
 
       <h2 className="mt-[calc(38*var(--k))] max-w-[calc(1128*var(--k))] font-display text-headline font-light leading-[1.03] text-white uppercase">
         <Lines text={finalHero.headline} />

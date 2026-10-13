@@ -186,52 +186,32 @@ export const offers = {
 export const testimonials = {
   eyebrow: 'PLAYMAKERS TESTIMONIALS',
   /**
-   * FIXME(design): the artboard has two cards carrying the same placeholder
-   * quote and person. The first two below are that, verbatim.
-   *
-   * FIXME(placeholder): the remaining four are INVENTED — written only so the
-   * rail has something to page through while the real quotes are collected.
-   * The names are not real people and none of this is a real endorsement, so
-   * delete the lot before this goes anywhere public. They are deliberately all
-   * different so it is obvious which card you are looking at while testing.
-   * All of it disappears the moment an admin adds one real testimonial in
-   * Site assets -> Playmakers -> Testimonials.
+   * Real member testimonials. `photo: null` falls back to the default avatar
+   * until headshots are added (Site assets -> Playmakers -> Testimonials).
    */
   items: [
     {
-      quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
-      name: 'Alexander Janssen',
-      role: 'CEO, Dutch SportsTech Fund',
+      quote: "“What makes Playmakers so valuable is that everyone gets it: the pressure, the loneliness, the highs and lows of building a high-growth sports tech business. You can show up with a real challenge, ask for help, and get a meaningful answer, introduction or opportunity — often within hours.”",
+      name: "Sowbhagya Shetty",
+      role: "Co-founder & CEO, Data Sports Group",
       photo: null,
     },
     {
-      quote: '“We walked into our raise knowing the market cold. That confidence changed every conversation.”',
-      name: 'Alexander Janssen',
-      role: 'CEO, Dutch SportsTech Fund',
+      quote: "“The connections I've made through Playmakers have already paid off in a very concrete way. They've led to a new partnership with NVIDIA, and we've started working on a joint go-to-market approach with another member whose technology and customer base complement ours.”",
+      name: "Valtteri Salomäki",
+      role: "Founder & CEO, EDGE Sound Research",
       photo: null,
     },
     {
-      quote: '“Two of my core group had solved the exact problem I was stuck on. That call saved us a quarter.”',
-      name: 'Placeholder Two',
-      role: 'Founder, Placeholder Analytics',
+      quote: "“Within just a few months, we've already seen concrete collaborations emerge with other Playmakers members. There's so much high-quality innovation within the group, and we're now bringing some of those solutions into how we operate at Füchse Berlin. That's when you know a network is really working.”",
+      name: "Christopher Jahns",
+      role: "Co-founder & CEO, XU Group",
       photo: null,
     },
     {
-      quote: '“The introductions were the opposite of networking. Every one of them went somewhere.”',
-      name: 'Placeholder Three',
-      role: 'CEO, Placeholder Performance',
-      photo: null,
-    },
-    {
-      quote: '“I stopped guessing what good looked like at our stage. I could just ask someone who had been there.”',
-      name: 'Placeholder Four',
-      role: 'Co-Founder, Placeholder Labs',
-      photo: null,
-    },
-    {
-      quote: '“It is the only room where I can say the quiet part out loud and get a straight answer back.”',
-      name: 'Placeholder Five',
-      role: 'Managing Director, Placeholder Ventures',
+      quote: "“Being part of Playmakers has helped me build meaningful connections with peers who are at the same stage, navigating similar challenges. There's a real sense of camaraderie and an understanding that we help each other out.”",
+      name: "Harrison Brown",
+      role: "Co-founder & CEO, HeadCheck Health",
       photo: null,
     },
   ] satisfies Story[],
@@ -275,7 +255,7 @@ export const howToJoin = {
 
 export const team = {
   title: 'Meet Our Team',
-  lead: 'Playmakers is a by-invitation private network for high growth sports tech founders  and CEOs. Your peers. Your confidants. Your advantage.',
+  lead: "Between us, we've scaled a sports tech business from inception to unicorn, coached hundreds of founders through critical inflection points, built SportsTechX as the industry's intelligence backbone, and created award-winning communities across the global sports ecosystem. Our combined expertise supports every Playmakers' journey.",
   members: [
     {
       name: 'ROHN MALHOTRA',
@@ -292,18 +272,18 @@ export const team = {
       fill: {},
     },
     {
-      name: 'KATY TROST',
-      role: 'Core Groups Coach',
-      bio: 'Executive coach and advisor with over a decade of experience in coaching technology startup founders to become exceptional CEOs  and growth-stage leaders.',
-      photo: 'team-3',
-      fill: {},
-    },
-    {
       name: 'MITCH HEATH',
       role: 'Core Groups Coach',
       bio: 'Co-Founder and Chief Growth Officer at Teamworks with a track-record of scaling the ‘Operating System for Sports’ from inception in 2006 to unicorn status company.',
       photo: 'team-4',
       fill: { exposure: 0.1, saturation: -0.24 },
+    },
+    {
+      name: 'KATY TROST',
+      role: 'Core Groups Coach',
+      bio: 'Executive coach and advisor with over a decade of experience in coaching technology startup founders to become exceptional CEOs  and growth-stage leaders.',
+      photo: 'team-3',
+      fill: {},
     },
   ] satisfies Member[],
 };
@@ -399,9 +379,8 @@ export const finalHero = {
 };
 
 export const footer = {
-  // FIXME(design): lorem ipsum in the file.
   description:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam.',
+    'Playmakers is an invite-only, private membership network for high-growth sports tech founders and CEOs to connect, share strategy, and scale together.',
   email: 'hello@playmakers.com',
   location: 'Berlin, Germany',
   columns: [
