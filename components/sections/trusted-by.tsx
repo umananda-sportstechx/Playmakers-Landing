@@ -24,7 +24,7 @@ export function TrustedBy({
 }) {
   return (
     <section
-      className="noise bg-band py-[calc(104*var(--k))]"
+      className="noise bg-band pb-[calc(104*var(--k))] pt-[calc(104*var(--k))] lg:pt-[calc(48*var(--k))]"
       style={{ '--noise-alpha': 0.1 } as React.CSSProperties}
     >
       <div className="container-page">

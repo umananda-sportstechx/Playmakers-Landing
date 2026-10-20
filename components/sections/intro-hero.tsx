@@ -12,10 +12,11 @@ import { hero } from '@/lib/content';
  * whose call to action sits below the fold on the most common desktop size is
  * not doing its job.
  *
- * On desktop it is deliberately shorter than the viewport (`lg:min-h-[70svh]`)
+ * On desktop it is deliberately shorter than the viewport (`lg:min-h-[76svh]`)
  * so the "Accelerate your Growth…" section below — its heading AND its lead line —
- * peeks above the fold and invites a scroll; the full-screen hero read as the
- * whole page, and at 78svh the lead line was still clipped (feedback, Oct 2026).
+ * peeks above the fold and invites a scroll (the full-screen hero read as the
+ * whole page, feedback Oct 2026). That section's own top padding is trimmed on
+ * desktop (see trusted-by.tsx) so the peek fits without over-shrinking this hero.
  *
  * The photograph is drawn 2730x1536 and bled well past the frame, so it is a
  * cover fill rather than a sized image. Over it sits a four-stop vertical
@@ -35,7 +36,7 @@ import { hero } from '@/lib/content';
 export function IntroHero() {
   return (
     <section
-      className="noise relative isolate flex min-h-[min(100svh,max(560px,calc(1004*var(--k))))] lg:min-h-[70svh] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
+      className="noise relative isolate flex min-h-[min(100svh,max(560px,calc(1004*var(--k))))] lg:min-h-[76svh] flex-col items-center justify-center overflow-hidden bg-hero px-[calc(16*var(--k))] text-center"
       style={{ '--noise-alpha': 0.16 } as React.CSSProperties}
     >
       {/* 0.41 fill-opacity on the artboard, over the frame's navy. */}
