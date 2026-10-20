@@ -38,16 +38,14 @@ export function HowToJoin() {
                 {/* The card's colour is exported artwork, not a CSS gradient. */}
                 <Art name="card-gradient-step" fill className="absolute inset-0 -z-10" />
 
-                <div className="flex items-start gap-[calc(12*var(--k))]">
-                  <span className="grid size-[calc(35*var(--k))] shrink-0 place-items-center rounded-full border-[1.5px] border-white/90 font-label text-[max(16px,calc(21*var(--k)))] tracking-[0.1em] text-white">
-                    {step.n}
-                  </span>
-                  <span className="mt-[calc(9*var(--k))] border-b border-dashed border-white pb-[calc(3*var(--k))] font-label text-eyebrow leading-[1.3] tracking-[0.1em] text-white uppercase">
-                    {step.eyebrow}
-                  </span>
-                </div>
+                {/* Just the step number. The per-card eyebrow was removed as
+                    redundant clutter — it only restated the title below it
+                    (feedback Oct 2026). */}
+                <span className="grid size-[calc(35*var(--k))] shrink-0 place-items-center rounded-full border-[1.5px] border-white/90 font-label text-[max(16px,calc(21*var(--k)))] tracking-[0.1em] text-white">
+                  {step.n}
+                </span>
 
-                <h3 className="mt-[calc(26*var(--k))] font-display text-step-title leading-[1.05] text-white uppercase">
+                <h3 className="mt-[calc(30*var(--k))] font-display text-step-title leading-[1.05] text-white uppercase">
                   <Lines text={step.title} />
                 </h3>
 
