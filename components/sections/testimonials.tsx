@@ -49,6 +49,11 @@ export function Testimonials({ items = testimonials.items }: { items?: Story[] }
           // Hidden below lg, matching the sibling site. The peeking next quote
           // (see the card width) is what replaces them as the swipe affordance.
           arrowClassName="hidden text-black lg:grid"
+          // Gentle continuous drift (always, even when the two fit) so the rail
+          // auto-scrolls and the arrows always have somewhere to page — matches
+          // the STX landing testimonials.
+          autoScroll="rtl"
+          alwaysLoop
           alwaysShowArrows
         >
           {items.map((t, i) => (
