@@ -17,6 +17,7 @@ import { howToJoin } from '@/lib/content';
 export function HowToJoin() {
   return (
     <section
+      id="how-to-join"
       className="noise bg-band-warm py-[calc(120*var(--k))]"
       style={{ '--noise-alpha': 0.12 } as React.CSSProperties}
     >
