@@ -49,10 +49,10 @@ export function Testimonials({ items = testimonials.items }: { items?: Story[] }
           // Hidden below lg, matching the sibling site. The peeking next quote
           // (see the card width) is what replaces them as the swipe affordance.
           arrowClassName="hidden text-black lg:grid"
-          // Gentle continuous drift (always, even when the two fit) so the rail
-          // auto-scrolls and the arrows always have somewhere to page — matches
-          // the STX landing testimonials.
-          autoScroll="rtl"
+          // Steps forward one card every 6s (not a continuous drift) and loops,
+          // so it reads like the arrows firing on a timer; the arrows always
+          // work too. Matches the STX landing testimonials.
+          autoAdvance={6000}
           alwaysLoop
           alwaysShowArrows
         >
@@ -60,10 +60,11 @@ export function Testimonials({ items = testimonials.items }: { items?: Story[] }
             <figure
               key={i}
               // Deliberately narrower than the track's content box below lg, so
-              // ~40px of the next quote shows past the right edge. With the
-              // arrows hidden and pagination numbers rejected, that peek is the
-              // only thing telling a reader there is more than one story.
-              className="w-[calc(100%-44px)] shrink-0 snap-start text-center lg:w-[calc((100%-130*var(--k))/2)]"
+              // ~40px of the next quote shows past the right edge. flex-col +
+              // justify-between pins the avatar/name to the bottom of the
+              // (equal-height) card, so it holds ONE fixed position regardless of
+              // quote length — a short quote just leaves a gap above it.
+              className="flex w-[calc(100%-44px)] shrink-0 snap-start flex-col justify-between text-center lg:w-[calc((100%-130*var(--k))/2)]"
             >
               <blockquote className="mx-auto lg:max-w-[calc(563*var(--k))] font-sans text-quote-sm leading-[1.42] text-black">
                 {t.quote}

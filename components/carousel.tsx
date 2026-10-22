@@ -48,6 +48,7 @@ export function Carousel({
   arrow,
   label,
   autoScroll,
+  autoAdvance,
   alwaysShowArrows,
   alwaysLoop,
 }: {
@@ -60,6 +61,13 @@ export function Carousel({
   label: string;
   /** Drift the rail continuously. 'rtl' moves cards leftward, 'ltr' rightward. */
   autoScroll?: 'ltr' | 'rtl';
+  /**
+   * Discrete auto-advance instead of a continuous drift: every N ms the rail
+   * pages forward by one card (the same move an arrow press makes), smoothly,
+   * and loops. Pauses on hover/focus. For the testimonials, which step one
+   * story at a time rather than crawl. Mutually exclusive with `autoScroll`.
+   */
+  autoAdvance?: number;
   /**
    * Keep the arrows on screen even when everything already fits.
    *
@@ -105,10 +113,10 @@ export function Carousel({
    * should just show it, centred, and stay still.
    */
   const [fits, setFits] = useState(false);
-  const looping = Boolean(autoScroll) && (alwaysLoop || !fits);
+  const looping = Boolean(autoScroll || autoAdvance) && (alwaysLoop || !fits);
 
   useEffect(() => {
-    if (!autoScroll) return;
+    if (!autoScroll && !autoAdvance) return;
     const el = track.current;
     if (!el) return;
     const measure = () => {
@@ -157,15 +165,15 @@ export function Carousel({
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [autoScroll, copies, alwaysLoop]);
+  }, [autoScroll, autoAdvance, copies, alwaysLoop]);
 
   const sync = useCallback(() => {
     const el = track.current;
-    if (!el || autoScroll) return; // a looping rail has no start or end
+    if (!el || autoScroll || autoAdvance) return; // a looping rail has no start or end
     setAtStart(el.scrollLeft <= 1);
     // 1px of slack: sub-pixel widths otherwise leave the end permanently unreached.
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
-  }, [autoScroll]);
+  }, [autoScroll, autoAdvance]);
 
   useEffect(() => {
     sync();
@@ -178,7 +186,9 @@ export function Carousel({
 
   useEffect(() => {
     const el = track.current;
-    if (!el || !looping) return;
+    // Continuous drift only — autoAdvance loops too, but it steps on a timer
+    // (below) instead of crawling every frame.
+    if (!el || !looping || !autoScroll) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const dir = autoScroll === 'ltr' ? -1 : 1;
@@ -215,7 +225,7 @@ export function Carousel({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [looping, copies]);
+  }, [looping, copies, autoScroll]);
 
   /**
    * One card per press.
@@ -226,33 +236,49 @@ export function Carousel({
    * a screenful of cards) moves the whole rail at once, which loses the reader's
    * place entirely.
    */
-  const page = (dir: 1 | -1) => {
+  const page = useCallback((dir: 1 | -1) => {
     const el = track.current;
     if (!el) return;
     const [a, b] = flexItems(el);
     const step = a && b ? b.offsetLeft - a.offsetLeft : a ? a.offsetWidth : el.clientWidth;
+    const copy = copyWidth.current;
 
-    paused.current = true;
-    if (resumeAt.current) window.clearTimeout(resumeAt.current);
+    if (autoScroll) {
+      // Continuous-drift path (unchanged): hold the drift, back-wrap only — the
+      // drift loop folds the forward position back under one copy on settle.
+      paused.current = true;
+      if (resumeAt.current) window.clearTimeout(resumeAt.current);
+      if (el.scrollLeft + dir * step < 0) el.scrollLeft += copy;
+      el.scrollBy({ left: dir * step, behavior: 'smooth' });
+      resumeAt.current = window.setTimeout(() => {
+        paused.current = false;
+      }, 900);
+      return;
+    }
 
-    if (autoScroll && el.scrollLeft + dir * step < 0) {
-      // Stepping back off the front: re-enter one copy further along first, so
-      // there is room to scroll into. Only this direction needs the jump —
-      // going forward simply continues into the next copy, and the drift loop
-      // folds the position back under one copy once the scroll settles.
-      //
-      // Pre-jumping forward as well was the bug behind "one press moves the
-      // whole rail": subtracting a copy from a position smaller than a copy
-      // gives a negative scrollLeft, the browser clamps it to 0, and the press
-      // lands most of a screen backwards.
-      el.scrollLeft += copyWidth.current;
+    // autoAdvance / manual-in-a-loop: no drift loop to fold the position, so
+    // wrap BOTH directions here before scrolling.
+    if (looping && copy) {
+      if (el.scrollLeft + dir * step < 0) el.scrollLeft += copy;
+      else if (el.scrollLeft + dir * step > el.scrollWidth - el.clientWidth) el.scrollLeft -= copy;
     }
     el.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }, [autoScroll, looping]);
 
-    resumeAt.current = window.setTimeout(() => {
-      paused.current = false;
-    }, 900);
-  };
+  // Discrete auto-advance: page forward one card on a timer, pausing on
+  // hover/focus and under reduced motion. "Step by step, not continuous."
+  useEffect(() => {
+    if (!autoAdvance || !looping) return;
+    const el = track.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (el.scrollLeft <= 0) el.scrollLeft = 1; // seed so the loop can wrap left too
+    const id = window.setInterval(() => {
+      if (paused.current) return;
+      page(1);
+    }, autoAdvance);
+    return () => window.clearInterval(id);
+  }, [autoAdvance, looping, page]);
 
   const pause = useCallback(() => {
     paused.current = true;
