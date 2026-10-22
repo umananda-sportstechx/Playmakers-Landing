@@ -76,7 +76,9 @@ export function Footer() {
                 {footer.social.map((s) => (
                   <li key={s.label}>
                     <a
-                      href="#"
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer"
                       className="flex items-center gap-[calc(15*var(--k))] font-sans text-body leading-[1.78] hover:underline"
                     >
                       <Art name={s.icon} min={18} />

@@ -416,11 +416,10 @@ export const footer = {
     },
   ],
   // Asset names; <Art> resolves the path and size from design/assets.json.
+  // Only the two SportsTechX socials that exist — Instagram and X were removed.
   social: [
-    { label: 'LinkedIn', icon: 'icon-linkedin' },
-    { label: 'Youtube', icon: 'icon-youtube' },
-    { label: 'Instagram', icon: 'icon-instagram' },
-    { label: 'X', icon: 'icon-x' },
+    { label: 'LinkedIn', icon: 'icon-linkedin', href: 'https://www.linkedin.com/company/sportstechx/' },
+    { label: 'Youtube', icon: 'icon-youtube', href: 'https://www.youtube.com/@SportsTechX' },
   ],
   legal: '© 2026 SportsTechX GmbH. All rights reserved.',
   meta: 'Privacy · Imprint · The Inner Circle of Sports Tech',
