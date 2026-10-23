@@ -66,7 +66,9 @@ export function FinalHero() {
       </p>
 
       <a
-        href="#apply"
+        href="https://sportstechx.fillout.com/playmakers-membership"
+        target="_blank"
+        rel="noreferrer"
         className="mt-[calc(46*var(--k))] grid h-[calc(54*var(--k))] min-w-[calc(356*var(--k))] place-items-center rounded-full bg-accent px-[calc(32*var(--k))] font-label text-cta font-medium tracking-[0.1em] text-accent-fg shadow-cta transition-transform motion-safe:hover:scale-[1.02]"
       >
         {finalHero.cta}
