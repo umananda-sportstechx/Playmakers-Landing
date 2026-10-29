@@ -92,7 +92,7 @@ export const nav = {
 /* TEMPORARY host. The STX site is served from a Vercel preview until it moves
    back to its own domain — put https://sportstechx.com back here when it does.
    No trailing slash: the links below append their own paths. */
-export const STX_HOME = 'https://sports-tech-x-landing.vercel.app';
+export const STX_HOME = 'https://sportstechx.com';
 
 
 export const hero = {
